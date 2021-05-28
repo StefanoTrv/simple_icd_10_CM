@@ -1,2 +1,2 @@
-# simple_icd_10-CM
-A simple python library for ICD-10-CM codes
+# simple_icd_10_CM
+A simple python library for ICD-10_CM codes
