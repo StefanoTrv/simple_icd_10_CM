@@ -21,49 +21,55 @@ def _load_codes():
 
 _load_codes()
 
-print(code_index_map["A63"])
-print(code_data_list[code_index_map["A63"]])
-    
-'''
+
 def _remove_dot(code):
-    if code=="VII.I" or code=="XII.I" or code=="XVI.I" or code=="XVI.II" or code=="XXI.I":#special cases, to avoid turning invalid codes into valid ones
-        return code
-    if (len(code)==5 or len(code)==6) and code[3]==".":
+    if len(code)>4 and code[3]==".":
         code=code[:3]+code[4:]
     return code
 
-all_codes_no_dots = [_remove_dot(c) for c in all_codes]
+def is_valid_item(code):
+    return (_remove_dot(code) in code_index_map) or icd.is_chapter_or_block(code)
 
+def is_category_or_subcategory(code):
+    return _remove_dot(code) in code_index_map
+
+def is_chapter_or_block(code):
+    return icd.is_chapter_or_block(code)
+
+def is_chapter(code):
+    return icd.is_chapter(code)
+
+def is_block(code):
+    return icd.is_block(code)
+
+def is_category(code):
+    return (_remove_dot(code) in code_index_map) and (len(_remove_dot(code))==3)
+
+def is_subcategory(code):
+    return (_remove_dot(code) in code_index_map) and (len(_remove_dot(code))>3)
+
+def get_description(code):
+    if is_category_or_subcategory(code):
+        return code_data_list[code_index_map[_remove_dot(code)]][2]
+    elif is_chapter_or_block(code):
+        return icd.get_description(code)
+    else:
+        raise ValueError(code+" is not a valid ICD-10-CM code.")
+
+def is_leaf(code):
+    if is_category_or_subcategory(code):
+        return code_data_list[code_index_map[_remove_dot(code)]][1]
+    elif is_chapter_or_block(code):
+        return False
+    else:
+        raise ValueError(code+" is not a valid ICD-10-CM code.")
+    
+'''
 def get_all_codes(keep_dots):
     if keep_dots:
         return all_codes.copy()
     else:
         return all_codes_no_dots.copy()
-
-def is_valid_item(code):
-    code = _remove_dot(code)
-    return code in all_codes_no_dots
-
-def is_chapter_or_block(code):
-    return is_chapter(code) or is_block(code)
-
-def is_chapter(code):
-    return code in chapter_list
-
-def is_block(code):
-    code = _remove_dot(code)
-    return len(code)==7 and (code in all_codes_no_dots)
-
-def is_valid_code(code):
-    return is_valid_item(code) and not is_chapter_or_block(code)
-
-def is_category(code):
-    code = _remove_dot(code)
-    return len(code)==3 and is_valid_code(code)
-
-def is_subcategory(code):
-    code = _remove_dot(code)
-    return len(code)!=3 and is_valid_code(code)
 
 def get_index(code):
     c = _remove_dot(code)
@@ -75,9 +81,6 @@ def _get_index(code):
         if all_codes_no_dots[i]==code:
             return i
     raise ValueError(code+" is not a valid ICD-10 code.")
-
-def get_description(code):
-    return all_descriptions[get_index(code)]
 
 def _get_chapter(code):
     if code in chapter_list:
