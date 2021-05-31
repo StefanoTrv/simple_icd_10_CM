@@ -1,11 +1,30 @@
 import simple_icd_10 as icd
 
+code_index_map = {} #contains the index of the codes in code_data_list for faster access
+
+code_data_list = [] #contains all the icd-10-cm codes and their data
+
 ancestors_dict = {}
 
 descendants_dict = {}
 
 use_memoization = True
 
+def _load_codes():
+    f = open("data/icd10cm-order-Jan-2021.txt", "r")
+    i=0
+    for line in f:
+        fields=[line[6:13].strip(),line[14]=="1",line[77:].strip()] #saves the code, the boolean that tells if it's a leaf and the long description
+        code_data_list.append(fields)
+        code_index_map[fields[0]]=i #saves in the map the index of the code in code_data_list
+        i=i+1
+
+_load_codes()
+
+print(code_index_map["A63"])
+print(code_data_list[code_index_map["A63"]])
+    
+'''
 def _remove_dot(code):
     if code=="VII.I" or code=="XII.I" or code=="XVI.I" or code=="XVI.II" or code=="XXI.I":#special cases, to avoid turning invalid codes into valid ones
         return code
@@ -230,3 +249,6 @@ def _select_adjacent_codes_with_condition(condition, i=0):
         l.append(all_codes_no_dots[i])
         i = i+1
     return l
+    
+    
+'''
