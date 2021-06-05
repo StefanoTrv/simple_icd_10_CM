@@ -1,8 +1,5 @@
-import simple_icd_10 as icd
+import xml.etree.ElementTree as ET
 
-code_index_map = {} #contains the index of the codes in code_data_list for faster access
-
-code_data_list = [] #contains all the icd-10-cm codes and their data
 
 ancestors_dict = {}
 
@@ -11,13 +8,11 @@ descendants_dict = {}
 use_memoization = True
 
 def _load_codes():
-    f = open("data/icd10cm-order-Jan-2021.txt", "r")
-    i=0
-    for line in f:
-        fields=[line[6:13].strip(),line[14]=="1",line[77:].strip()] #saves the code, the boolean that tells if it's a leaf and the long description
-        code_data_list.append(fields)
-        code_index_map[fields[0]]=i #saves in the map the index of the code in code_data_list
-        i=i+1
+    tree = ET.parse('data/icd10cm_tabular_2021.xml')
+    root = tree.getroot()
+    root.remove(root[0])
+    root.remove(root[0])
+
 
 _load_codes()
 
@@ -27,6 +22,7 @@ def _remove_dot(code):
         code=code[:3]+code[4:]
     return code
 
+'''
 def is_valid_item(code):
     return (_remove_dot(code) in code_index_map) or icd.is_chapter_or_block(code)
 
@@ -56,6 +52,7 @@ def get_description(code):
     else:
         raise ValueError(code+" is not a valid ICD-10-CM code.")
 
+
 def is_leaf(code):
     if is_category_or_subcategory(code):
         return code_data_list[code_index_map[_remove_dot(code)]][1]
@@ -64,7 +61,7 @@ def is_leaf(code):
     else:
         raise ValueError(code+" is not a valid ICD-10-CM code.")
     
-'''
+
 def get_all_codes(keep_dots):
     if keep_dots:
         return all_codes.copy()
