@@ -1,11 +1,31 @@
 import xml.etree.ElementTree as ET
 
-
 ancestors_dict = {}
 
 descendants_dict = {}
 
 use_memoization = True
+
+class _CodeTree:
+    def __init__(self, tree, parent = None, seven_chr_def_ancestor = None, seven_chr_note_ancestor = None, use_additional_code_ancestor = None, code_first_ancestor = None):
+        self.name = ""
+        self.description = ""
+        self.type = ""
+        self.is_leaf = False
+        self.parent = parent
+        self.children = []
+        self.exclude1 = []
+        self.exclude2 = []
+        self.includes = []
+        self.inclusion_term = []
+        self.seven_chr_def = []
+        self.seven_chr_def_ancestor = seven_chr_def_ancestor
+        self.seven_chr_note = ""
+        self.seven_chr_note_ancestor = seven_chr_note_ancestor
+        self.use_additional_code = ""
+        self.use_additional_code_ancestor = use_additional_code_ancestor
+        self.code_first = ""
+        self.code_first_ancestor = code_first_ancestor        
 
 def _load_codes():
     tree = ET.parse('data/icd10cm_tabular_2021.xml')
@@ -16,13 +36,13 @@ def _load_codes():
 
 _load_codes()
 
-
+'''
 def _remove_dot(code):
     if len(code)>4 and code[3]==".":
         code=code[:3]+code[4:]
     return code
 
-'''
+
 def is_valid_item(code):
     return (_remove_dot(code) in code_index_map) or icd.is_chapter_or_block(code)
 
