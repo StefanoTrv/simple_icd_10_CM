@@ -1,47 +1,104 @@
 import xml.etree.ElementTree as ET
 
-ancestors_dict = {}
+chapter_list = []
 
-descendants_dict = {}
-
-use_memoization = True
+code_to_node = {}
 
 class _CodeTree:
     def __init__(self, tree, parent = None, seven_chr_def_ancestor = None, seven_chr_note_ancestor = None, use_additional_code_ancestor = None, code_first_ancestor = None):
+        #initialize all the values
         self.name = ""
         self.description = ""
         self.type = ""
-        self.is_leaf = False
         self.parent = parent
         self.children = []
         self.exclude1 = []
         self.exclude2 = []
         self.includes = []
         self.inclusion_term = []
-        self.seven_chr_def = []
+        self.seven_chr_def = {}
         self.seven_chr_def_ancestor = seven_chr_def_ancestor
         self.seven_chr_note = ""
         self.seven_chr_note_ancestor = seven_chr_note_ancestor
         self.use_additional_code = ""
         self.use_additional_code_ancestor = use_additional_code_ancestor
         self.code_first = ""
-        self.code_first_ancestor = code_first_ancestor        
+        self.code_first_ancestor = code_first_ancestor
+        
+        #reads the data from the subtrees
+        new_seven_chr_def_ancestor=seven_chr_def_ancestor
+        new_seven_chr_note_ancestor=seven_chr_note_ancestor
+        new_use_additional_code_ancestor=use_additional_code_ancestor
+        new_code_first_ancestor=code_first_ancestor
+        if "id" in tree.attrib: #the name of sections is an attribute instead of the text in an XML element
+            self.name=tree.attrib["id"]
+        for subtree in tree:
+            if subtree.tag=="section" or subtree.tag=="diag": #creates a new child for this node
+                self.children.append(_CodeTree(subtree,parent=self,seven_chr_def_ancestor=new_seven_chr_def_ancestor,seven_chr_note_ancestor=new_seven_chr_note_ancestor,use_additional_code_ancestor=new_use_additional_code_ancestor,code_first_ancestor=new_code_first_ancestor))
+            elif subtree.tag=="name":
+                self.name=subtree.text
+            elif subtree.tag=="desc":
+                self.description=subtree.text
+            elif subtree.tag=="excludes1":
+                for note in subtree:
+                    self.exclude1.append(note.text)
+            elif subtree.tag=="excludes2":
+                for note in subtree:
+                    self.exclude2.append(note.text)
+            elif subtree.tag=="includes":
+                for note in subtree:
+                    self.includes.append(note.text)
+            elif subtree.tag=="inclusionTerm":
+                for note in subtree:
+                    self.inclusion_term.append(note.text)
+            elif subtree.tag=="sevenChrDef":
+                last_char = None
+                for extension in subtree:
+                    if extension.tag=="extension":
+                        self.seven_chr_def[extension.attrib["char"]]=extension.text
+                        last_char = extension.attrib["char"]
+                    elif extension.tag=="note":
+                        self.seven_chr_def[last_char]=self.seven_chr_def[last_char]+"/"+extension.text
+                new_seven_chr_def_ancestor=self
+            elif subtree.tag=="sevenChrNote":
+                self.seven_chr_note=subtree[0].text
+                new_seven_chr_note_ancestor=self
+            elif subtree.tag=="useAdditionalCode":
+                self.use_additional_code=subtree[0].text
+                for i in range(1,len(subtree)):#for multiple lines
+                    self.use_additional_code=self.use_additional_code+"\n"+subtree[i].text
+                new_use_additional_code_ancestor=self
+            elif subtree.tag=="codeFirst":
+                self.code_first=subtree[0].text
+                for i in range(1,len(subtree)):#for multiple lines
+                    self.code_first=self.code_first+"\n"+subtree[i].text
+                new_code_first_ancestor=self
+            
+        #sets the type
+        if tree.tag=="chapter":
+            self.type="chapter"
+        elif tree.tag=="section":
+            self.type="section"
+        elif tree.tag=="diag" and len(self.name)==3:
+            self.type="category"
+        else:
+            self.type="subcategory"
+        
+        #adds the new node to the dictionary
+        code_to_node[self.name]=self
 
 def _load_codes():
     tree = ET.parse('data/icd10cm_tabular_2021.xml')
     root = tree.getroot()
     root.remove(root[0])
     root.remove(root[0])
+    for child in root:
+        chapter_list.append(_CodeTree(child))
 
 
 _load_codes()
 
 '''
-def _remove_dot(code):
-    if len(code)>4 and code[3]==".":
-        code=code[:3]+code[4:]
-    return code
-
 
 def is_valid_item(code):
     return (_remove_dot(code) in code_index_map) or icd.is_chapter_or_block(code)
@@ -244,31 +301,5 @@ def get_nearest_common_ancestor(a,b):
         if anc in anc_b:
             return anc
     return ""
-
-def reset_memoization():
-    global ancestors_dict
-    ancestors_dict = {}
-    global descendants_dict
-    descendants_dict = {}
-
-def enable_memoization():
-    global use_memoization
-    use_memoization = True
-
-def disable_memoization():
-    global use_memoization
-    reset_memoization()
-    use_memoization = False
-
-#returns all the codes that respect the condition in "condition", supposing that all these codes are adjacent in all_codes_no_dots, starting from the ith code
-def _select_adjacent_codes_with_condition(condition, i=0):
-    while(i<len(all_codes_no_dots) and not condition(all_codes_no_dots[i])):
-        i = i+1
-    l = []
-    while(i<len(all_codes_no_dots) and condition(all_codes_no_dots[i])):
-        l.append(all_codes_no_dots[i])
-        i = i+1
-    return l
-    
     
 '''
