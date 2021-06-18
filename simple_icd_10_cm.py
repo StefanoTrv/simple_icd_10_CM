@@ -79,6 +79,8 @@ class _CodeTree:
             self.type="chapter"
         elif tree.tag=="section":
             self.type="section"
+        elif tree.tag=="diag_ext":
+            self.type="extended subcategory"
         elif tree.tag=="diag" and len(self.name)==3:
             self.type="category"
         else:
@@ -86,6 +88,19 @@ class _CodeTree:
         
         #adds the new node to the dictionary
         code_to_node[self.name]=self
+        
+        #if this code is a leaf, it adds to its children the codes created by adding the seventh character
+        if len(self.children)==0 and (self.seven_chr_def!={} or self.seven_chr_def_ancestor!=None) and self.type!="extended subcategory":
+            if self.seven_chr_def!={}:
+                dictionary = self.seven_chr_def
+            else:
+                dictionary = self.seven_chr_def_ancestor.seven_chr_def
+            extended_name=self.name
+            while len(extended_name)<7:#adds the placeholder X if needed
+                extended_name = extended_name+"X"
+            for extension in dictionary:
+                new_XML = "<diag_ext><name>"+extended_name+extension+"</name><desc>"+self.description+", "+dictionary[extension]+"</desc></diag_ext>"
+                self.children.append(_CodeTree(ET.fromstring(new_XML),parent=self,seven_chr_def_ancestor=new_seven_chr_def_ancestor,seven_chr_note_ancestor=new_seven_chr_note_ancestor,use_additional_code_ancestor=new_use_additional_code_ancestor,code_first_ancestor=new_code_first_ancestor))
 
 def _load_codes():
     tree = ET.parse('data/icd10cm_tabular_2021.xml')
