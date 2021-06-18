@@ -4,6 +4,12 @@ chapter_list = []
 
 code_to_node = {}
 
+all_codes_list = []
+
+all_codes_list_no_dots = []
+
+code_to_index_dictionary = {}
+
 class _CodeTree:
     def __init__(self, tree, parent = None, seven_chr_def_ancestor = None, seven_chr_note_ancestor = None, use_additional_code_ancestor = None, code_first_ancestor = None):
         #initialize all the values
@@ -96,24 +102,60 @@ class _CodeTree:
             else:
                 dictionary = self.seven_chr_def_ancestor.seven_chr_def
             extended_name=self.name
+            if len(extended_name)==3:
+                extended_name=extended_name+"."
             while len(extended_name)<7:#adds the placeholder X if needed
                 extended_name = extended_name+"X"
             for extension in dictionary:
-                new_XML = "<diag_ext><name>"+extended_name+extension+"</name><desc>"+self.description+", "+dictionary[extension]+"</desc></diag_ext>"
-                self.children.append(_CodeTree(ET.fromstring(new_XML),parent=self,seven_chr_def_ancestor=new_seven_chr_def_ancestor,seven_chr_note_ancestor=new_seven_chr_note_ancestor,use_additional_code_ancestor=new_use_additional_code_ancestor,code_first_ancestor=new_code_first_ancestor))
+                if(extended_name[:3]+extended_name[4:]+extension in all_confirmed_codes):#checks if there's a special rule that excludes this new code
+                    new_XML = "<diag_ext><name>"+extended_name+extension+"</name><desc>"+self.description+", "+dictionary[extension]+"</desc></diag_ext>"
+                    self.children.append(_CodeTree(ET.fromstring(new_XML),parent=self,seven_chr_def_ancestor=new_seven_chr_def_ancestor,seven_chr_note_ancestor=new_seven_chr_note_ancestor,use_additional_code_ancestor=new_use_additional_code_ancestor,code_first_ancestor=new_code_first_ancestor))
 
 def _load_codes():
+    #loads the list of all codes, to remove later from the tree the ones that do not exist for very specific rules not easily extracted from the XML file
+    f = open("data/icd10cm-order-Jan-2021.txt", "r")
+    global all_confirmed_codes
+    all_confirmed_codes = set()
+    for line in f:
+        all_confirmed_codes.add(line[6:13].strip())
+    
+    #creates the tree
     tree = ET.parse('data/icd10cm_tabular_2021.xml')
     root = tree.getroot()
     root.remove(root[0])
     root.remove(root[0])
     for child in root:
         chapter_list.append(_CodeTree(child))
+    
+    del all_confirmed_codes #deletes this list since it won't be needed anymore
 
 
 _load_codes()
 
+def get_all_codes(with_dots=True):
+    if all_codes_list==[]:
+        for chapter in chapter_list:
+            _add_tree_to_list(chapter)
+    if with_dots:
+        return all_codes_list.copy()
+    else:
+        return all_codes_list_no_dots.copy()
+
+def _add_tree_to_list(tree):
+    all_codes_list.append(tree.name)
+    if(len(tree.name)>4 and tree.name[3]=="."):
+        all_codes_list_no_dots.append(tree.name[:3]+tree.name[4:])
+    else:
+        all_codes_list_no_dots.append(tree.name)
+    for child in tree.children:
+        _add_tree_to_list(child)
+
+
 '''
+def get_index(code):
+    if all_codes_list==[]:
+        for chapter in chapter_list:
+            _add_tree_to_list(chapter)
 
 def is_valid_item(code):
     return (_remove_dot(code) in code_index_map) or icd.is_chapter_or_block(code)
