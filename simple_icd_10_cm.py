@@ -132,34 +132,18 @@ def _load_codes():
 
 _load_codes()
 
-def get_all_codes(with_dots=True):
-    if all_codes_list==[]:
-        for chapter in chapter_list:
-            _add_tree_to_list(chapter)
-    if with_dots:
-        return all_codes_list.copy()
+def _add_dot_to_code(code):
+    if len(code)<4 or code[3]==".":
+        return code
+    elif code[:3]+"."+code[3:] in code_to_node:
+        return code[:3]+"."+code[3:]
     else:
-        return all_codes_list_no_dots.copy()
-
-def _add_tree_to_list(tree):
-    all_codes_list.append(tree.name)
-    if(len(tree.name)>4 and tree.name[3]=="."):
-        all_codes_list_no_dots.append(tree.name[:3]+tree.name[4:])
-    else:
-        all_codes_list_no_dots.append(tree.name)
-    for child in tree.children:
-        _add_tree_to_list(child)
-
-
-'''
-def get_index(code):
-    if all_codes_list==[]:
-        for chapter in chapter_list:
-            _add_tree_to_list(chapter)
+        return code
 
 def is_valid_item(code):
-    return (_remove_dot(code) in code_index_map) or icd.is_chapter_or_block(code)
+    return code in code_to_node or len(code)>=4 and code[:3]+"."+code[3:] in code_to_node
 
+'''
 def is_category_or_subcategory(code):
     return _remove_dot(code) in code_index_map
 
@@ -360,3 +344,39 @@ def get_nearest_common_ancestor(a,b):
     return ""
     
 '''
+
+def get_all_codes(with_dots=True):
+    if all_codes_list==[]:
+        for chapter in chapter_list:
+            _add_tree_to_list(chapter)
+    if with_dots:
+        return all_codes_list.copy()
+    else:
+        return all_codes_list_no_dots.copy()
+
+def _add_tree_to_list(tree):
+    all_codes_list.append(tree.name)
+    if(len(tree.name)>4 and tree.name[3]=="."):
+        all_codes_list_no_dots.append(tree.name[:3]+tree.name[4:])
+    else:
+        all_codes_list_no_dots.append(tree.name)
+    for child in tree.children:
+        _add_tree_to_list(child)
+
+def get_index(code):
+    if not is_valid_item(code):
+        raise ValueError("The code \""+code+"\" does not exist.")
+    code = _add_dot_to_code(code)
+    if all_codes_list==[]:
+        for chapter in chapter_list:
+            _add_tree_to_list(chapter)
+    if code in code_to_index_dictionary:
+        return code_to_index_dictionary[code]
+    else:
+        i=0
+        for c in all_codes_list:
+            if c==code:
+                code_to_index_dictionary[code]=i
+                return i
+            else:
+                i=i+1
