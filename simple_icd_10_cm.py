@@ -93,7 +93,8 @@ class _CodeTree:
             self.type="subcategory"
         
         #adds the new node to the dictionary
-        code_to_node[self.name]=self
+        if self.name not in code_to_node:#in case a section has the same name of a code (ex B99)
+            code_to_node[self.name]=self
         
         #if this code is a leaf, it adds to its children the codes created by adding the seventh character
         if len(self.children)==0 and (self.seven_chr_def!={} or self.seven_chr_def_ancestor!=None) and self.type!="extended subcategory":
@@ -153,7 +154,7 @@ def is_chapter(code):
 def is_block(code):
     code = _add_dot_to_code(code)
     if code in code_to_node:
-        return code_to_node[code].type=="section"
+        return code_to_node[code].type=="section" or code_to_node[code].parent.name==code #second half of the or is for sections containing a single category
     else:
         return False
 
