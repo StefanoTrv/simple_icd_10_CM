@@ -143,25 +143,48 @@ def _add_dot_to_code(code):
 def is_valid_item(code):
     return code in code_to_node or len(code)>=4 and code[:3]+"."+code[3:] in code_to_node
 
-'''
-def is_category_or_subcategory(code):
-    return _remove_dot(code) in code_index_map
-
-def is_chapter_or_block(code):
-    return icd.is_chapter_or_block(code)
-
 def is_chapter(code):
-    return icd.is_chapter(code)
+    code = _add_dot_to_code(code)
+    if code in code_to_node:
+        return code_to_node[code].type=="chapter"
+    else:
+        return False
 
 def is_block(code):
-    return icd.is_block(code)
+    code = _add_dot_to_code(code)
+    if code in code_to_node:
+        return code_to_node[code].type=="section"
+    else:
+        return False
 
 def is_category(code):
-    return (_remove_dot(code) in code_index_map) and (len(_remove_dot(code))==3)
+    code = _add_dot_to_code(code)
+    if code in code_to_node:
+        return code_to_node[code].type=="category"
+    else:
+        return False
 
-def is_subcategory(code):
-    return (_remove_dot(code) in code_index_map) and (len(_remove_dot(code))>3)
+def is_subcategory(code, include_extended_subcategories=True):
+    code = _add_dot_to_code(code)
+    if code in code_to_node:
+        return code_to_node[code].type=="subcategory" or code_to_node[code].type=="extended subcategory" and include_extended_subcategories
+    else:
+        return False
 
+def is_extended_subcategory(code):
+    code = _add_dot_to_code(code)
+    if code in code_to_node:
+        return code_to_node[code].type=="extended subcategory"
+    else:
+        return False
+    
+def is_category_or_subcategory(code):
+    return is_subcategory(code) or is_category(code)
+
+def is_chapter_or_block(code):
+    return is_block(code) or is_chapter(code)
+
+'''
 def get_description(code):
     if is_category_or_subcategory(code):
         return code_data_list[code_index_map[_remove_dot(code)]][2]
@@ -185,17 +208,6 @@ def get_all_codes(keep_dots):
         return all_codes.copy()
     else:
         return all_codes_no_dots.copy()
-
-def get_index(code):
-    c = _remove_dot(code)
-    return _get_index(c)
-
-#gets index without trying to remove the dot first
-def _get_index(code):
-    for i in range(len(all_codes_no_dots)):
-        if all_codes_no_dots[i]==code:
-            return i
-    raise ValueError(code+" is not a valid ICD-10 code.")
 
 def _get_chapter(code):
     if code in chapter_list:
