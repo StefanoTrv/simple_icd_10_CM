@@ -308,6 +308,54 @@ def is_leaf(code, prioritize_blocks=False):
         node = node.parent
     return len(node.children)==0
 
+def get_full_data(code, search_in_ancestors=False, prioritize_blocks=False):
+    if not is_valid_item(code):
+        raise ValueError("The code \""+code+"\" does not exist.")
+    node = code_to_node[_add_dot_to_code(code)]
+    if prioritize_blocks and node.parent!=None and node.parent.name==node.name:
+        node = node.parent
+    str = "Name:\n"+node.name+"\nDescription:\n"+node.description
+    if node.parent!=None:
+        str = str + "\nParent:\n" + node.parent.name
+    if node.exclude1!=[]:
+        str = str + "\nexclude1:"
+        for item in node.exclude1:
+            str = str + "\n" + item
+    if node.exclude2!=[]:
+        str = str + "\nexclude2:"
+        for item in node.exclude2:
+            str = str + "\n" + item
+    if node.includes!=[]:
+        str = str + "\nincludes:"
+        for item in node.includes:
+            str = str + "\n" + item
+    if node.inclusion_term!=[]:
+        str = str + "\ninclusion term:"
+        for item in node.inclusion_term:
+            str = str + "\n" + item
+    seven_chr_note=get_seven_chr_note(code,search_in_ancestors=search_in_ancestors)
+    if seven_chr_note!="":
+        str = str + "\nseven chr note:\n" + seven_chr_note
+    seven_chr_def=get_seven_chr_def(code,search_in_ancestors=search_in_ancestors)
+    if seven_chr_def!={}:
+        str = str + "\nseven chr def:"
+        for item in seven_chr_def:
+            str = str + "\n" + item + ":\t" + seven_chr_def[item]
+    use_additional=get_use_additional_code(code,search_in_ancestors=search_in_ancestors)
+    if use_additional!="":
+        str = str + "\nuse additional code:\n" + use_additional
+    code_first=get_code_first(code,search_in_ancestors=search_in_ancestors)
+    if code_first!="":
+        str = str + "\ncode first:\n" + code_first
+    if node.children==[]:
+        str = str + "\nChildren:\nNone--"
+    else:
+        str = str + "\nChildren:\n"
+        for child in node.children:
+            str = str + child.name + ", "
+    return str[:-2]
+    
+
 '''
 def get_descendants(code):
     if not is_valid_item(code):
