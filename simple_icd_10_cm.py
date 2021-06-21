@@ -154,7 +154,7 @@ def is_chapter(code):
 def is_block(code):
     code = _add_dot_to_code(code)
     if code in code_to_node:
-        return code_to_node[code].type=="section" or code_to_node[code].parent.name==code #second half of the or is for sections containing a single category
+        return code_to_node[code].type=="section" or code_to_node[code].parent!=None and code_to_node[code].parent.name==code #second half of the or is for sections containing a single category
     else:
         return False
 
@@ -185,82 +185,130 @@ def is_category_or_subcategory(code):
 def is_chapter_or_block(code):
     return is_block(code) or is_chapter(code)
 
+def get_description(code, prioritize_blocks=False):
+    if not is_valid_item(code):
+        raise ValueError("The code \""+code+"\" does not exist.")
+    node = code_to_node[_add_dot_to_code(code)]
+    if prioritize_blocks and node.parent!=None and node.parent.name==node.name:
+        return node.parent.description
+    else:
+        return node.description
+
+def get_exclude1(code, prioritize_blocks=False):
+    if not is_valid_item(code):
+        raise ValueError("The code \""+code+"\" does not exist.")
+    node = code_to_node[_add_dot_to_code(code)]
+    if prioritize_blocks and node.parent!=None and node.parent.name==node.name:
+        return node.parent.exclude1.copy()
+    else:
+        return node.exclude1.copy()
+
+def get_exclude2(code, prioritize_blocks=False):
+    if not is_valid_item(code):
+        raise ValueError("The code \""+code+"\" does not exist.")
+    node = code_to_node[_add_dot_to_code(code)]
+    if prioritize_blocks and node.parent!=None and node.parent.name==node.name:
+        return node.parent.exclude2.copy()
+    else:
+        return node.exclude2.copy()
+
+def get_includes(code, prioritize_blocks=False):
+    if not is_valid_item(code):
+        raise ValueError("The code \""+code+"\" does not exist.")
+    node = code_to_node[_add_dot_to_code(code)]
+    if prioritize_blocks and node.parent!=None and node.parent.name==node.name:
+        return node.parent.includes.copy()
+    else:
+        return node.includes.copy()
+
+def get_inclusion_term(code, prioritize_blocks=False):
+    if not is_valid_item(code):
+        raise ValueError("The code \""+code+"\" does not exist.")
+    node = code_to_node[_add_dot_to_code(code)]
+    if prioritize_blocks and node.parent!=None and node.parent.name==node.name:
+        return node.parent.inclusion_term.copy()
+    else:
+        return node.inclusion_term.copy()
+
+def get_seven_chr_def(code, search_in_ancestors=False, prioritize_blocks=False):
+    if not is_valid_item(code):
+        raise ValueError("The code \""+code+"\" does not exist.")
+    node = code_to_node[_add_dot_to_code(code)]
+    if prioritize_blocks and node.parent!=None and node.parent.name==node.name:
+        node = node.parent
+    res = node.seven_chr_def.copy()
+    if search_in_ancestors and len(res)==0 and node.seven_chr_def_ancestor!=None:
+        return node.seven_chr_def_ancestor.seven_chr_def.copy()
+    else:
+        return res
+
+def get_seven_chr_note(code, search_in_ancestors=False, prioritize_blocks=False):
+    if not is_valid_item(code):
+        raise ValueError("The code \""+code+"\" does not exist.")
+    node = code_to_node[_add_dot_to_code(code)]
+    if prioritize_blocks and node.parent!=None and node.parent.name==node.name:
+        node = node.parent
+    res = node.seven_chr_note
+    if search_in_ancestors and res=="" and node.seven_chr_note_ancestor!=None:
+        return node.seven_chr_note_ancestor.seven_chr_note
+    else:
+        return res
+
+def get_use_additional_code(code, search_in_ancestors=False, prioritize_blocks=False):
+    if not is_valid_item(code):
+        raise ValueError("The code \""+code+"\" does not exist.")
+    node = code_to_node[_add_dot_to_code(code)]
+    if prioritize_blocks and node.parent!=None and node.parent.name==node.name:
+        node = node.parent
+    res = node.use_additional_code
+    if search_in_ancestors and res=="" and node.use_additional_code_ancestor!=None:
+        return node.use_additional_code_ancestor.use_additional_code
+    else:
+        return res
+
+def get_code_first(code, search_in_ancestors=False, prioritize_blocks=False):
+    if not is_valid_item(code):
+        raise ValueError("The code \""+code+"\" does not exist.")
+    node = code_to_node[_add_dot_to_code(code)]
+    if prioritize_blocks and node.parent!=None and node.parent.name==node.name:
+        node = node.parent
+    res = node.code_first
+    if search_in_ancestors and res=="" and node.code_first_ancestor!=None:
+        return node.code_first_ancestor.code_first
+    else:
+        return res
+
+def get_parent(code, prioritize_blocks=False):
+    if not is_valid_item(code):
+        raise ValueError("The code \""+code+"\" does not exist.")
+    node = code_to_node[_add_dot_to_code(code)]
+    if prioritize_blocks and node.parent!=None and node.parent.name==node.name:
+        node = node.parent
+    if node.parent!=None:
+        return node.parent.name
+    else:
+        return ""
+
+def get_children(code, prioritize_blocks=False):
+    if not is_valid_item(code):
+        raise ValueError("The code \""+code+"\" does not exist.")
+    node = code_to_node[_add_dot_to_code(code)]
+    if prioritize_blocks and node.parent!=None and node.parent.name==node.name:
+        node = node.parent
+    res = []
+    for child in node.children:
+        res.append(child.name)
+    return res
+
+def is_leaf(code, prioritize_blocks=False):
+    if not is_valid_item(code):
+        raise ValueError("The code \""+code+"\" does not exist.")
+    node = code_to_node[_add_dot_to_code(code)]
+    if prioritize_blocks and node.parent!=None and node.parent.name==node.name:
+        node = node.parent
+    return len(node.children)==0
+
 '''
-def get_description(code):
-    if is_category_or_subcategory(code):
-        return code_data_list[code_index_map[_remove_dot(code)]][2]
-    elif is_chapter_or_block(code):
-        return icd.get_description(code)
-    else:
-        raise ValueError(code+" is not a valid ICD-10-CM code.")
-
-
-def is_leaf(code):
-    if is_category_or_subcategory(code):
-        return code_data_list[code_index_map[_remove_dot(code)]][1]
-    elif is_chapter_or_block(code):
-        return False
-    else:
-        raise ValueError(code+" is not a valid ICD-10-CM code.")
-    
-
-def get_all_codes(keep_dots):
-    if keep_dots:
-        return all_codes.copy()
-    else:
-        return all_codes_no_dots.copy()
-
-def _get_chapter(code):
-    if code in chapter_list:
-        return code
-    code = _remove_dot(code)
-    l = code[0] #first letter of the code
-    n = int(code[1:3]) #second and third digits of the code, as an integer
-    if l=="A" or l=="B":
-        return "I"
-    elif l=="C" or (l=="D" and n<=48):
-        return "II"
-    elif l=="D":
-        return "III"
-    elif l=="E":
-        return "IV"
-    elif l=="F":
-        return "V"
-    elif l=="G":
-        return "VI"
-    elif l=="H" and n<=59:
-        return "VII"
-    elif l=="H":
-        return "VIII"
-    elif l=="I":
-        return "IX"
-    elif l=="J":
-        return "X"
-    elif l=="K":
-        return "XI"
-    elif l=="L":
-        return "XII"
-    elif l=="M":
-        return "XIII"
-    elif l=="N":
-        return "XIV"
-    elif l=="O":
-        return "XV"
-    elif l=="P":
-        return "XVI"
-    elif l=="Q":
-        return "XVII"
-    elif l=="R":
-        return "XVIII"
-    elif l=="S" or l=="T":
-        return "XIX"
-    elif l=="V" or l=="X" or l=="Y":
-        return "XX"
-    elif l=="Z":
-        return "XXI"
-    elif l=="U":
-        return "XXII"
-
 def get_descendants(code):
     if not is_valid_item(code):
         raise ValueError(code+" is not a valid ICD-10 code.")
