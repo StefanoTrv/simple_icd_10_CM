@@ -18,8 +18,8 @@ class _CodeTree:
         self.type = ""
         self.parent = parent
         self.children = []
-        self.exclude1 = []
-        self.exclude2 = []
+        self.excludes1 = []
+        self.excludes2 = []
         self.includes = []
         self.inclusion_term = []
         self.seven_chr_def = {}
@@ -47,10 +47,10 @@ class _CodeTree:
                 self.description=subtree.text
             elif subtree.tag=="excludes1":
                 for note in subtree:
-                    self.exclude1.append(note.text)
+                    self.excludes1.append(note.text)
             elif subtree.tag=="excludes2":
                 for note in subtree:
-                    self.exclude2.append(note.text)
+                    self.excludes2.append(note.text)
             elif subtree.tag=="includes":
                 for note in subtree:
                     self.includes.append(note.text)
@@ -194,23 +194,23 @@ def get_description(code, prioritize_blocks=False):
     else:
         return node.description
 
-def get_exclude1(code, prioritize_blocks=False):
+def get_excludes1(code, prioritize_blocks=False):
     if not is_valid_item(code):
         raise ValueError("The code \""+code+"\" does not exist.")
     node = code_to_node[_add_dot_to_code(code)]
     if prioritize_blocks and node.parent!=None and node.parent.name==node.name:
-        return node.parent.exclude1.copy()
+        return node.parent.excludes1.copy()
     else:
-        return node.exclude1.copy()
+        return node.excludes1.copy()
 
-def get_exclude2(code, prioritize_blocks=False):
+def get_excludes2(code, prioritize_blocks=False):
     if not is_valid_item(code):
         raise ValueError("The code \""+code+"\" does not exist.")
     node = code_to_node[_add_dot_to_code(code)]
     if prioritize_blocks and node.parent!=None and node.parent.name==node.name:
-        return node.parent.exclude2.copy()
+        return node.parent.excludes2.copy()
     else:
-        return node.exclude2.copy()
+        return node.excludes2.copy()
 
 def get_includes(code, prioritize_blocks=False):
     if not is_valid_item(code):
@@ -317,13 +317,13 @@ def get_full_data(code, search_in_ancestors=False, prioritize_blocks=False):
     str = "Name:\n"+node.name+"\nDescription:\n"+node.description
     if node.parent!=None:
         str = str + "\nParent:\n" + node.parent.name
-    if node.exclude1!=[]:
-        str = str + "\nexclude1:"
-        for item in node.exclude1:
+    if node.excludes1!=[]:
+        str = str + "\nexcludes1:"
+        for item in node.excludes1:
             str = str + "\n" + item
-    if node.exclude2!=[]:
-        str = str + "\nexclude2:"
-        for item in node.exclude2:
+    if node.excludes2!=[]:
+        str = str + "\nexcludes2:"
+        for item in node.excludes2:
             str = str + "\n" + item
     if node.includes!=[]:
         str = str + "\nincludes:"
