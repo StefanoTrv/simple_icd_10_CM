@@ -13,6 +13,9 @@ This library is a work in progress. The documentation will be updated as I add a
   * [is_category(code)](#is_categorycode)
   * [is_subcategory(code, include_extended_subcategories=True)](#is_subcategorycode-include_extended_subcategoriestrue)
   * [is_extended_subcategory(code)](#is_extended_subcategorycode)
+  * [get_description(code, prioritize_blocks=False)](#get_descriptioncode-prioritize_blocksfalse)
+  * [get_excludes1(code, prioritize_blocks=False)](#get_excludes1code-prioritize_blocksfalse)
+  * [get_excludes2(code, prioritize_blocks=False)](#get_excludes2code-prioritize_blocksfalse)
   * [get_all_codes(keep_dots)](#get_all_codeswith_dotstrue)
   * [get_index(code)](#get_indexcode)
 
@@ -90,6 +93,33 @@ cm.is_extended_subcategory("S12.000G")
 #True
 cm.is_extended_subcategory("S12.000")
 #False
+```
+### get_description(code, prioritize_blocks=False)
+This function takes a string as input. If the string is a valid ICD-10-CM code, it returns a string containing its description, otherwise it raises a ValueError. For the meaning of the optional argument `prioritize_blocks`, please see $#priotize_blocks_explained#.
+```python
+cm.get_description("12")
+#'Diseases of the skin and subcutaneous tissue (L00-L99)'
+cm.get_description("I70.501")
+#'Unspecified atherosclerosis of nonautologous biological bypass graft(s) of the extremities, right leg'
+```
+### get_excludes1(code, prioritize_blocks=False)
+This function takes a string as input. If the string is a valid ICD-10-CM code, it returns a list of strings containing the data of the "excludes1" field of this code, otherwise it raises a ValueError. If this code does not have an "excludes1" field, it returns an empty list. Please see [Instructional Notations](https://github.com/StefanoTrv/simple_icd_10_CM/blob/8d15f9bd155567049998f4189fd7e1fc427d143f/Instructional%20Notations.md) if you have doubts about the meaning of this field. For the meaning of the optional argument `prioritize_blocks`, please see $#priotize_blocks_explained#.
+```python
+cm.get_excludes1("12")
+#[]
+cm.get_excludes1("I82.40")
+#['acute embolism and thrombosis of unspecified deep veins of distal lower extremity (I82.4Z-)',
+# 'acute embolism and thrombosis of unspecified deep veins of proximal lower extremity (I82.4Y-)']
+```
+### get_excludes2(code, prioritize_blocks=False)
+This function takes a string as input. If the string is a valid ICD-10-CM code, it returns a list of strings containing the data of the "excludes2" field of this code, otherwise it raises a ValueError. If this code does not have an "excludes2" field, it returns an empty list. Please see [Instructional Notations](https://github.com/StefanoTrv/simple_icd_10_CM/blob/8d15f9bd155567049998f4189fd7e1fc427d143f/Instructional%20Notations.md) if you have doubts about the meaning of this field. For the meaning of the optional argument `prioritize_blocks`, please see $#priotize_blocks_explained#.
+```python
+cm.get_excludes2("I82.40")
+#[]
+cm.get_excludes2("J34.81")
+#['gastrointestinal mucositis (ulcerative) (K92.81)',
+# 'mucositis (ulcerative) of vagina and vulva (N76.81)',
+# 'oral mucositis (ulcerative) (K12.3-)']
 ```
 
 ### get_all_codes(with_dots=True)
