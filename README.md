@@ -249,6 +249,22 @@ cm.get_children("12")
 cm.get_children("I70.501")
 #[]
 ```
+### get_ancestors(code, prioritize_blocks=False)
+This function takes a string as input. If the string is a valid ICD-10-CM code, it returns a list containing all its ancestors in the ICD-10-CM classification, otherwise it raises a ValueError. The results are ordered from its parent to its most distant ancestor. For the meaning of the optional argument `prioritize_blocks`, please see $#priotize_blocks_explained#.
+```python
+cm.get_ancestors("S14.109S")
+#['S14.109', 'S14.10', 'S14.1', 'S14', 'S10-S19', '19']
+cm.get_ancestors("7")
+#[]
+```
+### get_descendants(code, prioritize_blocks=False)
+This function takes a string as input. If the string is a valid ICD-10-CM code, it returns a list containing all its descendants in the ICD-10-CM classification, otherwise it raises a ValueError. The returned codes are ordered as in a pre-order depth-first traversal of the tree containing the ICD-10-CM classification. For the meaning of the optional argument `prioritize_blocks`, please see $#priotize_blocks_explained#.
+```python
+cm.get_descendants("G93")
+#['G93.0', 'G93.1', 'G93.2', 'G93.3', 'G93.4', 'G93.40', 'G93.41', 'G93.49', 'G93.5', 'G93.6', 'G93.7', 'G93.8', 'G93.81', 'G93.82', 'G93.89', 'G93.9']
+cm.get_descendants("S14.109S")
+#[]
+```
 ### is_leaf(code, prioritize_blocks=False)
 This function takes a string as input. If the string is a valid ICD-10-CM code, it returns True if it's a leaf in the ICD-10-CM classification (that is, if it has no children), otherwise it returns False. If the string is not a valid ICD-10-CM code it raises a ValueError. For the meaning of the optional argument `prioritize_blocks`, please see $#priotize_blocks_explained#.
 ```python
@@ -259,7 +275,7 @@ cm.is_leaf("I70.501")
 ```
 
 ### get_all_codes(with_dots=True)
-This function returns the list of all items in the ICD-10-CM classification. If the optional boolean argument `with_dots` is set to False, the subcategories in the list will not have a dot in them, otherwise the subcategories will have a dot in them.
+This function returns the list of all items in the ICD-10-CM classification. If the optional boolean argument `with_dots` is set to False, the subcategories in the list will not have a dot in them, otherwise the subcategories will have a dot in them. The codes that represent both a block and a category (for example "B99") appear only once in this list.
 ```python
 cm.get_all_codes()
 #['1', 'A00-A09', 'A00', 'A00.0', 'A00.1', 'A00.9', 'A01', 'A01.0', ...
