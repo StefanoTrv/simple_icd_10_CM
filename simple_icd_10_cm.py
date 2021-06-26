@@ -354,84 +354,35 @@ def get_full_data(code, search_in_ancestors=False, prioritize_blocks=False):
         for child in node.children:
             str = str + child.name + ", "
     return str[:-2]
-    
+
+def get_ancestors(code, prioritize_blocks=False):
+    if not is_valid_item(code):
+        raise ValueError("The code \""+code+"\" does not exist.")
+    node = code_to_node[_add_dot_to_code(code)]
+    if prioritize_blocks and node.parent!=None and node.parent.name==node.name:
+        node = node.parent
+    result = []
+    while node.parent != None:
+        result.append(node.parent.name)
+        node=node.parent
+    return result
+
+def get_descendants(code, prioritize_blocks=False):
+    if not is_valid_item(code):
+        raise ValueError("The code \""+code+"\" does not exist.")
+    node = code_to_node[_add_dot_to_code(code)]
+    if prioritize_blocks and node.parent!=None and node.parent.name==node.name:
+        node = node.parent
+    result = []
+    _add_children_to_list(node, result)
+    return result
+
+def _add_children_to_list(node, list):
+    for child in node.children:
+        list.append(child.name)
+        _add_children_to_list(child,list)
 
 '''
-def get_descendants(code):
-    if not is_valid_item(code):
-        raise ValueError(code+" is not a valid ICD-10 code.")
-    code = _remove_dot(code)
-    if use_memoization:
-        if code in descendants_dict:
-            return descendants_dict[code].copy()
-        else:
-            descendants_dict[code] = _get_descendants(code)
-            return descendants_dict[code].copy()
-    else:
-        return _get_descendants(code)
-
-def _get_descendants(code):
-    if code in chapter_list:#if it's a chapter
-        return _select_adjacent_codes_with_condition(lambda c:_get_chapter(c)==code,_get_index(code))
-    elif len(code)==7:#if it's a block
-        #we consider first the three blocks whose codes don't all begin with the same letter
-        if code=="V01-X59":
-            return ["V01-V99", "W00-X59"] + get_descendants("V01-V99") + get_descendants("W00-X59")
-        elif code=="W00-X59":
-            t = ["W00-W19", "W20-W49", "W50-W64", "W65-W74", "W75-W84", "W85-W99", "X00-X09", "X10-X19", "X20-X29", "X30-X39", "X40-X49", "X50-X57", "X58-X59"]
-            return t + [c for l in [get_descendants(x) for x in t] for c in l]
-        elif code=="X85-Y09":#this is simpler since all its children are codes
-            return _select_adjacent_codes_with_condition(lambda c:not is_chapter_or_block(c) and ((c[0]=="X" and int(code[1:3])>=85) or (c[0]=="Y" and int(code[1:3])<=9)),_get_index(code))
-        else:
-            #the first part of the lambda expression checks for categories, the second checks for blocks
-            return _select_adjacent_codes_with_condition(lambda c:(not is_chapter_or_block(c) and c[0]==code[0] and int(c[1:3])>=int(code[1:3]) and int(c[1:3])<=int(code[-2:]))or(is_chapter_or_block(c) and not c in chapter_list and c[0]==code[0] and int(c[1:3])>=int(code[1:3]) and int(c[-2:])<=int(code[-2:]) and not c==code),_get_index(code))
-    elif len(code)==3:#if its a category
-        return _select_adjacent_codes_with_condition(lambda c:c[:3]==code and not c==code and len(c)<7,_get_index(code))
-    else:#if its a subcategory
-        if code=="B180":#two special cases
-            return ["B1800", "B1809"]
-        elif code=="B181":
-            return ["B1810", "B1819"]
-        else:
-            return []#it has not children
-
-def get_ancestors(code):
-    if not is_valid_item(code):
-        raise ValueError(code+" is not a valid ICD-10 code.")
-    code = _remove_dot(code)
-    if use_memoization:
-        if code in ancestors_dict:
-            return ancestors_dict[code].copy()
-        else:
-            ancestors_dict[code] = _get_ancestors(code)
-            return ancestors_dict[code].copy()
-    else:
-        return _get_ancestors(code)
-
-def _get_ancestors(code):
-    if code in chapter_list:#if its a chapter
-        return []#it has no parent
-    elif is_chapter_or_block(code):#if its a block
-        i = _get_index(code)
-        if code=="V01-V99" or code=="W00-X59":#we start with the special cases
-            return ["V01-X59"] + get_ancestors("V01-X59")
-        elif code=="W00-W19" or code=="W20-W49" or code=="W50-W64" or code=="W65-W74" or code=="W75-W84" or code=="W85-W99" or code=="X00-X09" or code=="X10-X19" or code=="X20-X29" or code=="X30-X39" or code=="X40-X49" or code=="X50-X57" or code=="X58-X59":
-            return ["W00-X59"] + get_ancestors("W00-X59")
-        else:
-            for h in range(1,i+1):
-                k=i-h
-                if(len(all_codes_no_dots[k])==7 and code[0]==all_codes_no_dots[k][0] and code in get_descendants(all_codes_no_dots[k])):
-                    return [all_codes_no_dots[k]] + get_ancestors(all_codes_no_dots[k])
-            return [_get_chapter(code)]
-    elif len(code)==3:#if its a category
-        i = _get_index(code)
-        for h in range(1,i+1):
-            k=i-h
-            if len(all_codes_no_dots[k])==7:#the first category we meet going to the left will contain our code
-                return [all_codes_no_dots[k]] + get_ancestors(all_codes_no_dots[k])
-    else:#if its a subcategory
-        return [code[:-1]] + get_ancestors(code[:-1])
-
 def is_ancestor(a,b):
     if not is_valid_item(a):
         raise ValueError(a+" is not a valid ICD-10 code.")
@@ -451,7 +402,6 @@ def get_nearest_common_ancestor(a,b):
         if anc in anc_b:
             return anc
     return ""
-    
 '''
 
 def get_all_codes(with_dots=True):
