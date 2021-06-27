@@ -24,9 +24,16 @@ This library is a work in progress. The documentation will be updated as I add a
   * [get_code_first(code, search_in_ancestors=False, prioritize_blocks=False)](#get_code_firstcode-search_in_ancestorsfalse-prioritize_blocksfalse)
   * [get_parent(code, prioritize_blocks=False)](#get_parentcode-prioritize_blocksfalse)
   * [get_children(code, prioritize_blocks=False)](#get_childrencode-prioritize_blocksfalse)
+  * [get_ancestors(code, prioritize_blocks=False)](#get_ancestorscode-prioritize_blocksfalse)
+  * [get_descendants(code, prioritize_blocks=False)](#get_descendantscode-prioritize_blocksfalse)
+  * [is_ancestor(a,b,prioritize_blocks_a=False,prioritize_blocks_b=False)](#is_ancestorabprioritize_blocks_afalseprioritize_blocks_bfalse)
+  * [is_descendant(a,b,prioritize_blocks_a=False,prioritize_blocks_b=False)](#is_descendantabprioritize_blocks_afalseprioritize_blocks_bfalse)
+  * [get_nearest_common_ancestor(a,b,prioritize_blocks_a=False,prioritize_blocks_b=False)](#get_nearest_common_ancestorabprioritize_blocks_afalseprioritize_blocks_bfalse)
   * [is_leaf(code, prioritize_blocks=False)](#is_leafcode-prioritize_blocksfalse)
   * [get_all_codes(keep_dots)](#get_all_codeswith_dotstrue)
   * [get_index(code)](#get_indexcode)
+  * [remove_dot(code)](#remove_dotcode)
+  * [add_dot(code)](#add_dotcode)
 
 ## Documentation
 Here I list all the functions provided by this library and describe how to use them. If you are interested in a more interactive introduction to simple_icd_10_cm, please take a look at the Jupyter Notebook ["Showcase notebook.ipynb"](https://github.com/StefanoTrv/simple_icd_10_CM/blob/d736170a378374935277723604e5dd3b82ebae48/Showcase%20notebook.ipynb); there you can also find more examples.
@@ -265,6 +272,34 @@ cm.get_descendants("G93")
 cm.get_descendants("S14.109S")
 #[]
 ```
+### is_ancestor(a,b,prioritize_blocks_a=False,prioritize_blocks_b=False)
+This function takes two strings as input. If both strings are valid ICD-10-CM codes, it returns True if the first string is an ancestor of the second string. If at least one of the strings is not a valid ICD-10-CM code, it raises a ValueError. The optional arguments `prioritize_blocks_a` and `prioritize_blocks_b` refer, respectively, to the codes in `a` and in `b`; please see $#priotize_blocks_explained# for the meaning of these optional arguments.
+```python
+cm.is_ancestor("18","R01.0")
+#True
+cm.is_ancestor("K00-K14","M31")
+#False
+cm.is_ancestor("B99","B99")
+#False
+cm.is_ancestor("B99","B99",prioritize_blocks_a=True)
+#True
+```
+### is_descendant(a,b,prioritize_blocks_a=False,prioritize_blocks_b=False)
+This function takes two strings as input. If both strings are valid ICD-10-CM codes, it returns True if the first string is a descendant of the second string. If at least one of the strings is not a valid ICD-10-CM code, it raises a ValueError. The optional arguments `prioritize_blocks_a` and `prioritize_blocks_b` refer, respectively, to the codes in `a` and in `b`; please see $#priotize_blocks_explained# for the meaning of these optional arguments.
+```python
+cm.is_descendant("R01.0","18")
+#True
+cm.is_descendant("M31","K00-K14")
+#False
+```
+### get_nearest_common_ancestor(a,b,prioritize_blocks_a=False,prioritize_blocks_b=False)
+This function takes two strings as input. If both strings are valid ICD-10-CM codes, it returns the nearest common ancestor if it exists, an empty string if it doesn't exist. If at least one of the strings is not a valid ICD-10-CM code, it raises a ValueError. The optional arguments `prioritize_blocks_a` and `prioritize_blocks_b` refer, respectively, to the codes in `a` and in `b`; please see $#priotize_blocks_explained# for the meaning of these optional arguments.
+```python
+cm.get_nearest_common_ancestor("H28","H25.1")
+#'H25-H28'
+cm.get_nearest_common_ancestor("K35","E21.0")
+#''
+```
 ### is_leaf(code, prioritize_blocks=False)
 This function takes a string as input. If the string is a valid ICD-10-CM code, it returns True if it's a leaf in the ICD-10-CM classification (that is, if it has no children), otherwise it returns False. If the string is not a valid ICD-10-CM code it raises a ValueError. For the meaning of the optional argument `prioritize_blocks`, please see $#priotize_blocks_explained#.
 ```python
@@ -273,7 +308,6 @@ cm.is_leaf("12")
 cm.is_leaf("I70.501")
 #True
 ```
-
 ### get_all_codes(with_dots=True)
 This function returns the list of all items in the ICD-10-CM classification. If the optional boolean argument `with_dots` is set to False, the subcategories in the list will not have a dot in them, otherwise the subcategories will have a dot in them. The codes that represent both a block and a category (for example "B99") appear only once in this list.
 ```python
@@ -289,4 +323,24 @@ cm.get_index("P00")
 #27735
 cm.get_all_codes(True)[27735]
 #"P00"
+```
+### remove_dot(code)
+This function takes a string as input. If the string is a valid ICD-10-CM code, it returns the same code in the notation without the dot, otherwise it raises a ValueError.
+```python
+cm.remove_dot("C84.Z0")
+#'C84Z0'
+cm.remove_dot("C84Z0")
+#'C84Z0'
+cm.remove_dot("K00-K14")
+#'K00-K14'
+```
+### add_dot(code)
+This function takes a string as input. If the string is a valid ICD-10-CM code, it returns the same code in the notation with the dot, otherwise it raises a ValueError.
+```python
+cm.add_dot("C84Z0")
+#'C84.Z0'
+cm.add_dot("C84.Z0")
+#'C84.Z0'
+cm.add_dot("K00-K14")
+#'K00-K14'
 ```
