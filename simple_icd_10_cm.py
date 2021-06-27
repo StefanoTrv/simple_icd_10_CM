@@ -382,18 +382,20 @@ def _add_children_to_list(node, list):
         list.append(child.name)
         _add_children_to_list(child,list)
 
-'''
-def is_ancestor(a,b):
+def is_ancestor(a,b,prioritize_blocks_a=False,prioritize_blocks_b=False):
     if not is_valid_item(a):
-        raise ValueError(a+" is not a valid ICD-10 code.")
-    return a in get_ancestors(b)
+        raise ValueError("The code \""+a+"\" does not exist.")
+    node = code_to_node[_add_dot_to_code(a)]
+    if prioritize_blocks_a and node.parent!=None and node.parent.name==node.name:
+        node = node.parent
+    return a in get_ancestors(b, prioritize_blocks=prioritize_blocks_b) and (a!=b or prioritize_blocks_a)
 
-def is_descendant(a,b):
-    return is_ancestor(b,a)
+def is_descendant(a,b,prioritize_blocks_a=False,prioritize_blocks_b=False):
+    return is_ancestor(b,a,prioritize_blocks_a=prioritize_blocks_b,prioritize_blocks_b=prioritize_blocks_a)
 
-def get_nearest_common_ancestor(a,b):
-    anc_a = [a] + get_ancestors(a)
-    anc_b = [b] + get_ancestors(b)
+def get_nearest_common_ancestor(a,b,prioritize_blocks_a=False,prioritize_blocks_b=False):
+    anc_a = [a] + get_ancestors(a, prioritize_blocks=prioritize_blocks_a)
+    anc_b = [b] + get_ancestors(b, prioritize_blocks=prioritize_blocks_b)
     if len(anc_b) > len(anc_a):
         temp = anc_a
         anc_a = anc_b
@@ -402,7 +404,6 @@ def get_nearest_common_ancestor(a,b):
         if anc in anc_b:
             return anc
     return ""
-'''
 
 def get_all_codes(with_dots=True):
     if all_codes_list==[]:
@@ -439,3 +440,15 @@ def get_index(code):
                 return i
             else:
                 i=i+1
+
+def remove_dot(code):
+    if all_codes_list==[]:
+        for chapter in chapter_list:
+            _add_tree_to_list(chapter)
+    return all_codes_list_no_dots[get_index(code)]
+
+def add_dot(code):
+    if all_codes_list==[]:
+        for chapter in chapter_list:
+            _add_tree_to_list(chapter)
+    return all_codes_list[get_index(code)]
