@@ -1,9 +1,14 @@
 # simple_icd_10_CM
 A simple python library for ICD-10_CM codes
 
-This library is a work in progress. The documentation will be updated as I add and/or change features. Expect bugs and major changes until the library is officially released. If you are reading this, it has not been officially released.
+**This library is a work in progress. The documentation will be updated as I add and/or change features. Expect bugs and major changes until the library is officially released. If you are reading this, it has not been officially released.**
+
+**THE SETUP INSTRUCTIONS FOR PIP AND CONDA WILL NOT WORK UNTIL THE OFFICIAL RELEASE**
 
 ## Index
+* [Release notes](#release-notes)
+* [Introduction](#introduction)
+* [Setup](#setup)
 * [Documentation](#documentation)
   * [is_valid_item(code)](#is_valid_itemcode)
   * [is_category_or_subcategory(code)](#is_category_or_subcategorycode)
@@ -34,6 +39,28 @@ This library is a work in progress. The documentation will be updated as I add a
   * [get_index(code)](#get_indexcode)
   * [remove_dot(code)](#remove_dotcode)
   * [add_dot(code)](#add_dotcode)
+
+## Release notes
+None yet
+
+## Introduction
+The objective of this library is to provide a simple instrument for dealing with **ICD-10-CM** codes in Python. It provides ways to check whether a code exists, find its ancestors and descendants, see the data associated with it, including its description, and much more.  
+If you are looking for a library that deals with ICD-10 codes instead of ICD-10-CM codes, you can check the [simple_icd_10 library](https://github.com/StefanoTrv/simple_icd_10), which is based on the 2019 version of ICD-10.
+
+The data used in this library was taken from the websites of the CDC and of the CMS. This library currently uses the **January 2021 release of ICD-10-CM**.
+
+## Setup
+You can install the package with pip, using this command:
+```bash
+pip install simple-icd-10-cm
+```
+
+You can also install the package with conda, using the following command:
+```bash
+conda install -c stefanotrv simple_icd_10_cm
+```
+
+You can also use the "simple_icd_10_cm.py" file, which contains all the source code, in conjunction with the "data" folder, which contains the data used in this library (you can find them in the [GitHub repository](https://github.com/StefanoTrv/simple_icd_10_CM)).
 
 ## Documentation
 Here I list all the functions provided by this library and describe how to use them. If you are interested in a more interactive introduction to simple_icd_10_cm, please take a look at the Jupyter Notebook ["Showcase notebook.ipynb"](https://github.com/StefanoTrv/simple_icd_10_CM/blob/d736170a378374935277723604e5dd3b82ebae48/Showcase%20notebook.ipynb); there you can also find more examples.
