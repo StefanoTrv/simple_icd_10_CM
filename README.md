@@ -10,6 +10,7 @@ A simple python library for ICD-10_CM codes
 * [Introduction](#introduction)
 * [Setup](#setup)
 * [The format of the codes](#the-format-of-the-codes)
+* [About the file "Instructional Notations.md"](#about-the-file-instructional-notationsmd)
 * [Documentation](#documentation)
   * [is_valid_item(code)](#is_valid_itemcode)
   * [is_category_or_subcategory(code)](#is_category_or_subcategorycode)
@@ -66,6 +67,9 @@ You can also use the "simple_icd_10_cm.py" file, which contains all the source c
 ## The format of the codes
 The codes of subcategories can be written in two different ways: with a dot (for example "I13.1") and with no dot (for example "I131"). The functions in this library can receive as input codes in both these formats. The codes returned by the functions will always be in the format with the dot.  
 You can easily change the format of a code by using the [`remove_dot`](#remove_dotcode) and [`add_dot`](#add_dotcode) functions.
+
+## About the file "Instructional Notations.md"
+The file [Instructional Notations.md](https://github.com/StefanoTrv/simple_icd_10_CM/blob/8d15f9bd155567049998f4189fd7e1fc427d143f/Instructional%20Notations.md) contains the introduction present in the file `icd10cm_tabular_2021.xml` (the file that contains the whole ICD-10-CM classification), copied there in a more accessible and readable format. There you can find an explanation about the meaning of most of the additional fields that can accompany a code.
 
 ## Documentation
 Here I list all the functions provided by this library and describe how to use them. If you are interested in a more interactive introduction to simple_icd_10_cm, please take a look at the Jupyter Notebook ["Showcase notebook.ipynb"](https://github.com/StefanoTrv/simple_icd_10_CM/blob/d736170a378374935277723604e5dd3b82ebae48/Showcase%20notebook.ipynb); there you can also find more examples.
