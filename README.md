@@ -43,6 +43,7 @@ A simple python library for ICD-10_CM codes
   * [get_index(code)](#get_indexcode)
   * [remove_dot(code)](#remove_dotcode)
   * [add_dot(code)](#add_dotcode)
+* [Conclusion](#conclusion)
 
 ## Release notes
 None yet
@@ -410,3 +411,20 @@ cm.add_dot("C84.Z0")
 cm.add_dot("K00-K14")
 #'K00-K14'
 ```
+
+## Conclusion
+This should be everything you need to know about the simple_icd_10_CM library. Please contact me if you find any mistake, bug, missing feature or anything else that could be improved or made easier to comprehend, both in this documentation and in the library itself as well as in the [Showcase notebook](https://github.com/StefanoTrv/simple_icd_10_CM/blob/d736170a378374935277723604e5dd3b82ebae48/Showcase%20notebook.ipynb). You can also contact me if you need any help using this library, but I may not be able to help with questions about the ICD-10-CM classification itself. This library currently only support the January 2021 release of ICD-10-CM: let me know if you'd like me to implement the ability to switch between different versions of ICD-10-CM, and also tell me which release or releases you are interested in.
+
+If you find this library useful and are feeling generous, consider making a donation using one of the methods listed at the end of this document.
+
+*Stefano Travasci*
+
+---
+
+Paypal: [![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/donate?hosted_button_id=9HMMFAZE248VN)
+
+Curecoin: BKxCWuWzsqtLzAvAjtpsHpJ7LqFHPubqft
+
+Bitcoin: bc1qjtnvzzgpsxz397l03vhrw8l30vl2p7fepmn5yy
+
+<sub>*let me know if your favorite donation method is not in this list*</sub>
