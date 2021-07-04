@@ -1,5 +1,5 @@
 # simple_icd_10_CM
-A simple python library for ICD-10_CM codes
+A simple python library for ICD-10-CM codes
 
 **This library is a work in progress. The documentation will be updated as I add and/or change features. Expect bugs and major changes until the library is officially released. If you are reading this, it has not been officially released.**
 
@@ -75,7 +75,7 @@ You can easily change the format of a code by using the [`remove_dot`](#remove_d
 The file [Instructional Notations.md](https://github.com/StefanoTrv/simple_icd_10_CM/blob/8d15f9bd155567049998f4189fd7e1fc427d143f/Instructional%20Notations.md) contains the introduction present in the file `icd10cm_tabular_2021.xml` (the file that contains the whole ICD-10-CM classification), copied there in a more accessible and readable format. There you can find an explanation about the meaning of most of the additional fields that can accompany a code.
 
 ## Blocks containing only one category
-Unlike ICD-10, ICD-10-CM includes blocks of categories that contain only one (and its subcategories). These blocks are named after the category that they contain, which means that ICD-10-CM contains blocks and categories that have the same exact code. This is a problem: because of this questionable decision, we can't know for sure if the code "B99", for example, refers to the category "B99" or to the block with the same name. This can be seen in the following example, where "B99" is recognised as both a block and a category:
+Unlike ICD-10, ICD-10-CM includes blocks of categories that contain only one (and its subcategories). These blocks are named after the category that they contain, which means that ICD-10-CM contains blocks and categories that have the same exact code. This is a problem: because of this questionable decision, we can't know for sure if the code "B99", for example, refers to the category "B99" or to the block with the same name. This can be seen in the following example, where "B99" is recognized as both a block and a category:
 ```python
 cm.is_block("B99")
 #True
