@@ -1,1 +1,1 @@
-simple_icd_10_CM
+simple_icd_10_cm

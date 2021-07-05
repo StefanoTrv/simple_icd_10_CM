@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="simple_icd_10_cm",
-    version="1.0.0",
+    version="1.0.4",
     author="Stefano Travasci",
     author_email="stefanotravasci@gmail.com",
     description="A simple python library for ICD-10-CM codes",
@@ -13,6 +13,8 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/StefanoTrv/simple_icd_10_CM",
     packages=setuptools.find_packages(),
+    package_dir={'simple_icd_10_cm': 'simple_icd_10_cm'},
+    package_data={'simple_icd_10_cm': ['data/*']},
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
