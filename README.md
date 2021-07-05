@@ -1,4 +1,4 @@
-# simple_icd_10_CM
+# simple_icd_10_cm
 A simple python library for ICD-10-CM codes
 
 ## Index
@@ -410,7 +410,7 @@ cm.add_dot("K00-K14")
 ```
 
 ## Conclusion
-This should be everything you need to know about the simple_icd_10_CM library. Please contact me if you find any mistake, bug, missing feature or anything else that could be improved or made easier to comprehend, both in this documentation and in the library itself as well as in the [Showcase notebook](https://github.com/StefanoTrv/simple_icd_10_CM/blob/master/Showcase%20notebook.ipynb). You can also contact me if you need any help using this library, but I may not be able to help with questions about the ICD-10-CM classification itself. This library currently only support the January 2021 release of ICD-10-CM: let me know if you'd like me to implement the ability to switch between different versions of ICD-10-CM, and also tell me which release or releases you are interested in.
+This should be everything you need to know about the simple_icd_10_cm library. Please contact me if you find any mistake, bug, missing feature or anything else that could be improved or made easier to comprehend, both in this documentation and in the library itself as well as in the [Showcase notebook](https://github.com/StefanoTrv/simple_icd_10_CM/blob/master/Showcase%20notebook.ipynb). You can also contact me if you need any help using this library, but I may not be able to help with questions about the ICD-10-CM classification itself. This library currently only support the January 2021 release of ICD-10-CM: let me know if you'd like me to implement the ability to switch between different versions of ICD-10-CM, and also tell me which release or releases you are interested in.
 
 If you find this library useful and are feeling generous, consider making a donation using one of the methods listed at the end of this document.
 
