@@ -1,10 +1,6 @@
 # simple_icd_10_CM
 A simple python library for ICD-10-CM codes
 
-**This library is a work in progress. The documentation will be updated as I add and/or change features. Expect bugs and major changes until the library is officially released. If you are reading this, it has not been officially released.**
-
-**THE SETUP INSTRUCTIONS FOR PIP AND CONDA WILL NOT WORK UNTIL THE OFFICIAL RELEASE**
-
 ## Index
 * [Release notes](#release-notes)
 * [Introduction](#introduction)
@@ -47,7 +43,7 @@ A simple python library for ICD-10-CM codes
 * [Conclusion](#conclusion)
 
 ## Release notes
-None yet
+* **1.0.0**: Initial release
 
 ## Introduction
 The objective of this library is to provide a simple instrument for dealing with **ICD-10-CM** codes in Python. It provides ways to check whether a code exists, find its ancestors and descendants, see the data associated with it, including its description, and much more.  
