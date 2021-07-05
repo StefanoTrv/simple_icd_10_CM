@@ -31,6 +31,7 @@ A simple python library for ICD-10-CM codes
   * [get_seven_chr_def(code, search_in_ancestors=False, prioritize_blocks=False)](#get_seven_chr_defcode-search_in_ancestorsfalse-prioritize_blocksfalse)
   * [get_use_additional_code(code, search_in_ancestors=False, prioritize_blocks=False)](#get_use_additional_codecode-search_in_ancestorsfalse-prioritize_blocksfalse)
   * [get_code_first(code, search_in_ancestors=False, prioritize_blocks=False)](#get_code_firstcode-search_in_ancestorsfalse-prioritize_blocksfalse)
+  * [get_full_data(code, search_in_ancestors=False, prioritize_blocks=False)](get_full_datacode-search_in_ancestorsfalse-prioritize_blocksfalse)
   * [get_parent(code, prioritize_blocks=False)](#get_parentcode-prioritize_blocksfalse)
   * [get_children(code, prioritize_blocks=False)](#get_childrencode-prioritize_blocksfalse)
   * [get_ancestors(code, prioritize_blocks=False)](#get_ancestorscode-prioritize_blocksfalse)
