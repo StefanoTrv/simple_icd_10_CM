@@ -1,5 +1,13 @@
 import xml.etree.ElementTree as ET
 
+try:
+    import importlib.resources as pkg_resources
+except ImportError:
+    # Try backported to PY<37 `importlib_resources`.
+    import importlib_resources as pkg_resources
+
+import data  # relative-import the "package" containing the data
+
 chapter_list = []
 
 code_to_node = {}
@@ -118,15 +126,14 @@ class _CodeTree:
 
 def _load_codes():
     #loads the list of all codes, to remove later from the tree the ones that do not exist for very specific rules not easily extracted from the XML file
-    f = open("data/icd10cm-order-Jan-2021.txt", "r")
+    f = pkg_resources.read_text(data, 'icd10cm-order-Jan-2021.txt')
     global all_confirmed_codes
     all_confirmed_codes = set()
     for line in f:
         all_confirmed_codes.add(line[6:13].strip())
     
     #creates the tree
-    tree = ET.parse('data/icd10cm_tabular_2021.xml')
-    root = tree.getroot()
+    root = ET.fromstring(pkg_resources.read_text(data, 'icd10cm_tabular_2021.xml'))
     root.remove(root[0])
     root.remove(root[0])
     for child in root:
