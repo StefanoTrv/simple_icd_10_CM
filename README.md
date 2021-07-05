@@ -36,7 +36,7 @@ A simple python library for ICD-10-CM codes
   * [is_descendant(a,b,prioritize_blocks_a=False,prioritize_blocks_b=False)](#is_descendantabprioritize_blocks_afalseprioritize_blocks_bfalse)
   * [get_nearest_common_ancestor(a,b,prioritize_blocks_a=False,prioritize_blocks_b=False)](#get_nearest_common_ancestorabprioritize_blocks_afalseprioritize_blocks_bfalse)
   * [is_leaf(code, prioritize_blocks=False)](#is_leafcode-prioritize_blocksfalse)
-  * [get_all_codes(keep_dots)](#get_all_codeswith_dotstrue)
+  * [get_all_codes(with_dots)](#get_all_codeswith_dotstrue)
   * [get_index(code)](#get_indexcode)
   * [remove_dot(code)](#remove_dotcode)
   * [add_dot(code)](#add_dotcode)
