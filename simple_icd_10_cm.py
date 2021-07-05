@@ -70,16 +70,20 @@ class _CodeTree:
                 self.seven_chr_note=subtree[0].text
                 new_seven_chr_note_ancestor=self
             elif subtree.tag=="useAdditionalCode":
-                self.use_additional_code=subtree[0].text
-                for i in range(1,len(subtree)):#for multiple lines
+                for i in range(0,len(subtree)):#in case there are multiple lines
                     self.use_additional_code=self.use_additional_code+"\n"+subtree[i].text
                 new_use_additional_code_ancestor=self
             elif subtree.tag=="codeFirst":
-                self.code_first=subtree[0].text
-                for i in range(1,len(subtree)):#for multiple lines
+                for i in range(0,len(subtree)):#in case there are multiple lines
                     self.code_first=self.code_first+"\n"+subtree[i].text
                 new_code_first_ancestor=self
-            
+        
+        #cleans the use_additional_code and code_first fields from extra new lines
+        if self.use_additional_code!="" and self.use_additional_code[0]=="\n":
+            self.use_additional_code=self.use_additional_code[1:]
+        if self.code_first!="" and self.code_first[0]=="\n":
+            self.code_first=self.code_first[1:]
+        
         #sets the type
         if tree.tag=="chapter":
             self.type="chapter"
