@@ -32,9 +32,9 @@ A simple python library for ICD-10-CM codes
   * [get_children(code, prioritize_blocks=False)](#get_childrencode-prioritize_blocksfalse)
   * [get_ancestors(code, prioritize_blocks=False)](#get_ancestorscode-prioritize_blocksfalse)
   * [get_descendants(code, prioritize_blocks=False)](#get_descendantscode-prioritize_blocksfalse)
-  * [is_ancestor(a,b,prioritize_blocks_a=False,prioritize_blocks_b=False)](#is_ancestorabprioritize_blocks_afalseprioritize_blocks_bfalse)
-  * [is_descendant(a,b,prioritize_blocks_a=False,prioritize_blocks_b=False)](#is_descendantabprioritize_blocks_afalseprioritize_blocks_bfalse)
-  * [get_nearest_common_ancestor(a,b,prioritize_blocks_a=False,prioritize_blocks_b=False)](#get_nearest_common_ancestorabprioritize_blocks_afalseprioritize_blocks_bfalse)
+  * [is_ancestor(a, b, prioritize_blocks_a=False, prioritize_blocks_b=False)](#is_ancestora-b-prioritize_blocks_afalse-prioritize_blocks_bfalse)
+  * [is_descendant(a, b, prioritize_blocks_a=False, prioritize_blocks_b=False)](#is_descendanta-b-prioritize_blocks_afalse-prioritize_blocks_bfalse)
+  * [get_nearest_common_ancestor(a, b, prioritize_blocks_a=False, prioritize_blocks_b=False)](#get_nearest_common_ancestora-b-prioritize_blocks_afalse-prioritize_blocks_bfalse)
   * [is_leaf(code, prioritize_blocks=False)](#is_leafcode-prioritize_blocksfalse)
   * [get_all_codes(with_dots=True)](#get_all_codeswith_dotstrue)
   * [get_index(code)](#get_indexcode)
@@ -337,7 +337,7 @@ cm.get_descendants("G93")
 cm.get_descendants("S14.109S")
 #[]
 ```
-### is_ancestor(a,b,prioritize_blocks_a=False,prioritize_blocks_b=False)
+### is_ancestor(a, b, prioritize_blocks_a=False, prioritize_blocks_b=False)
 This function takes two strings as input. If both strings are valid ICD-10-CM codes, it returns True if the first string is an ancestor of the second string. If at least one of the strings is not a valid ICD-10-CM code, it raises a ValueError. The optional arguments `prioritize_blocks_a` and `prioritize_blocks_b` refer, respectively, to the codes in `a` and in `b`; please see [Blocks containing only one category](#blocks-containing-only-one-category) for the meaning of these optional arguments.
 ```python
 cm.is_ancestor("18","R01.0")
@@ -349,7 +349,7 @@ cm.is_ancestor("B99","B99")
 cm.is_ancestor("B99","B99",prioritize_blocks_a=True)
 #True
 ```
-### is_descendant(a,b,prioritize_blocks_a=False,prioritize_blocks_b=False)
+### is_descendant(a, b, prioritize_blocks_a=False, prioritize_blocks_b=False)
 This function takes two strings as input. If both strings are valid ICD-10-CM codes, it returns True if the first string is a descendant of the second string. If at least one of the strings is not a valid ICD-10-CM code, it raises a ValueError. The optional arguments `prioritize_blocks_a` and `prioritize_blocks_b` refer, respectively, to the codes in `a` and in `b`; please see [Blocks containing only one category](#blocks-containing-only-one-category) for the meaning of these optional arguments.
 ```python
 cm.is_descendant("R01.0","18")
@@ -357,7 +357,7 @@ cm.is_descendant("R01.0","18")
 cm.is_descendant("M31","K00-K14")
 #False
 ```
-### get_nearest_common_ancestor(a,b,prioritize_blocks_a=False,prioritize_blocks_b=False)
+### get_nearest_common_ancestor(a, b, prioritize_blocks_a=False, prioritize_blocks_b=False)
 This function takes two strings as input. If both strings are valid ICD-10-CM codes, it returns the nearest common ancestor if it exists, an empty string if it doesn't exist. If at least one of the strings is not a valid ICD-10-CM code, it raises a ValueError. The optional arguments `prioritize_blocks_a` and `prioritize_blocks_b` refer, respectively, to the codes in `a` and in `b`; please see [Blocks containing only one category](#blocks-containing-only-one-category) for the meaning of these optional arguments.
 ```python
 cm.get_nearest_common_ancestor("H28","H25.1")
