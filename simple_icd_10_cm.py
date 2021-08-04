@@ -405,8 +405,8 @@ def is_descendant(a,b,prioritize_blocks_a=False,prioritize_blocks_b=False):
     return is_ancestor(b,a,prioritize_blocks_a=prioritize_blocks_b,prioritize_blocks_b=prioritize_blocks_a)
 
 def get_nearest_common_ancestor(a,b,prioritize_blocks_a=False,prioritize_blocks_b=False):
-    anc_a = [a] + get_ancestors(a, prioritize_blocks=prioritize_blocks_a)
-    anc_b = [b] + get_ancestors(b, prioritize_blocks=prioritize_blocks_b)
+    anc_a = [_add_dot_to_code(a)] + get_ancestors(a, prioritize_blocks=prioritize_blocks_a)
+    anc_b = [_add_dot_to_code(b)] + get_ancestors(b, prioritize_blocks=prioritize_blocks_b)
     if len(anc_b) > len(anc_a):
         temp = anc_a
         anc_a = anc_b
