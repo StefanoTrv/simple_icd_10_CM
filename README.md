@@ -359,7 +359,7 @@ cm.is_descendant("M31","K00-K14")
 #False
 ```
 ### get_nearest_common_ancestor(a, b, prioritize_blocks_a=False, prioritize_blocks_b=False)
-This function takes two strings as input. If both strings are valid ICD-10-CM codes, it returns the nearest common ancestor if it exists, an empty string if it doesn't exist. If at least one of the strings is not a valid ICD-10-CM code, it raises a ValueError. The optional arguments `prioritize_blocks_a` and `prioritize_blocks_b` refer, respectively, to the codes in `a` and in `b`; please see [Blocks containing only one category](#blocks-containing-only-one-category) for the meaning of these optional arguments.
+This function takes two strings as input. If both strings are valid ICD-10-CM codes, it returns their nearest common ancestor if it exists, an empty string if it doesn't exist. If at least one of the strings is not a valid ICD-10-CM code, it raises a ValueError. The optional arguments `prioritize_blocks_a` and `prioritize_blocks_b` refer, respectively, to the codes in `a` and in `b`; please see [Blocks containing only one category](#blocks-containing-only-one-category) for the meaning of these optional arguments.
 ```python
 cm.get_nearest_common_ancestor("H28","H25.1")
 #'H25-H28'
