@@ -6,7 +6,7 @@ except ImportError:
     # Try backported to PY<37 `importlib_resources`.
     import importlib_resources as pkg_resources
 
-from . import data  # relative-import the "package" containing the data
+import data  # relative-import the "package" containing the data
 
 chapter_list = []
 
@@ -44,7 +44,7 @@ class _CodeTree:
         new_seven_chr_note_ancestor=seven_chr_note_ancestor
         new_use_additional_code_ancestor=use_additional_code_ancestor
         new_code_first_ancestor=code_first_ancestor
-        if "id" in tree.attrib: #the name of sections is an attribute instead of the text in an XML element
+        if "id" in tree.attrib: #the name of sections is an attribute instead of text inside an XML element
             self.name=tree.attrib["id"]
         for subtree in tree:
             if subtree.tag=="section" or subtree.tag=="diag": #creates a new child for this node
@@ -120,7 +120,8 @@ class _CodeTree:
             while len(extended_name)<7:#adds the placeholder X if needed
                 extended_name = extended_name+"X"
             for extension in dictionary:
-                if(extended_name[:3]+extended_name[4:]+extension in all_confirmed_codes):#checks if there's a special rule that excludes this new code
+                #print(extended_name[:3]+extended_name[4:]+extension)
+                if((extended_name[:3]+extended_name[4:]+extension) in all_confirmed_codes):#checks if there's a special rule that excludes this new code
                     new_XML = "<diag_ext><name>"+extended_name+extension+"</name><desc>"+self.description+", "+dictionary[extension]+"</desc></diag_ext>"
                     self.children.append(_CodeTree(ET.fromstring(new_XML),parent=self,seven_chr_def_ancestor=new_seven_chr_def_ancestor,seven_chr_note_ancestor=new_seven_chr_note_ancestor,use_additional_code_ancestor=new_use_additional_code_ancestor,code_first_ancestor=new_code_first_ancestor))
 
@@ -129,7 +130,8 @@ def _load_codes():
     f = pkg_resources.read_text(data, 'icd10cm-order-Jan-2021.txt')
     global all_confirmed_codes
     all_confirmed_codes = set()
-    for line in f:
+    lines=f.split("\n")
+    for line in lines:
         all_confirmed_codes.add(line[6:13].strip())
     
     #creates the tree
@@ -405,8 +407,8 @@ def is_descendant(a,b,prioritize_blocks_a=False,prioritize_blocks_b=False):
     return is_ancestor(b,a,prioritize_blocks_a=prioritize_blocks_b,prioritize_blocks_b=prioritize_blocks_a)
 
 def get_nearest_common_ancestor(a,b,prioritize_blocks_a=False,prioritize_blocks_b=False):
-    anc_a = [a] + get_ancestors(a, prioritize_blocks=prioritize_blocks_a)
-    anc_b = [b] + get_ancestors(b, prioritize_blocks=prioritize_blocks_b)
+    anc_a = [_add_dot_to_code(a)] + get_ancestors(a, prioritize_blocks=prioritize_blocks_a)
+    anc_b = [_add_dot_to_code(b)] + get_ancestors(b, prioritize_blocks=prioritize_blocks_b)
     if len(anc_b) > len(anc_a):
         temp = anc_a
         anc_a = anc_b
