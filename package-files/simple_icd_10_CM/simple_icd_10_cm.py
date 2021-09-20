@@ -6,7 +6,7 @@ except ImportError:
     # Try backported to PY<37 `importlib_resources`.
     import importlib_resources as pkg_resources
 
-import data  # relative-import the "package" containing the data
+from . import data  # relative-import the "package" containing the data
 
 chapter_list = []
 
@@ -120,7 +120,6 @@ class _CodeTree:
             while len(extended_name)<7:#adds the placeholder X if needed
                 extended_name = extended_name+"X"
             for extension in dictionary:
-                #print(extended_name[:3]+extended_name[4:]+extension)
                 if((extended_name[:3]+extended_name[4:]+extension) in all_confirmed_codes):#checks if there's a special rule that excludes this new code
                     new_XML = "<diag_ext><name>"+extended_name+extension+"</name><desc>"+self.description+", "+dictionary[extension]+"</desc></diag_ext>"
                     self.children.append(_CodeTree(ET.fromstring(new_XML),parent=self,seven_chr_def_ancestor=new_seven_chr_def_ancestor,seven_chr_note_ancestor=new_seven_chr_note_ancestor,use_additional_code_ancestor=new_use_additional_code_ancestor,code_first_ancestor=new_code_first_ancestor))

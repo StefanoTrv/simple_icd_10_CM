@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: simple-icd-10-cm
-Version: 1.1.0
+Version: 1.1.1
 Summary: A simple python library for ICD-10-CM codes
 Home-page: https://github.com/StefanoTrv/simple_icd_10_CM
 Author: Stefano Travasci
@@ -60,6 +60,7 @@ A simple python library for ICD-10-CM codes
 * [Conclusion](#conclusion)
 
 ## Release notes
+* **1.1.1**: Fixed minor error in the release
 * **1.1.0**: Fixed a bug that caused many codes not to be included
 * **1.0.5**: Fixed a minor bug that affected get_nearest_common_ancestor(a,b) when a and b were the same code but written in different formats.
 * **1.0.4**: Managed to get the built package to read the data files
