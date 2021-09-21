@@ -284,7 +284,7 @@ cm.get_code_first("S04.01",search_in_ancestors=True)
 #'any associated intracranial injury (S06.-)'
 ```
 ### get_full_data(code, search_in_ancestors=False, prioritize_blocks=False)
-This function takes a string as input. If the string is a valid ICD-10-CM code, it returns a string containing the all the available data of the code, otherwise it raises a ValueError. The empty fields are omitted from the string, except for the list of children (see second example below). When the optional argument `search_in_ancestors` is set to True, if the given code doesn't have a certain field but one of its ancestor does, the data of the closer ancestor that contains such a field is returned: see the previous functions to know which are the fields that are influenced by this argument and which are not. For the meaning of the optional argument `prioritize_blocks`, please see [Blocks containing only one category](#blocks-containing-only-one-category).
+This function takes a string as input. If the string is a valid ICD-10-CM code, it returns a string containing all the available data of the code, otherwise it raises a ValueError. The empty fields are omitted from the string, except for the list of children (see second example below). When the optional argument `search_in_ancestors` is set to True, if the given code doesn't have a certain field but one of its ancestor does, the data of the closer ancestor that contains such a field is returned: see the previous functions to know which are the fields that are influenced by this argument and which are not. For the meaning of the optional argument `prioritize_blocks`, please see [Blocks containing only one category](#blocks-containing-only-one-category).
 ```python
 cm.get_full_data("I82.41")
 #'Name:
