@@ -345,18 +345,18 @@ def get_full_data(code, search_in_ancestors=False, prioritize_blocks=False):
         str = str + "\ninclusion term:"
         for item in node.inclusion_term:
             str = str + "\n" + item
-    seven_chr_note=get_seven_chr_note(code,search_in_ancestors=search_in_ancestors)
+    seven_chr_note=get_seven_chr_note(code,search_in_ancestors=search_in_ancestors,prioritize_blocks=prioritize_blocks)
     if seven_chr_note!="":
         str = str + "\nseven chr note:\n" + seven_chr_note
-    seven_chr_def=get_seven_chr_def(code,search_in_ancestors=search_in_ancestors)
+    seven_chr_def=get_seven_chr_def(code,search_in_ancestors=search_in_ancestors,prioritize_blocks=prioritize_blocks)
     if seven_chr_def!={}:
         str = str + "\nseven chr def:"
         for item in seven_chr_def:
             str = str + "\n" + item + ":\t" + seven_chr_def[item]
-    use_additional=get_use_additional_code(code,search_in_ancestors=search_in_ancestors)
+    use_additional=get_use_additional_code(code,search_in_ancestors=search_in_ancestors,prioritize_blocks=prioritize_blocks)
     if use_additional!="":
         str = str + "\nuse additional code:\n" + use_additional
-    code_first=get_code_first(code,search_in_ancestors=search_in_ancestors)
+    code_first=get_code_first(code,search_in_ancestors=search_in_ancestors,prioritize_blocks=prioritize_blocks)
     if code_first!="":
         str = str + "\ncode first:\n" + code_first
     if node.children==[]:

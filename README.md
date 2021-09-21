@@ -43,6 +43,7 @@ A simple python library for ICD-10-CM codes
 * [Conclusion](#conclusion)
 
 ## Release notes
+* **1.1.2**: Minor fix in get_full_data
 * **1.1.1**: Fixed minor error in the release
 * **1.1.0**: Fixed a bug that caused many codes not to be included
 * **1.0.5**: Fixed a minor bug that affected get_nearest_common_ancestor(a,b) when a and b were the same code but written in different formats.
