@@ -52,7 +52,8 @@ A simple python library for ICD-10-CM codes
 
 ## Introduction
 The objective of this library is to provide a simple instrument for dealing with **ICD-10-CM** codes in Python. It provides ways to check whether a code exists, find its ancestors and descendants, see the data associated with it, including its description, and much more.  
-If you are looking for a library that deals with ICD-10 codes instead of ICD-10-CM codes, you can check the [simple_icd_10 library](https://github.com/StefanoTrv/simple_icd_10), which is based on the 2019 version of ICD-10.
+If you are looking for a library that deals with ICD-10 codes instead of ICD-10-CM codes, you can check the [simple_icd_10 library](https://github.com/StefanoTrv/simple_icd_10), which is based on the 2019 version of ICD-10.  
+There is also a Java version of this library, [SimpleICD10CM-Java-edition](https://github.com/StefanoTrv/SimpleICD10CM-Java-edition).
 
 The data used in this library was taken from the websites of the CDC and of the CMS. This library currently uses the **January 2021 release of ICD-10-CM**.
 
