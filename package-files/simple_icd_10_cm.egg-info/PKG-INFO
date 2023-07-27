@@ -1,17 +1,15 @@
 Metadata-Version: 2.1
 Name: simple-icd-10-cm
-Version: 1.1.2
+Version: 1.2.0
 Summary: A simple python library for ICD-10-CM codes
 Home-page: https://github.com/StefanoTrv/simple_icd_10_CM
 Author: Stefano Travasci
 Author-email: stefanotravasci@gmail.com
-License: UNKNOWN
 Keywords: ICD-10-CM ICD-10 icd 10 CM codes clinical modification
-Platform: UNKNOWN
 Classifier: Programming Language :: Python :: 3
 Classifier: License :: OSI Approved :: MIT License
 Classifier: Operating System :: OS Independent
-Requires-Python: >=3
+Requires-Python: >=3.9
 Description-Content-Type: text/markdown
 License-File: LICENSE
 
@@ -447,5 +445,3 @@ Curecoin: BKxCWuWzsqtLzAvAjtpsHpJ7LqFHPubqft
 Bitcoin: bc1qjtnvzzgpsxz397l03vhrw8l30vl2p7fepmn5yy
 
 <sub>*let me know if your favorite donation method is not in this list*</sub>
-
-

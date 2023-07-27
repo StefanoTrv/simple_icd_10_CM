@@ -43,6 +43,7 @@ A simple python library for ICD-10-CM codes
 * [Conclusion](#conclusion)
 
 ## Release notes
+* **1.2.0**: Added type hints - thanks to @JosephSBoyle on GitHub
 * **1.1.2**: Minor fix in get_full_data
 * **1.1.1**: Fixed minor error in the release
 * **1.1.0**: Fixed a bug that caused many codes not to be included

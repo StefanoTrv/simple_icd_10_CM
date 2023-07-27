@@ -8,15 +8,15 @@ except ImportError:
 
 from . import data  # relative-import the "package" containing the data
 
-chapter_list = []
+chapter_list: list["_CodeTree"] = []
 
-code_to_node = {}
+code_to_node: dict[str, "_CodeTree"] = {}
 
-all_codes_list = []
+all_codes_list: list[str] = []
 
-all_codes_list_no_dots = []
+all_codes_list_no_dots: list[str] = []
 
-code_to_index_dictionary = {}
+code_to_index_dictionary: dict[str, int] = {}
 
 class _CodeTree:
     def __init__(self, tree, parent = None, seven_chr_def_ancestor = None, seven_chr_note_ancestor = None, use_additional_code_ancestor = None, code_first_ancestor = None):
@@ -153,51 +153,51 @@ def _add_dot_to_code(code):
     else:
         return code
 
-def is_valid_item(code):
+def is_valid_item(code: str) -> bool:
     return code in code_to_node or len(code)>=4 and code[:3]+"."+code[3:] in code_to_node
 
-def is_chapter(code):
+def is_chapter(code: str) -> bool:
     code = _add_dot_to_code(code)
     if code in code_to_node:
         return code_to_node[code].type=="chapter"
     else:
         return False
 
-def is_block(code):
+def is_block(code: str) -> bool:
     code = _add_dot_to_code(code)
     if code in code_to_node:
         return code_to_node[code].type=="section" or code_to_node[code].parent!=None and code_to_node[code].parent.name==code #second half of the or is for sections containing a single category
     else:
         return False
 
-def is_category(code):
+def is_category(code: str) -> bool:
     code = _add_dot_to_code(code)
     if code in code_to_node:
         return code_to_node[code].type=="category"
     else:
         return False
 
-def is_subcategory(code, include_extended_subcategories=True):
+def is_subcategory(code: str, include_extended_subcategories=True) -> bool:
     code = _add_dot_to_code(code)
     if code in code_to_node:
         return code_to_node[code].type=="subcategory" or code_to_node[code].type=="extended subcategory" and include_extended_subcategories
     else:
         return False
 
-def is_extended_subcategory(code):
+def is_extended_subcategory(code: str) -> bool:
     code = _add_dot_to_code(code)
     if code in code_to_node:
         return code_to_node[code].type=="extended subcategory"
     else:
         return False
     
-def is_category_or_subcategory(code):
+def is_category_or_subcategory(code: str) -> bool:
     return is_subcategory(code) or is_category(code)
 
-def is_chapter_or_block(code):
+def is_chapter_or_block(code: str) -> bool:
     return is_block(code) or is_chapter(code)
 
-def get_description(code, prioritize_blocks=False):
+def get_description(code: str, prioritize_blocks=False) -> str:
     if not is_valid_item(code):
         raise ValueError("The code \""+code+"\" does not exist.")
     node = code_to_node[_add_dot_to_code(code)]
@@ -206,7 +206,7 @@ def get_description(code, prioritize_blocks=False):
     else:
         return node.description
 
-def get_excludes1(code, prioritize_blocks=False):
+def get_excludes1(code: str, prioritize_blocks=False) -> list[str]:
     if not is_valid_item(code):
         raise ValueError("The code \""+code+"\" does not exist.")
     node = code_to_node[_add_dot_to_code(code)]
@@ -215,7 +215,7 @@ def get_excludes1(code, prioritize_blocks=False):
     else:
         return node.excludes1.copy()
 
-def get_excludes2(code, prioritize_blocks=False):
+def get_excludes2(code: str, prioritize_blocks=False) -> list[str]:
     if not is_valid_item(code):
         raise ValueError("The code \""+code+"\" does not exist.")
     node = code_to_node[_add_dot_to_code(code)]
@@ -224,7 +224,7 @@ def get_excludes2(code, prioritize_blocks=False):
     else:
         return node.excludes2.copy()
 
-def get_includes(code, prioritize_blocks=False):
+def get_includes(code: str, prioritize_blocks=False) -> list[str]:
     if not is_valid_item(code):
         raise ValueError("The code \""+code+"\" does not exist.")
     node = code_to_node[_add_dot_to_code(code)]
@@ -233,7 +233,7 @@ def get_includes(code, prioritize_blocks=False):
     else:
         return node.includes.copy()
 
-def get_inclusion_term(code, prioritize_blocks=False):
+def get_inclusion_term(code: str, prioritize_blocks=False) -> list[str]:
     if not is_valid_item(code):
         raise ValueError("The code \""+code+"\" does not exist.")
     node = code_to_node[_add_dot_to_code(code)]
@@ -242,7 +242,7 @@ def get_inclusion_term(code, prioritize_blocks=False):
     else:
         return node.inclusion_term.copy()
 
-def get_seven_chr_def(code, search_in_ancestors=False, prioritize_blocks=False):
+def get_seven_chr_def(code: str, search_in_ancestors=False, prioritize_blocks=False) -> dict[str, str]:
     if not is_valid_item(code):
         raise ValueError("The code \""+code+"\" does not exist.")
     node = code_to_node[_add_dot_to_code(code)]
@@ -254,7 +254,7 @@ def get_seven_chr_def(code, search_in_ancestors=False, prioritize_blocks=False):
     else:
         return res
 
-def get_seven_chr_note(code, search_in_ancestors=False, prioritize_blocks=False):
+def get_seven_chr_note(code: str, search_in_ancestors=False, prioritize_blocks=False) -> str:
     if not is_valid_item(code):
         raise ValueError("The code \""+code+"\" does not exist.")
     node = code_to_node[_add_dot_to_code(code)]
@@ -266,7 +266,7 @@ def get_seven_chr_note(code, search_in_ancestors=False, prioritize_blocks=False)
     else:
         return res
 
-def get_use_additional_code(code, search_in_ancestors=False, prioritize_blocks=False):
+def get_use_additional_code(code: str, search_in_ancestors=False, prioritize_blocks=False) -> str:
     if not is_valid_item(code):
         raise ValueError("The code \""+code+"\" does not exist.")
     node = code_to_node[_add_dot_to_code(code)]
@@ -278,7 +278,7 @@ def get_use_additional_code(code, search_in_ancestors=False, prioritize_blocks=F
     else:
         return res
 
-def get_code_first(code, search_in_ancestors=False, prioritize_blocks=False):
+def get_code_first(code: str, search_in_ancestors=False, prioritize_blocks=False) -> str:
     if not is_valid_item(code):
         raise ValueError("The code \""+code+"\" does not exist.")
     node = code_to_node[_add_dot_to_code(code)]
@@ -290,7 +290,7 @@ def get_code_first(code, search_in_ancestors=False, prioritize_blocks=False):
     else:
         return res
 
-def get_parent(code, prioritize_blocks=False):
+def get_parent(code: str, prioritize_blocks=False) -> str:
     if not is_valid_item(code):
         raise ValueError("The code \""+code+"\" does not exist.")
     node = code_to_node[_add_dot_to_code(code)]
@@ -301,7 +301,7 @@ def get_parent(code, prioritize_blocks=False):
     else:
         return ""
 
-def get_children(code, prioritize_blocks=False):
+def get_children(code: str, prioritize_blocks=False) -> list[str]:
     if not is_valid_item(code):
         raise ValueError("The code \""+code+"\" does not exist.")
     node = code_to_node[_add_dot_to_code(code)]
@@ -312,7 +312,7 @@ def get_children(code, prioritize_blocks=False):
         res.append(child.name)
     return res
 
-def is_leaf(code, prioritize_blocks=False):
+def is_leaf(code: str, prioritize_blocks=False) -> bool:
     if not is_valid_item(code):
         raise ValueError("The code \""+code+"\" does not exist.")
     node = code_to_node[_add_dot_to_code(code)]
@@ -320,7 +320,7 @@ def is_leaf(code, prioritize_blocks=False):
         node = node.parent
     return len(node.children)==0
 
-def get_full_data(code, search_in_ancestors=False, prioritize_blocks=False):
+def get_full_data(code: str, search_in_ancestors=False, prioritize_blocks=False) -> str:
     if not is_valid_item(code):
         raise ValueError("The code \""+code+"\" does not exist.")
     node = code_to_node[_add_dot_to_code(code)]
@@ -367,7 +367,7 @@ def get_full_data(code, search_in_ancestors=False, prioritize_blocks=False):
             str = str + child.name + ", "
     return str[:-2]
 
-def get_ancestors(code, prioritize_blocks=False):
+def get_ancestors(code: str,prioritize_blocks=False) -> list[str]:
     if not is_valid_item(code):
         raise ValueError("The code \""+code+"\" does not exist.")
     node = code_to_node[_add_dot_to_code(code)]
@@ -379,7 +379,7 @@ def get_ancestors(code, prioritize_blocks=False):
         node=node.parent
     return result
 
-def get_descendants(code, prioritize_blocks=False):
+def get_descendants(code: str,prioritize_blocks=False) -> list[str]:
     if not is_valid_item(code):
         raise ValueError("The code \""+code+"\" does not exist.")
     node = code_to_node[_add_dot_to_code(code)]
@@ -394,7 +394,7 @@ def _add_children_to_list(node, list):
         list.append(child.name)
         _add_children_to_list(child,list)
 
-def is_ancestor(a,b,prioritize_blocks_a=False,prioritize_blocks_b=False):
+def is_ancestor(a:str,b:str,prioritize_blocks_a=False,prioritize_blocks_b=False) -> bool:
     if not is_valid_item(a):
         raise ValueError("The code \""+a+"\" does not exist.")
     node = code_to_node[_add_dot_to_code(a)]
@@ -402,10 +402,10 @@ def is_ancestor(a,b,prioritize_blocks_a=False,prioritize_blocks_b=False):
         node = node.parent
     return a in get_ancestors(b, prioritize_blocks=prioritize_blocks_b) and (a!=b or prioritize_blocks_a)
 
-def is_descendant(a,b,prioritize_blocks_a=False,prioritize_blocks_b=False):
+def is_descendant(a:str,b:str,prioritize_blocks_a=False,prioritize_blocks_b=False) -> bool:
     return is_ancestor(b,a,prioritize_blocks_a=prioritize_blocks_b,prioritize_blocks_b=prioritize_blocks_a)
 
-def get_nearest_common_ancestor(a,b,prioritize_blocks_a=False,prioritize_blocks_b=False):
+def get_nearest_common_ancestor(a:str,b:str,prioritize_blocks_a=False,prioritize_blocks_b=False) -> str:
     anc_a = [_add_dot_to_code(a)] + get_ancestors(a, prioritize_blocks=prioritize_blocks_a)
     anc_b = [_add_dot_to_code(b)] + get_ancestors(b, prioritize_blocks=prioritize_blocks_b)
     if len(anc_b) > len(anc_a):
@@ -417,7 +417,7 @@ def get_nearest_common_ancestor(a,b,prioritize_blocks_a=False,prioritize_blocks_
             return anc
     return ""
 
-def get_all_codes(with_dots=True):
+def get_all_codes(with_dots=True) -> list[str]:
     if all_codes_list==[]:
         for chapter in chapter_list:
             _add_tree_to_list(chapter)
@@ -435,7 +435,7 @@ def _add_tree_to_list(tree):
     for child in tree.children:
         _add_tree_to_list(child)
 
-def get_index(code):
+def get_index(code: str) -> int:
     if not is_valid_item(code):
         raise ValueError("The code \""+code+"\" does not exist.")
     code = _add_dot_to_code(code)
@@ -453,13 +453,13 @@ def get_index(code):
             else:
                 i=i+1
 
-def remove_dot(code):
+def remove_dot(code: str) -> str:
     if all_codes_list==[]:
         for chapter in chapter_list:
             _add_tree_to_list(chapter)
     return all_codes_list_no_dots[get_index(code)]
 
-def add_dot(code):
+def add_dot(code: str) -> str:
     if all_codes_list==[]:
         for chapter in chapter_list:
             _add_tree_to_list(chapter)

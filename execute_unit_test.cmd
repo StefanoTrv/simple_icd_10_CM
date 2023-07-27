@@ -1,2 +1,2 @@
-python -m unittest .\unit_test.py
+python -m unittest .\test_simple_icd_10_cm.py
 pause
