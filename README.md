@@ -45,7 +45,7 @@ A simple python library for ICD-10-CM codes
 ## Release notes
 * **1.2.0**: Added type hints - thanks to @JosephSBoyle on GitHub
 * **1.1.2**: Minor fix in get_full_data
-* **1.1.1**: Fixed minor error in the release
+* **1.1.1**: Fixed a minor error in the release
 * **1.1.0**: Fixed a bug that caused many codes not to be included
 * **1.0.5**: Fixed a minor bug that affected get_nearest_common_ancestor(a,b) when a and b were the same code but written in different formats.
 * **1.0.4**: Managed to get the built package to read the data files
@@ -53,7 +53,7 @@ A simple python library for ICD-10-CM codes
 
 ## Introduction
 The objective of this library is to provide a simple instrument for dealing with **ICD-10-CM** codes in Python. It provides ways to check whether a code exists, find its ancestors and descendants, see the data associated with it, including its description, and much more.  
-If you are looking for a library that deals with ICD-10 codes instead of ICD-10-CM codes, you can check the [simple_icd_10 library](https://github.com/StefanoTrv/simple_icd_10), which is based on the 2019 version of ICD-10.  
+If you are looking for a library that deals with ICD-10 codes instead of ICD-10-CM codes, you can check the [simple_icd_10 library](https://github.com/StefanoTrv/simple_icd_10), which is based on the 2019 version of ICD-10. If you are interested in the ICD-11 MMS classification, you can check out instead the [simple_icd_11 library](https://github.com/StefanoTrv/simple_icd_11).  
 There is also a Java version of this library, [SimpleICD10CM-Java-edition](https://github.com/StefanoTrv/SimpleICD10CM-Java-edition).
 
 The data used in this library was taken from the websites of the CDC and of the CMS. This library currently uses the **January 2021 release of ICD-10-CM**.
@@ -72,7 +72,7 @@ conda install -c stefanotrv simple_icd_10_cm
 You can also use the "simple_icd_10_cm.py" file, which contains all the source code, in conjunction with the "data" folder, which contains the data used in this library (you can find them in the [GitHub repository](https://github.com/StefanoTrv/simple_icd_10_CM)).
 
 ## The format of the codes
-The codes of subcategories can be written in two different ways: with a dot (for example "I13.1") and with no dot (for example "I131"). The functions in this library can receive as input codes in both these formats. The codes returned by the functions will always be in the format with the dot.  
+Subcategories codes can be written in two different ways: with a dot (for example "I13.1") and with no dot (for example "I131"). The functions in this library can receive as input codes in both these formats. The codes returned by the functions will always be in the format with the dot.  
 You can easily change the format of a code by using the [`remove_dot`](#remove_dotcode) and [`add_dot`](#add_dotcode) functions.
 
 ## About the file "Instructional Notations.md"
@@ -225,7 +225,7 @@ cm.get_inclusion_term("J37.0")
 #['Catarrhal laryngitis', 'Hypertrophic laryngitis', 'Sicca laryngitis']
 ```
 ### get_seven_chr_note(code, search_in_ancestors=False, prioritize_blocks=False)
-This function takes a string as input. If the string is a valid ICD-10-CM code, it returns a **string** containing the data of the "sevenChrNote" field of this code, otherwise it raises a ValueError. If this code does not have an "sevenChrNote" field, it returns an empty string. Please see [Instructional Notations](https://github.com/StefanoTrv/simple_icd_10_CM/blob/master/Instructional%20Notations.md) and [About the special seventh character](#about-the-special-seventh-character) if you have doubts about the meaning of this field. When the optional argument `search_in_ancestors` is set to True, if the given code doesn't have a "sevenChrNote" field but one of its ancestor does, the "sevenChrNote" data of the closer ancestor that contains such a field is returned. For the meaning of the optional argument `prioritize_blocks`, please see [Blocks containing only one category](#blocks-containing-only-one-category).
+This function takes a string as input. If the string is a valid ICD-10-CM code, it returns a **string** containing the data of the "sevenChrNote" field of this code, otherwise it raises a ValueError. If this code does not have a "sevenChrNote" field, it returns an empty string. Please see [Instructional Notations](https://github.com/StefanoTrv/simple_icd_10_CM/blob/master/Instructional%20Notations.md) and [About the special seventh character](#about-the-special-seventh-character) if you have doubts about the meaning of this field. When the optional argument `search_in_ancestors` is set to True, if the given code doesn't have a "sevenChrNote" field but one of its ancestor does, the "sevenChrNote" data of the closer ancestor that contains such a field is returned. For the meaning of the optional argument `prioritize_blocks`, please see [Blocks containing only one category](#blocks-containing-only-one-category).
 ```python
 cm.get_seven_chr_note("I82.40")
 #''
@@ -237,7 +237,7 @@ cm.get_seven_chr_note("R40.241",search_in_ancestors=True)
 #'The following appropriate 7th character is to be added to subcategory R40.24-:'
 ```
 ### get_seven_chr_def(code, search_in_ancestors=False, prioritize_blocks=False)
-This function takes a string as input. If the string is a valid ICD-10-CM code, it returns a **dictionary** containing the data of the "sevenChrDef" field of this code, otherwise it raises a ValueError. The dictionary maps the seventh character to a string that contains its meaning. If this code does not have an "sevenChrDef" field, it returns an empty list. Please see [Instructional Notations](https://github.com/StefanoTrv/simple_icd_10_CM/blob/master/Instructional%20Notations.md) and [About the special seventh character](#about-the-special-seventh-character) if you have doubts about the meaning of this field. When the optional argument `search_in_ancestors` is set to True, if the given code doesn't have a "sevenChrDef" field but one of its ancestor does, the "sevenChrDef" data of the closer ancestor that contains such a field is returned. For the meaning of the optional argument `prioritize_blocks`, please see [Blocks containing only one category](#blocks-containing-only-one-category).
+This function takes a string as input. If the string is a valid ICD-10-CM code, it returns a **dictionary** containing the data of the "sevenChrDef" field of this code, otherwise it raises a ValueError. The dictionary maps the seventh character to a string that contains its meaning. If this code does not have a "sevenChrDef" field, it returns an empty list. Please see [Instructional Notations](https://github.com/StefanoTrv/simple_icd_10_CM/blob/master/Instructional%20Notations.md) and [About the special seventh character](#about-the-special-seventh-character) if you have doubts about the meaning of this field. When the optional argument `search_in_ancestors` is set to True, if the given code doesn't have a "sevenChrDef" field but one of its ancestor does, the "sevenChrDef" data of the closer ancestor that contains such a field is returned. For the meaning of the optional argument `prioritize_blocks`, please see [Blocks containing only one category](#blocks-containing-only-one-category).
 ```python
 cm.get_seven_chr_def("I82.40")
 #{}
@@ -275,7 +275,7 @@ cm.get_use_additional_code("R65.20",search_in_ancestors=True)
 # hepatic failure (K72.0-)'
 ```
 ### get_code_first(code, search_in_ancestors=False, prioritize_blocks=False)
-This function takes a string as input. If the string is a valid ICD-10-CM code, it returns a **string** containing the data of the "codeFirst" field of this code, otherwise it raises a ValueError. If this code does not have an "codeFirst" field, it returns an empty string. Please see [Instructional Notations](https://github.com/StefanoTrv/simple_icd_10_CM/blob/master/Instructional%20Notations.md) if you have doubts about the meaning of this field. When the optional argument `search_in_ancestors` is set to True, if the given code doesn't have a "codeFirst" field but one of its ancestor does, the "codeFirst" data of the closer ancestor that contains such a field is returned. For the meaning of the optional argument `prioritize_blocks`, please see [Blocks containing only one category](#blocks-containing-only-one-category).
+This function takes a string as input. If the string is a valid ICD-10-CM code, it returns a **string** containing the data of the "codeFirst" field of this code, otherwise it raises a ValueError. If this code does not have a "codeFirst" field, it returns an empty string. Please see [Instructional Notations](https://github.com/StefanoTrv/simple_icd_10_CM/blob/master/Instructional%20Notations.md) if you have doubts about the meaning of this field. When the optional argument `search_in_ancestors` is set to True, if the given code doesn't have a "codeFirst" field but one of its ancestor does, the "codeFirst" data of the closer ancestor that contains such a field is returned. For the meaning of the optional argument `prioritize_blocks`, please see [Blocks containing only one category](#blocks-containing-only-one-category).
 ```python
 cm.get_code_first("I82.41")
 #''
@@ -344,7 +344,7 @@ cm.get_descendants("S14.109S")
 #[]
 ```
 ### is_ancestor(a, b, prioritize_blocks_a=False, prioritize_blocks_b=False)
-This function takes two strings as input. If both strings are valid ICD-10-CM codes, it returns True if the first string is an ancestor of the second string. If at least one of the strings is not a valid ICD-10-CM code, it raises a ValueError. The optional arguments `prioritize_blocks_a` and `prioritize_blocks_b` refer, respectively, to the codes in `a` and in `b`; please see [Blocks containing only one category](#blocks-containing-only-one-category) for the meaning of these optional arguments.
+This function takes two strings as input. If both strings are valid ICD-10-CM codes, it returns True if the first string is an ancestor of the second string. If at least one of the strings is not a valid ICD-10-CM code, it raises a ValueError. The optional arguments `prioritize_blocks_a` and `prioritize_blocks_b` refer, respectively, to the codes in `a` and `b`; please see [Blocks containing only one category](#blocks-containing-only-one-category) for the meaning of these optional arguments.
 ```python
 cm.is_ancestor("18","R01.0")
 #True
@@ -356,7 +356,7 @@ cm.is_ancestor("B99","B99",prioritize_blocks_a=True)
 #True
 ```
 ### is_descendant(a, b, prioritize_blocks_a=False, prioritize_blocks_b=False)
-This function takes two strings as input. If both strings are valid ICD-10-CM codes, it returns True if the first string is a descendant of the second string. If at least one of the strings is not a valid ICD-10-CM code, it raises a ValueError. The optional arguments `prioritize_blocks_a` and `prioritize_blocks_b` refer, respectively, to the codes in `a` and in `b`; please see [Blocks containing only one category](#blocks-containing-only-one-category) for the meaning of these optional arguments.
+This function takes two strings as input. If both strings are valid ICD-10-CM codes, it returns True if the first string is a descendant of the second string. If at least one of the strings is not a valid ICD-10-CM code, it raises a ValueError. The optional arguments `prioritize_blocks_a` and `prioritize_blocks_b` refer, respectively, to the codes in `a` and `b`; please see [Blocks containing only one category](#blocks-containing-only-one-category) for the meaning of these optional arguments.
 ```python
 cm.is_descendant("R01.0","18")
 #True
@@ -364,7 +364,7 @@ cm.is_descendant("M31","K00-K14")
 #False
 ```
 ### get_nearest_common_ancestor(a, b, prioritize_blocks_a=False, prioritize_blocks_b=False)
-This function takes two strings as input. If both strings are valid ICD-10-CM codes, it returns their nearest common ancestor if it exists, an empty string if it doesn't exist. If at least one of the strings is not a valid ICD-10-CM code, it raises a ValueError. The optional arguments `prioritize_blocks_a` and `prioritize_blocks_b` refer, respectively, to the codes in `a` and in `b`; please see [Blocks containing only one category](#blocks-containing-only-one-category) for the meaning of these optional arguments.
+This function takes two strings as input. If both strings are valid ICD-10-CM codes, it returns their nearest common ancestor if it exists, an empty string if it doesn't exist. If at least one of the strings is not a valid ICD-10-CM code, it raises a ValueError. The optional arguments `prioritize_blocks_a` and `prioritize_blocks_b` refer, respectively, to the codes in `a` and `b`; please see [Blocks containing only one category](#blocks-containing-only-one-category) for the meaning of these optional arguments.
 ```python
 cm.get_nearest_common_ancestor("H28","H25.1")
 #'H25-H28'
@@ -372,7 +372,7 @@ cm.get_nearest_common_ancestor("K35","E21.0")
 #''
 ```
 ### is_leaf(code, prioritize_blocks=False)
-This function takes a string as input. If the string is a valid ICD-10-CM code, it returns True if it's a leaf in the ICD-10-CM classification (that is, if it has no children), otherwise it returns False. If the string is not a valid ICD-10-CM code it raises a ValueError. For the meaning of the optional argument `prioritize_blocks`, please see [Blocks containing only one category](#blocks-containing-only-one-category).
+This function takes a string as input. If the string is a valid ICD-10-CM code, it returns True if it's a leaf in the ICD-10-CM classification (that is, if it has no children), otherwise it returns False. If the string is not a valid ICD-10-CM code, it raises a ValueError. For the meaning of the optional argument `prioritize_blocks`, please see [Blocks containing only one category](#blocks-containing-only-one-category).
 ```python
 cm.is_leaf("12")
 #False
