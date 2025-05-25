@@ -1,3 +1,4 @@
+from typing import Optional
 import xml.etree.ElementTree as ET
 
 try:
@@ -18,8 +19,8 @@ _all_codes_list_no_dots: list[str] = []
 
 _code_to_index_dictionary: dict[str, int] = {}
 
-_all_codes_file_name = 'icd10cm-order-April-2025.txt'
-_classification_data_file_name = 'icd10cm-tabular-April-2025.xml'
+_all_codes_package_file_name: str = 'icd10cm-order-April-2025.txt'
+_classification_data_package_file_name: str = 'icd10cm-tabular-April-2025.xml'
 
 class _CodeTree:
     def __init__(self, tree, parent = None, seven_chr_def_ancestor = None, seven_chr_note_ancestor = None, use_additional_code_ancestor = None, code_first_ancestor = None):
@@ -127,19 +128,36 @@ class _CodeTree:
                     new_XML = "<diag_ext><name>"+extended_name+extension+"</name><desc>"+self.description+", "+dictionary[extension]+"</desc></diag_ext>"
                     self.children.append(_CodeTree(ET.fromstring(new_XML),parent=self,seven_chr_def_ancestor=new_seven_chr_def_ancestor,seven_chr_note_ancestor=new_seven_chr_note_ancestor,use_additional_code_ancestor=new_use_additional_code_ancestor,code_first_ancestor=new_code_first_ancestor))
 
-def _load_codes():
+def _load_codes(all_codes_file_path: Optional[str] = None, classification_data_file_path: Optional[str] = None) -> None: # either both or none of the strings must be None
     #loads the list of all codes, to remove later from the tree the ones that do not exist for very specific rules not easily extracted from the XML file
-    f = pkg_resources.read_text(data, _all_codes_file_name)
+    if all_codes_file_path is None:
+        assert classification_data_file_path is None
+        text = pkg_resources.read_text(data, _all_codes_package_file_name)
+    else:
+        assert classification_data_file_path is not None
+        with open(all_codes_file_path, encoding="utf-8") as f:
+            text = f.read()
     global all_confirmed_codes
     all_confirmed_codes = set()
-    lines=f.split("\n")
+    lines=text.split("\n")
     for line in lines:
         all_confirmed_codes.add(line[6:13].strip())
     
     #creates the tree
-    root = ET.fromstring(pkg_resources.read_text(data, _classification_data_file_name))
+    if classification_data_file_path is None:
+        root = ET.fromstring(pkg_resources.read_text(data, _classification_data_package_file_name))
+    else:
+        with open(classification_data_file_path, encoding="utf-8") as f:
+            text = f.read()
+            root = ET.fromstring(text)
     root.remove(root[0])
     root.remove(root[0])
+    if len(_chapter_list)>0: #empties data structures only if needed and if the files have been read with no error
+        _chapter_list.clear()
+        _code_to_node.clear()
+        _all_codes_list.clear()
+        _all_codes_list_no_dots.clear()
+        _code_to_index_dictionary.clear()
     for child in root:
         _chapter_list.append(_CodeTree(child))
     
@@ -148,7 +166,15 @@ def _load_codes():
 
 _load_codes()
 
-def _add_dot_to_code(code):
+def change_version(all_codes_file_path: Optional[str] = None, classification_data_file_path: Optional[str] = None) -> None:
+    if (all_codes_file_path is None and classification_data_file_path is None) or (all_codes_file_path is not None and classification_data_file_path is not None):
+        _load_codes(all_codes_file_path=all_codes_file_path,classification_data_file_path=classification_data_file_path)
+    else:
+        ac_error = "None" if all_codes_file_path is None else "\"" + all_codes_file_path + "\""
+        cd_error = "None" if classification_data_file_path is None else "\"" + classification_data_file_path + "\""
+        raise ValueError("Either both paths must be provided, or none.\nProvided values were:\n\t-all_codes_file_path is "+ac_error+"\n\t-classification_data_file_path is "+cd_error+"\n")
+
+def _add_dot_to_code(code: str):
     if len(code)<4 or code[3]==".":
         return code
     elif code[:3]+"."+code[3:] in _code_to_node:
