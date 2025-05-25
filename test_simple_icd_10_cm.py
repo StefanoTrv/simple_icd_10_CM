@@ -142,8 +142,8 @@ class TestSimpleICD10CM(unittest.TestCase):
 
     def test_get_use_additional_code(self):
         self.assertEqual(cm.get_use_additional_code("A06"),"")
-        self.assertEqual(cm.get_use_additional_code("A81"),"code to identify:\ndementia with behavioral disturbance (F02.81)\ndementia without behavioral disturbance (F02.80)")
-        self.assertEqual(cm.get_use_additional_code("E09"),"code for adverse effect, if applicable, to identify drug (T36-T50 with fifth or sixth character 5)\ncode to identify control using:\ninsulin (Z79.4)\noral antidiabetic drugs (Z79.84)\noral hypoglycemic drugs (Z79.84)")
+        self.assertEqual(cm.get_use_additional_code("A81"),"code, if applicable, to identify:\ndementia with anxiety (F02.84, F02.A4, F02.B4, F02.C4)\ndementia with behavioral disturbance (F02.81-, F02.A1-, F02.B1-, F02.C1-)\ndementia with mood disturbance (F02.83, F02.A3, F02.B3, F02.C3)\ndementia with psychotic disturbance (F02.82, F02.A2, F02.B2, F02.C2)\ndementia without behavioral disturbance (F02.80, F02.A0, F02.B0, F02.C0)\nmild neurocognitive disorder due to known physiological condition (F06.7-)")
+        self.assertEqual(cm.get_use_additional_code("E09"),"code for adverse effect, if applicable, to identify drug (T36-T50 with fifth or sixth character 5)\ncode to identify control using:\ninjectable non-insulin antidiabetic drugs (Z79.85)\ninsulin (Z79.4)\noral antidiabetic drugs (Z79.84)\noral hypoglycemic drugs (Z79.84)")
         self.assertEqual(cm.get_use_additional_code("A17.1"),"")
         self.assertEqual(cm.get_use_additional_code("H60.1"),"")
         self.assertEqual(cm.get_use_additional_code("M84.3"),"external cause code(s) to identify the cause of the stress fracture")
@@ -152,14 +152,14 @@ class TestSimpleICD10CM(unittest.TestCase):
     def test_get_code_first(self):
         self.assertEqual(cm.get_code_first("A06"),"")
         self.assertEqual(cm.get_code_first("A81"),"")
-        self.assertEqual(cm.get_code_first("E09"),"poisoning due to drug or toxin, if applicable (T36-T65 with fifth or sixth character 1-4 or 6)")
+        self.assertEqual(cm.get_code_first("E09"),"poisoning due to drug or toxin, if applicable (T36-T65 with fifth or sixth character 1-4)")
         self.assertEqual(cm.get_code_first("A17.1"),"")
         self.assertEqual(cm.get_code_first("H60.1"),"")
         self.assertEqual(cm.get_code_first("M84.3"),"")
         self.assertEqual(cm.get_code_first("M48.40XS"),"")
         
     def test_get_full_data(self):
-        self.assertEqual(cm.get_full_data("E35"),"Name:\nE35\nDescription:\nDisorders of endocrine glands in diseases classified elsewhere\nParent:\nE20-E35\nexcludes1:\nEchinococcus granulosus infection of thyroid gland (B67.3)\nmeningococcal hemorrhagic adrenalitis (A39.1)\nsyphilis of endocrine gland (A52.79)\ntuberculosis of adrenal gland, except calcification (A18.7)\ntuberculosis of endocrine gland NEC (A18.82)\ntuberculosis of thyroid gland (A18.81)\nWaterhouse-Friderichsen syndrome (A39.1)\nuse additional code:\ncode, if applicable, to identify:\nsequelae of tuberculosis of other organs (B90.8)\ncode first:\nunderlying disease, such as:\nlate congenital syphilis of thymus gland [Dubois disease] (A50.5)\nChildren:\nNone")
+        self.assertEqual(cm.get_full_data("E35"),"Name:\nE35\nDescription:\nDisorders of endocrine glands in diseases classified elsewhere\nParent:\nE20-E35\nexcludes1:\nEchinococcus granulosus infection of thyroid gland (B67.3)\nmeningococcal hemorrhagic adrenalitis (A39.1)\nsyphilis of endocrine gland (A52.79)\ntuberculosis of adrenal gland, except calcification (A18.7)\ntuberculosis of endocrine gland NEC (A18.82)\ntuberculosis of thyroid gland (A18.81)\nWaterhouse-Friderichsen syndrome (A39.1)\nuse additional code:\ncode, if applicable, to identify:\nsequelae of tuberculosis of other organs (B90.8)\ncode first:\nunderlying disease, such as:\nlate congenital syphilis of thymus gland [Dubois disease] (A50.59)\nChildren:\nNone")
         self.assertEqual(cm.get_full_data("E40-E46"),"Name:\nE40-E46\nDescription:\nMalnutrition (E40-E46)\nParent:\n4\nexcludes1:\nintestinal malabsorption (K90.-)\nsequelae of protein-calorie malnutrition (E64.0)\nexcludes2:\nnutritional anemias (D50-D53)\nstarvation (T73.0)\nChildren:\nE40, E41, E42, E43, E44, E45, E46")
         self.assertEqual(cm.get_full_data("M48.40XS"),"Name:\nM48.40XS\nDescription:\nFatigue fracture of vertebra, site unspecified, sequela of fracture\nParent:\nM48.40\nChildren:\nNone")
         self.assertEqual(cm.get_full_data("M48.40XS", search_in_ancestors=True),"Name:\nM48.40XS\nDescription:\nFatigue fracture of vertebra, site unspecified, sequela of fracture\nParent:\nM48.40\nseven chr note:\nThe appropriate 7th character is to be added to each code from subcategory M48.4:\nseven chr def:\nA:	initial encounter for fracture\nD:	subsequent encounter for fracture with routine healing\nG:	subsequent encounter for fracture with delayed healing\nS:	sequela of fracture\nChildren:\nNone")
@@ -186,7 +186,7 @@ class TestSimpleICD10CM(unittest.TestCase):
         self.assertEqual(cm.get_ancestors("M48.40XS"),['M48.40', 'M48.4', 'M48', 'M45-M49', '13'])
 
     def test_get_descendants(self):
-        self.assertEqual(cm.get_descendants("G10-G14"),['G10', 'G11', 'G11.0', 'G11.1', 'G11.10', 'G11.11', 'G11.19', 'G11.2', 'G11.3', 'G11.4', 'G11.8', 'G11.9', 'G12', 'G12.0', 'G12.1', 'G12.2', 'G12.20', 'G12.21', 'G12.22', 'G12.23', 'G12.24', 'G12.25', 'G12.29', 'G12.8', 'G12.9', 'G13', 'G13.0', 'G13.1', 'G13.2', 'G13.8', 'G14'])
+        self.assertEqual(cm.get_descendants("G10-G14"),['G10', 'G11', 'G11.0', 'G11.1', 'G11.10', 'G11.11', 'G11.19', 'G11.2', 'G11.3', 'G11.4', 'G11.5', 'G11.6', 'G11.8', 'G11.9', 'G12', 'G12.0', 'G12.1', 'G12.2', 'G12.20', 'G12.21', 'G12.22', 'G12.23', 'G12.24', 'G12.25', 'G12.29', 'G12.8', 'G12.9', 'G13', 'G13.0', 'G13.1', 'G13.2', 'G13.8', 'G14'])
         self.assertEqual(cm.get_descendants("C00"),['C00.0', 'C00.1', 'C00.2', 'C00.3', 'C00.4', 'C00.5', 'C00.6', 'C00.8', 'C00.9'])
         self.assertEqual(cm.get_descendants("H60.1"),['H60.10', 'H60.11', 'H60.12', 'H60.13'])
         self.assertEqual(cm.get_descendants("M48.40XS"),[])
@@ -215,11 +215,11 @@ class TestSimpleICD10CM(unittest.TestCase):
         self.assertEqual(cm.get_all_codes()[:15], ['1', 'A00-A09', 'A00', 'A00.0', 'A00.1', 'A00.9', 'A01', 'A01.0', 'A01.00', 'A01.01', 'A01.02', 'A01.03', 'A01.04', 'A01.05', 'A01.09'])
         self.assertEqual(cm.get_all_codes(with_dots=False)[:15], ['1', 'A00-A09', 'A00', 'A000', 'A001', 'A009', 'A01', 'A010', 'A0100', 'A0101', 'A0102', 'A0103', 'A0104', 'A0105', 'A0109'])
         self.assertEqual([code for code in cm.get_all_codes() if not cm.is_chapter_or_block(code)][:15],['A00', 'A00.0', 'A00.1', 'A00.9', 'A01', 'A01.0', 'A01.00', 'A01.01', 'A01.02', 'A01.03', 'A01.04', 'A01.05', 'A01.09', 'A01.1', 'A01.2'])
-        self.assertEqual(cm.get_all_codes()[27735],'P00')
-        self.assertEqual(cm.get_description(cm.get_all_codes()[27735]),'Newborn affected by maternal conditions that may be unrelated to present pregnancy')
+        self.assertEqual(cm.get_all_codes()[28851],'P00')
+        self.assertEqual(cm.get_description(cm.get_all_codes()[28851]),'Newborn affected by maternal conditions that may be unrelated to present pregnancy')
         
     def test_get_index(self):
-        self.assertEqual(cm.get_index("P00"),27735)
+        self.assertEqual(cm.get_index("P00"),28851)
     
     def test_remove_dot(self):
         self.assertEqual(cm.remove_dot("12"),"12")
@@ -236,6 +236,10 @@ class TestSimpleICD10CM(unittest.TestCase):
         self.assertEqual(cm.add_dot("H601"),"H60.1")
         self.assertEqual(cm.add_dot("M48.40XS"),"M48.40XS")
         self.assertEqual(cm.add_dot("M4840XS"),"M48.40XS")
+    
+    def test_new_codes(self):
+        self.assertTrue(cm.is_valid_item("U09"))
+        self.assertTrue(cm.is_valid_item("A4154"))
     
 if __name__ == '__main__':
     unittest.main()

@@ -18,6 +18,9 @@ _all_codes_list_no_dots: list[str] = []
 
 _code_to_index_dictionary: dict[str, int] = {}
 
+_all_codes_file_name = 'icd10cm-order-April-2025.txt'
+_classification_data_file_name = 'icd10cm-tabular-April-2025.xml'
+
 class _CodeTree:
     def __init__(self, tree, parent = None, seven_chr_def_ancestor = None, seven_chr_note_ancestor = None, use_additional_code_ancestor = None, code_first_ancestor = None):
         #initialize all the values
@@ -126,7 +129,7 @@ class _CodeTree:
 
 def _load_codes():
     #loads the list of all codes, to remove later from the tree the ones that do not exist for very specific rules not easily extracted from the XML file
-    f = pkg_resources.read_text(data, 'icd10cm-order-Jan-2021.txt')
+    f = pkg_resources.read_text(data, _all_codes_file_name)
     global all_confirmed_codes
     all_confirmed_codes = set()
     lines=f.split("\n")
@@ -134,7 +137,7 @@ def _load_codes():
         all_confirmed_codes.add(line[6:13].strip())
     
     #creates the tree
-    root = ET.fromstring(pkg_resources.read_text(data, 'icd10cm_tabular_2021.xml'))
+    root = ET.fromstring(pkg_resources.read_text(data, _classification_data_file_name))
     root.remove(root[0])
     root.remove(root[0])
     for child in root:
