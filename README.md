@@ -60,6 +60,8 @@ The data used in this library was taken from the [website of the CDC]((https://w
 
 If you feel like supporting me, please check out the [Conclusion section](#conclusion).
 
+simple_icd_10_cm is licensed under [the MIT License](https://github.com/StefanoTrv/simple_icd_10_cm/blob/master/LICENSE).
+
 ## Setup
 You can install the package with pip, using this command:
 ```bash

@@ -1,3 +1,7 @@
+# simple_icd_10_cm is released under the MIT License
+# Copyright (c) 2021-2025 Stefano Travasci
+# Read the full LICENCES at https://github.com/StefanoTrv/simple_icd_10_cm/blob/master/LICENSE
+
 from typing import Optional
 import xml.etree.ElementTree as ET
 
