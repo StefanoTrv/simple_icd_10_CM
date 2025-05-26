@@ -73,6 +73,7 @@ class TestSimpleICD10CM(unittest.TestCase):
         self.assertFalse(cm.is_extended_subcategory("C00"))
         self.assertFalse(cm.is_extended_subcategory("H60.1"))
         self.assertTrue(cm.is_extended_subcategory("M48.40XS"))
+        self.assertFalse(cm.is_extended_subcategory("C44.1192")) #this was not generated automatically!
 
     def test_get_description(self):
         self.assertEqual(cm.get_description("12"),"Diseases of the skin and subcutaneous tissue (L00-L99)")
