@@ -1,0 +1,1 @@
+The data for the January 2021 version of ICD-10-CM is a combination of data taken from the websites of [the CDC](https://www.cdc.gov/nchs/icd/icd-10-cm/files.html) and of [the CMS](https://www.cms.gov/medicare/coding-billing/icd-10-codes).
