@@ -1,0 +1,6 @@
+.ipynb_checkpoints
+__pycache__
+testing notebook.ipynb
+commands for updating the package.txt
+extract_all_codes.py
+package-files/build/*

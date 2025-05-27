@@ -45,6 +45,12 @@ A simple python library for ICD-10-CM codes
 * [Conclusion](#conclusion)
 
 ## Release notes
+* **1.3.0**:
+  * Users can now use their preferred ICD-10-CM release by providing properly formatted files as inputs
+  * The default ICD-10-CM release of the library is now the **April 2025 release**
+  * Renamed some internal variables (you should not have been using them anyway!)
+  * Dropped Conda support, older versions are still available
+  * Added type hints for optional parameters
 * **1.2.0**: Added type hints - thanks to @JosephSBoyle on GitHub
 * **1.1.2**: Minor fix in get_full_data
 * **1.1.1**: Fixed a minor error in the release

@@ -276,7 +276,7 @@ def get_inclusion_term(code:str, prioritize_blocks:bool=False) -> list[str]:
     else:
         return node.inclusion_term.copy()
 
-def get_seven_chr_def(code:str, search_in_ancestors:bool=False, prioritize_blocks:bool=False) -> dict[str, str]:
+def get_seven_chr_def(code:str, search_in_ancestors:bool=False, prioritize_blocks:bool=False) -> dict[str,str]:
     if not is_valid_item(code):
         raise ValueError("The code \""+code+"\" does not exist.")
     node = _code_to_node[_add_dot_to_code(code)]
@@ -423,7 +423,7 @@ def get_descendants(code:str,prioritize_blocks:bool=False) -> list[str]:
     _add_children_to_list(node, result)
     return result
 
-def _add_children_to_list(node:_CodeTree, list:list[str]):
+def _add_children_to_list(node:_CodeTree, list:list[str]) -> None:
     for child in node.children:
         list.append(child.name)
         _add_children_to_list(child,list)
