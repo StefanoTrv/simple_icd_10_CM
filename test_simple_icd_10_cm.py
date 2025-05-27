@@ -241,6 +241,13 @@ class TestSimpleICD10CM(unittest.TestCase):
     def test_new_codes(self):
         self.assertTrue(cm.is_valid_item("U09"))
         self.assertTrue(cm.is_valid_item("A4154"))
+    
+    def test_loads_all_unique_codes(self):
+        self.assertEqual(len(cm.get_all_codes()),97902)
+        cm.change_version(all_codes_file_path="all_data/2021-01/code-list-January-2021.txt",classification_data_file_path="all_data/2021-01/icd10cm_tabular_2021.xml")
+        self.assertEqual(len(cm.get_all_codes()),95676)
+        cm.change_version()
+
 
 class TestSimpleICD10CMUserData(unittest.TestCase):
 
@@ -249,7 +256,7 @@ class TestSimpleICD10CMUserData(unittest.TestCase):
         self.assertEqual(cm.get_full_data("E35"),"Name:\nE35\nDescription:\nDisorders of endocrine glands in diseases classified elsewhere\nParent:\nE20-E35\nexcludes1:\nEchinococcus granulosus infection of thyroid gland (B67.3)\nmeningococcal hemorrhagic adrenalitis (A39.1)\nsyphilis of endocrine gland (A52.79)\ntuberculosis of adrenal gland, except calcification (A18.7)\ntuberculosis of endocrine gland NEC (A18.82)\ntuberculosis of thyroid gland (A18.81)\nWaterhouse-Friderichsen syndrome (A39.1)\nuse additional code:\ncode, if applicable, to identify:\nsequelae of tuberculosis of other organs (B90.8)\ncode first:\nunderlying disease, such as:\nlate congenital syphilis of thymus gland [Dubois disease] (A50.59)\nChildren:\nNone")
         self.assertEqual(cm.get_index("P00"),28851)
         #load January 2021 release
-        cm.change_version(all_codes_file_path="all_data/2021-01/icd10cm-order-Jan-2021.txt",classification_data_file_path="all_data/2021-01/icd10cm_tabular_2021.xml")
+        cm.change_version(all_codes_file_path="all_data/2021-01/code-list-January-2021.txt",classification_data_file_path="all_data/2021-01/icd10cm_tabular_2021.xml")
         self.assertFalse(cm.is_valid_item("U09"))
         self.assertEqual(cm.get_full_data("E35"),"Name:\nE35\nDescription:\nDisorders of endocrine glands in diseases classified elsewhere\nParent:\nE20-E35\nexcludes1:\nEchinococcus granulosus infection of thyroid gland (B67.3)\nmeningococcal hemorrhagic adrenalitis (A39.1)\nsyphilis of endocrine gland (A52.79)\ntuberculosis of adrenal gland, except calcification (A18.7)\ntuberculosis of endocrine gland NEC (A18.82)\ntuberculosis of thyroid gland (A18.81)\nWaterhouse-Friderichsen syndrome (A39.1)\nuse additional code:\ncode, if applicable, to identify:\nsequelae of tuberculosis of other organs (B90.8)\ncode first:\nunderlying disease, such as:\nlate congenital syphilis of thymus gland [Dubois disease] (A50.5)\nChildren:\nNone")
         self.assertEqual(cm.get_index("P00"),27735)
@@ -260,15 +267,15 @@ class TestSimpleICD10CMUserData(unittest.TestCase):
         self.assertEqual(cm.get_index("P00"),28851)
     
     def test_exception_mismatching_arguments(self):
-        self.assertRaises(ValueError, lambda: cm.change_version(all_codes_file_path="all_data/2021-01/icd10cm-order-Jan-2021.txt"))
+        self.assertRaises(ValueError, lambda: cm.change_version(all_codes_file_path="all_data/2021-01/code-list-January-2021.txt"))
         self.assertRaises(ValueError, lambda: cm.change_version(classification_data_file_path="all_data/2021-01/icd10cm_tabular_2021.xml"))
     
     def test_file_not_found(self):
-        self.assertRaises(FileNotFoundError, lambda: cm.change_version(all_codes_file_path="all_data/2021-01/icd10cm-order-Jan-2028.txt",classification_data_file_path="all_data/2021-01/icd10cm_tabular_2021.xml"))
+        self.assertRaises(FileNotFoundError, lambda: cm.change_version(all_codes_file_path="all_data/2021-01/code-list-January-2028.txt",classification_data_file_path="all_data/2021-01/icd10cm_tabular_2021.xml"))
     
     def test_package_works_after_change_exceptions(self):
         try:
-            cm.change_version(all_codes_file_path="all_data/2021-01/icd10cm-order-Jan-2021.txt")
+            cm.change_version(all_codes_file_path="all_data/2021-01/code-list-January-2021.txt")
         except:
             pass
         self.assertTrue(cm.is_valid_item("U09"))
@@ -282,7 +289,7 @@ class TestSimpleICD10CMUserData(unittest.TestCase):
         self.assertEqual(cm.get_full_data("E35"),"Name:\nE35\nDescription:\nDisorders of endocrine glands in diseases classified elsewhere\nParent:\nE20-E35\nexcludes1:\nEchinococcus granulosus infection of thyroid gland (B67.3)\nmeningococcal hemorrhagic adrenalitis (A39.1)\nsyphilis of endocrine gland (A52.79)\ntuberculosis of adrenal gland, except calcification (A18.7)\ntuberculosis of endocrine gland NEC (A18.82)\ntuberculosis of thyroid gland (A18.81)\nWaterhouse-Friderichsen syndrome (A39.1)\nuse additional code:\ncode, if applicable, to identify:\nsequelae of tuberculosis of other organs (B90.8)\ncode first:\nunderlying disease, such as:\nlate congenital syphilis of thymus gland [Dubois disease] (A50.59)\nChildren:\nNone")
         self.assertEqual(cm.get_index("P00"),28851)
         try:
-            cm.change_version(all_codes_file_path="all_data/2021-01/icd10cm-order-Jan-2028.txt",classification_data_file_path="all_data/2021-01/icd10cm_tabular_2021.xml")
+            cm.change_version(all_codes_file_path="all_data/2021-01/code-list-January-2028.txt",classification_data_file_path="all_data/2021-01/icd10cm_tabular_2021.xml")
         except:
             pass
         self.assertTrue(cm.is_valid_item("U09"))
@@ -296,7 +303,7 @@ class TestSimpleICD10CMUserData(unittest.TestCase):
         default_length_ctn_dict = len(cm._code_to_node)
         number_of_chapters = len(cm._chapter_list)
         #load January 2021 release
-        cm.change_version(all_codes_file_path="all_data/2021-01/icd10cm-order-Jan-2021.txt",classification_data_file_path="all_data/2021-01/icd10cm_tabular_2021.xml")
+        cm.change_version(all_codes_file_path="all_data/2021-01/code-list-January-2021.txt",classification_data_file_path="all_data/2021-01/icd10cm_tabular_2021.xml")
         self.assertEqual(len(cm._chapter_list),number_of_chapters)
         self.assertNotEqual(len(cm._code_to_node),default_length_ctn_dict)
         self.assertEqual(len(cm._all_codes_list),0)

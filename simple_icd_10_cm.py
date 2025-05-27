@@ -23,7 +23,7 @@ _all_codes_list_no_dots: list[str] = []
 
 _code_to_index_dictionary: dict[str, int] = {}
 
-_all_codes_package_file_name: str = 'icd10cm-order-April-2025.txt'
+_all_codes_package_file_name: str = 'code-list-April-2025.txt'
 _classification_data_package_file_name: str = 'icd10cm-tabular-April-2025.xml'
 
 class _CodeTree:
@@ -145,7 +145,7 @@ def _load_codes(all_codes_file_path: Optional[str] = None, classification_data_f
     all_confirmed_codes = set()
     lines=text.split("\n")
     for line in lines:
-        all_confirmed_codes.add(line[6:13].strip())
+        all_confirmed_codes.add(line.split(" ")[0].replace(".",""))
     
     #creates the tree
     if classification_data_file_path is None:
