@@ -5,6 +5,7 @@ A simple python library for ICD-10-CM codes
 * [Release notes](#release-notes)
 * [Introduction](#introduction)
 * [Setup](#setup)
+  * [Using other ICD-10-CM releases](#using-other-icd-10-cm-releases)
 * [The format of the codes](#the-format-of-the-codes)
 * [About the file "Instructional Notations.md"](#about-the-file-instructional-notationsmd)
 * [Blocks containing only one category](#blocks-containing-only-one-category)
@@ -40,6 +41,7 @@ A simple python library for ICD-10-CM codes
   * [get_index(code)](#get_indexcode)
   * [remove_dot(code)](#remove_dotcode)
   * [add_dot(code)](#add_dotcode)
+  * [change_version(all_codes_file_path=None, classification_data_file_path=None)](#change_versionall_codes_file_pathnone-classification_data_file_pathnone)
 * [Conclusion](#conclusion)
 
 ## Release notes
@@ -56,7 +58,7 @@ The objective of this library is to provide a simple instrument for dealing with
 If you are looking for a library that deals with ICD-10 codes instead of ICD-10-CM codes, you can check the [simple_icd_10 library](https://github.com/StefanoTrv/simple_icd_10), which is based on the 2019 version of ICD-10. If you are interested in the ICD-11 MMS classification, you can check out instead the [simple_icd_11 library](https://github.com/StefanoTrv/simple_icd_11).  
 There is also a Java version of this library, [SimpleICD10CM-Java-edition](https://github.com/StefanoTrv/SimpleICD10CM-Java-edition).
 
-The data used in this library was taken from the [website of the CDC]((https://www.cdc.gov/nchs/icd/icd-10-cm/files.html). This library currently uses the **April 2025 release of ICD-10-CM**.
+The data used in this library was taken from the [website of the CDC]((https://www.cdc.gov/nchs/icd/icd-10-cm/files.html). This library currently uses the **April 2025 release of ICD-10-CM**. This package can be configured to use other releases of the ICD-10-CM classification, read the section [Using other ICD-10-CM releases](#using-other-icd-10-cm-releases) for more details.
 
 If you feel like supporting me, please check out the [Conclusion section](#conclusion).
 
@@ -71,6 +73,28 @@ pip install simple-icd-10-cm
 The distribution files are also available as [releases in the Github repository](https://github.com/StefanoTrv/simple_icd_10_cm/releases).
 
 You can also use the "simple_icd_10_cm.py" file, which contains all the source code, in conjunction with the "data" folder, which contains the data used in this library (you can find them in the [GitHub repository](https://github.com/StefanoTrv/simple_icd_10_CM)).
+
+### Using other ICD-10-CM releases
+You can use other releases of ICD-10-CM by providing properly formatted data files.
+
+The default release is automatically loaded when the package is imported. Therefore, no further setup is required for users who want to use the default release. On the other hand, it is loaded even if the user wants to load a different release, resulting in additional unnecessary overhead. Since most users are expected to use the default release, and to guarantee backward compatibility with earlier versions of the library, this approach was considered the best overall compromise.
+
+The function that allows to use different releases is the `change_version` function. It takes two optional arguments `all_codes_file_path` and `classification_data_file_path`, which specify, respectively, the path to the file containing a list of all the codes and the path to the XML file containing the whole structured classification. These files are described in more detail later. If both paths are provided, `change_version` loads the ICD-10-CM release described in those files. If both parameters are left empty, it loads the default release. If one parameter is provided and the other is left empty, `change_version` raises a `ValueError` exception.
+```python
+# loads the files of another release
+cm.change_version(all_codes_file_path="code-list-January-2021.txt",classification_data_file_path="icd10cm_tabular_2021.xml")
+
+# loads the default release
+cm.change_version()
+
+# these both raise an exception
+cm.change_version(all_codes_file_path="code-list-January-2021.txt")
+cm.change_version(classification_data_file_path="icd10cm_tabular_2021.xml")
+```
+
+The file specified in `all_codes_file_path` should contain all the unique codes of the desired release. However, it is sufficient that it contains all the seven-characters codes that must be generated programmatically, that is all the valid codes that are not explicitly listed in the XML file (see [About the special seventh character](#about-the-special-seventh-character) for more information). Each line in this file must contain a single code. Codes can be written in the format with or without the dot. In each line, the code may be followed by any text, as long as there is at least one space character immediately after the code. The `icd10cm-codes` text files available from the [CDC's website](https://www.cdc.gov/nchs/icd/icd-10-cm/files.html) can be used for this purpose, without modification.  
+The file specified in `classification_data_file_path` is the XML containing the whole classification. This typically corresponds to the `icd10cm-tabular` XML files available from the [CDC's website](https://www.cdc.gov/nchs/icd/icd-10-cm/files.html). If using XML files from another origin, note that, in the official releases, the first two children of the root XML element are not part of the structure of the classification, and are therefore skipped by the library.
+Examples of both file types can be found in the [all-data folder](https://github.com/StefanoTrv/simple_icd_10_CM/tree/master/all-data), which includes data for the current default release and for a previous release.
 
 ## The format of the codes
 Subcategories codes can be written in two different ways: with a dot (for example "I13.1") and with no dot (for example "I131"). The functions in this library can receive as input codes in both these formats. The codes returned by the functions will always be in the format with the dot.  
@@ -104,7 +128,7 @@ cm.is_block("I12") and cm.is_category("I12")
 
 ## About the special seventh character
 The file `icd10cm-tabular-April-2025.xml`, which is the XML file that contains the whole ICD-10-CM classification, doesn't have an entry for all the codes generated by adding the "special" seventh character, but it often contains instead rules that explain how to generate these codes in the "sevenChrDef" field (and sometimes in the "sevenChrNote" field too, just to complicate things a little bit...). You can find more about the structure of these particular codes in [Instructional Notations.md](https://github.com/StefanoTrv/simple_icd_10_CM/blob/master/Instructional%20Notations.md).  
-Due to the lack of a complete entry for these missing codes, I had to decide how they would be handled in this library. So I decided that their only field would be the description, composed of the description of their parent followed by the description of the meaning of the additional character, with a comma between the two: this description appears in official documents about ICD-10-CM (for example in the file `icd10cm-order-April-2025.txt`), so it's not my invention but the actual official format. All the other fields are empty, but the optional argument `search_in_ancestors` of certain functions can be used to automatically retrieve the content of certain fields from the ancestors of the code (see the description of the specific functions in the [Documentation](#documentation) for more details).  
+Due to the lack of a complete entry for these missing codes, I had to decide how they would be handled in this library. So I decided that their only field would be the description, composed of the description of their parent followed by the description of the meaning of the additional character, with a comma between the two: this description appears in official documents about ICD-10-CM, so it's not my invention but the actual official format. All the other fields are empty, but the optional argument `search_in_ancestors` of certain functions can be used to automatically retrieve the content of certain fields from the ancestors of the code (see the description of the specific functions in the [Documentation](#documentation) for more details).  
 Seven-characters codes that have an entry in `icd10cm-tabular-April-2025.xml` are treated like any other code, and their data is taken directly from the file.  
 If you need to know whether a code has been automatically generated using a rule described in a "sevenChrDef" field, you can use the [`is_extended_subcategory`](#is_extended_subcategorycode) function. Only the codes generated programmatically are classified as "extended subcategories", the seven-characters codes explicitly listed in the data are classified as "subcategories".
 
@@ -421,6 +445,9 @@ cm.add_dot("C84.Z0")
 cm.add_dot("K00-K14")
 #'K00-K14'
 ```
+
+### change_version(all_codes_file_path=None, classification_data_file_path=None)
+This function can be used to load any ICD-10-CM release provided by the user, or to revert to using the default release for the package. Its usage is explained in the paragraph [Using other ICD-10-CM releases](#using-other-icd-10-cm-releases).
 
 ## Conclusion
 This should be everything you need to know about the simple_icd_10_cm library. Please contact me if you find any mistake, bug, missing feature or anything else that could be improved or made easier to comprehend, both in this documentation and in the library itself as well as in the [Showcase notebook](https://github.com/StefanoTrv/simple_icd_10_CM/blob/master/Showcase%20notebook.ipynb). You can also contact me if you need any help using this library, but I may not be able to help with questions about the ICD-10-CM classification itself.
