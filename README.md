@@ -464,7 +464,8 @@ If you find this library useful and are feeling generous, consider making a dona
 
 ---
 
-Paypal: [![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/donate?hosted_button_id=9HMMFAZE248VN)
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/J3J81G2OSG)  
+[![Paypal](https://pics.paypal.com/00/s/NDU5Y2RmMjQtMTVmYi00MDIyLTgyMzMtMTFiNDY1MjUzMDA5/file.PNG)](https://www.paypal.com/donate?hosted_button_id=9HMMFAZE248VN)
 
 Curecoin: BKxCWuWzsqtLzAvAjtpsHpJ7LqFHPubqft
 
