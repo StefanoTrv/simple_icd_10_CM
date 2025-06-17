@@ -64,7 +64,7 @@ The objective of this library is to provide a simple instrument for dealing with
 If you are looking for a library that deals with ICD-10 codes instead of ICD-10-CM codes, you can check the [simple_icd_10 library](https://github.com/StefanoTrv/simple_icd_10), which is based on the 2019 version of ICD-10. If you are interested in the ICD-11 MMS classification, you can check out instead the [simple_icd_11 library](https://github.com/StefanoTrv/simple_icd_11).  
 There is also a Java version of this library, [SimpleICD10CM-Java-edition](https://github.com/StefanoTrv/SimpleICD10CM-Java-edition).
 
-The data used in this library was taken from the [website of the CDC]((https://www.cdc.gov/nchs/icd/icd-10-cm/files.html). This library currently uses the **April 2025 release of ICD-10-CM**. This package can be configured to use other releases of the ICD-10-CM classification, read the section [Using other ICD-10-CM releases](#using-other-icd-10-cm-releases) for more details.
+The data used in this library was taken from the [website of the CDC](https://www.cdc.gov/nchs/icd/icd-10-cm/files.html). This library currently uses the **April 2025 release of ICD-10-CM**. This package can be configured to use other releases of the ICD-10-CM classification, read the section [Using other ICD-10-CM releases](#using-other-icd-10-cm-releases) for more details.
 
 If you feel like supporting me, please check out the [Conclusion section](#conclusion).
 
