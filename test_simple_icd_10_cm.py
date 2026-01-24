@@ -158,12 +158,21 @@ class TestSimpleICD10CM(unittest.TestCase):
         self.assertEqual(cm.get_code_first("H60.1"),"")
         self.assertEqual(cm.get_code_first("M84.3"),"")
         self.assertEqual(cm.get_code_first("M48.40XS"),"")
+    
+    def test_get_code_also(self):
+        self.assertEqual(cm.get_code_also("K57.52"),"")
+        self.assertEqual(cm.get_code_also("S11"),"any associated:\nspinal cord injury (S14.0, S14.1-)\nwound infection")
+        self.assertEqual(cm.get_code_also("Z71.85"),", if applicable, encounter for immunization (Z23)\n, if applicable, immunization not carried out (Z28.-)")
+        self.assertEqual(cm.get_code_also("Z77.0"),"")
+        self.assertEqual(cm.get_code_also("Z77.0",search_in_ancestors=True),"any follow-up examination (Z08-Z09)")
         
     def test_get_full_data(self):
         self.assertEqual(cm.get_full_data("E35"),"Name:\nE35\nDescription:\nDisorders of endocrine glands in diseases classified elsewhere\nParent:\nE20-E35\nexcludes1:\nEchinococcus granulosus infection of thyroid gland (B67.3)\nmeningococcal hemorrhagic adrenalitis (A39.1)\nsyphilis of endocrine gland (A52.79)\ntuberculosis of adrenal gland, except calcification (A18.7)\ntuberculosis of endocrine gland NEC (A18.82)\ntuberculosis of thyroid gland (A18.81)\nWaterhouse-Friderichsen syndrome (A39.1)\nuse additional code:\ncode, if applicable, to identify:\nsequelae of tuberculosis of other organs (B90.8)\ncode first:\nunderlying disease, such as:\nlate congenital syphilis of thymus gland [Dubois disease] (A50.59)\nChildren:\nNone")
         self.assertEqual(cm.get_full_data("E40-E46"),"Name:\nE40-E46\nDescription:\nMalnutrition (E40-E46)\nParent:\n4\nexcludes1:\nintestinal malabsorption (K90.-)\nsequelae of protein-calorie malnutrition (E64.0)\nexcludes2:\nnutritional anemias (D50-D53)\nstarvation (T73.0)\nChildren:\nE40, E41, E42, E43, E44, E45, E46")
         self.assertEqual(cm.get_full_data("M48.40XS"),"Name:\nM48.40XS\nDescription:\nFatigue fracture of vertebra, site unspecified, sequela of fracture\nParent:\nM48.40\nChildren:\nNone")
         self.assertEqual(cm.get_full_data("M48.40XS", search_in_ancestors=True),"Name:\nM48.40XS\nDescription:\nFatigue fracture of vertebra, site unspecified, sequela of fracture\nParent:\nM48.40\nseven chr note:\nThe appropriate 7th character is to be added to each code from subcategory M48.4:\nseven chr def:\nA:	initial encounter for fracture\nD:	subsequent encounter for fracture with routine healing\nG:	subsequent encounter for fracture with delayed healing\nS:	sequela of fracture\nChildren:\nNone")
+        self.assertEqual(cm.get_full_data("S01"),"Name:\nS01\nDescription:\nOpen wound of head\nParent:\nS00-S09\nexcludes1:\nopen skull fracture (S02.- with 7th character B)\nexcludes2:\ninjury of eye and orbit (S05.-)\ntraumatic amputation of part of head (S08.-)\nseven chr note:\nThe appropriate 7th character is to be added to each code from category S01\nseven chr def:\nA:\tinitial encounter\nD:\tsubsequent encounter\nS:\tsequela\ncode also:\nany associated:\ninjury of cranial nerve (S04.-)\ninjury of muscle and tendon of head (S09.1-)\nintracranial injury (S06.-)\nwound infection\nChildren:\nS01.0, S01.1, S01.2, S01.3, S01.4, S01.5, S01.8, S01.9")
+        self.assertEqual(cm.get_full_data("V91.10",search_in_ancestors=True),"Name:\nV91.10\nDescription:\nCrushed between merchant ship and other watercraft or other object due to collision\nParent:\nV91.1\nseven chr note:\nThe appropriate 7th character is to be added to each code from category V91\nseven chr def:\nA:\tinitial encounter\nD:\tsubsequent encounter\nS:\tsequela\nChildren:\nV91.10XA, V91.10XD, V91.10XS")
 
     def test_get_parent(self):
         self.assertEqual(cm.get_parent("12"),"")

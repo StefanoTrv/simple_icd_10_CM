@@ -27,7 +27,7 @@ _all_codes_package_file_name:str = 'code-list-April-2025.txt'
 _classification_data_package_file_name:str = 'icd10cm-tabular-April-2025.xml'
 
 class _CodeTree:
-    def __init__(self, tree, parent = None, seven_chr_def_ancestor = None, seven_chr_note_ancestor = None, use_additional_code_ancestor = None, code_first_ancestor = None):
+    def __init__(self, tree, parent = None, seven_chr_def_ancestor = None, seven_chr_note_ancestor = None, use_additional_code_ancestor = None, code_first_ancestor = None, code_also_ancestor = None):
         #initialize all the values
         self.name = ""
         self.description = ""
@@ -46,17 +46,21 @@ class _CodeTree:
         self.use_additional_code_ancestor = use_additional_code_ancestor
         self.code_first = ""
         self.code_first_ancestor = code_first_ancestor
+        self.code_also = ""
+        self.code_also_ancestor = code_also_ancestor
         
         #reads the data from the subtrees
         new_seven_chr_def_ancestor=seven_chr_def_ancestor
         new_seven_chr_note_ancestor=seven_chr_note_ancestor
         new_use_additional_code_ancestor=use_additional_code_ancestor
         new_code_first_ancestor=code_first_ancestor
+        new_code_also_ancestor=code_also_ancestor
         if "id" in tree.attrib: #the name of sections is an attribute instead of text inside an XML element
             self.name=tree.attrib["id"]
         for subtree in tree:
             if subtree.tag=="section" or subtree.tag=="diag": #creates a new child for this node
-                self.children.append(_CodeTree(subtree,parent=self,seven_chr_def_ancestor=new_seven_chr_def_ancestor,seven_chr_note_ancestor=new_seven_chr_note_ancestor,use_additional_code_ancestor=new_use_additional_code_ancestor,code_first_ancestor=new_code_first_ancestor))
+                # This is only correct because the XML elements for the children codes always follow the XML elements for this code's data
+                self.children.append(_CodeTree(subtree,parent=self,seven_chr_def_ancestor=new_seven_chr_def_ancestor,seven_chr_note_ancestor=new_seven_chr_note_ancestor,use_additional_code_ancestor=new_use_additional_code_ancestor,code_first_ancestor=new_code_first_ancestor,code_also_ancestor=new_code_also_ancestor))
             elif subtree.tag=="name":
                 self.name=subtree.text
             elif subtree.tag=="desc":
@@ -86,6 +90,7 @@ class _CodeTree:
                 self.seven_chr_note=subtree[0].text
                 new_seven_chr_note_ancestor=self
             elif subtree.tag=="useAdditionalCode":
+            # NOTE: multiple useAdditionalCode elements may be present, so self.use_additional_code should always be appended and never overwritten
                 for i in range(0,len(subtree)):#in case there are multiple lines
                     self.use_additional_code=self.use_additional_code+"\n"+subtree[i].text
                 new_use_additional_code_ancestor=self
@@ -93,12 +98,22 @@ class _CodeTree:
                 for i in range(0,len(subtree)):#in case there are multiple lines
                     self.code_first=self.code_first+"\n"+subtree[i].text
                 new_code_first_ancestor=self
+            elif subtree.tag=="codeAlso":
+            # see NOTE for useAdditionalCode
+                for i in range(0,len(subtree)):#in case there are multiple lines
+                    self.code_also=self.code_also+"\n"+subtree[i].text
+                new_code_also_ancestor=self
+            else:
+                pass
+                #print(str(subtree))
         
-        #cleans the use_additional_code and code_first fields from extra new lines
+        #cleans the use_additional_code, code_first and code_also fields from extra new lines
         if self.use_additional_code!="" and self.use_additional_code[0]=="\n":
             self.use_additional_code=self.use_additional_code[1:]
         if self.code_first!="" and self.code_first[0]=="\n":
             self.code_first=self.code_first[1:]
+        if self.code_also!="" and self.code_also[0]=="\n":
+            self.code_also=self.code_also[1:]
         
         #sets the type
         if tree.tag=="chapter":
@@ -130,7 +145,7 @@ class _CodeTree:
             for extension in dictionary:
                 if((extended_name[:3]+extended_name[4:]+extension) in all_confirmed_codes):#checks if there's a special rule that excludes this new code
                     new_XML = "<diag_ext><name>"+extended_name+extension+"</name><desc>"+self.description+", "+dictionary[extension]+"</desc></diag_ext>"
-                    self.children.append(_CodeTree(ET.fromstring(new_XML),parent=self,seven_chr_def_ancestor=new_seven_chr_def_ancestor,seven_chr_note_ancestor=new_seven_chr_note_ancestor,use_additional_code_ancestor=new_use_additional_code_ancestor,code_first_ancestor=new_code_first_ancestor))
+                    self.children.append(_CodeTree(ET.fromstring(new_XML),parent=self,seven_chr_def_ancestor=new_seven_chr_def_ancestor,seven_chr_note_ancestor=new_seven_chr_note_ancestor,use_additional_code_ancestor=new_use_additional_code_ancestor,code_first_ancestor=new_code_first_ancestor,code_also_ancestor=new_code_also_ancestor))
 
 def _load_codes(all_codes_file_path:Optional[str] = None, classification_data_file_path:Optional[str] = None) -> None: # either both or none of the strings must be None
     #loads the list of all codes, to remove later from the tree the ones that do not exist for very specific rules not easily extracted from the XML file
@@ -324,6 +339,18 @@ def get_code_first(code:str, search_in_ancestors:bool=False, prioritize_blocks:b
     else:
         return res
 
+def get_code_also(code:str, search_in_ancestors:bool=False, prioritize_blocks:bool=False) -> str:
+    if not is_valid_item(code):
+        raise ValueError("The code \""+code+"\" does not exist.")
+    node = _code_to_node[_add_dot_to_code(code)]
+    if prioritize_blocks and node.parent!=None and node.parent.name==node.name:
+        node = node.parent
+    res = node.code_also
+    if search_in_ancestors and res=="" and node.code_also_ancestor!=None:
+        return node.code_also_ancestor.code_also
+    else:
+        return res
+
 def get_parent(code:str, prioritize_blocks:bool=False) -> str:
     if not is_valid_item(code):
         raise ValueError("The code \""+code+"\" does not exist.")
@@ -393,6 +420,9 @@ def get_full_data(code:str, search_in_ancestors:bool=False, prioritize_blocks:bo
     code_first=get_code_first(code,search_in_ancestors=search_in_ancestors,prioritize_blocks=prioritize_blocks)
     if code_first!="":
         str = str + "\ncode first:\n" + code_first
+    code_also=get_code_also(code,search_in_ancestors=search_in_ancestors,prioritize_blocks=prioritize_blocks)
+    if code_also!="":
+        str = str + "\ncode also:\n" + code_also
     if node.children==[]:
         str = str + "\nChildren:\nNone--"
     else:
