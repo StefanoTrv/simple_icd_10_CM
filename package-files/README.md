@@ -28,6 +28,8 @@ A simple python library for ICD-10-CM codes
   * [get_seven_chr_def(code, search_in_ancestors=False, prioritize_blocks=False)](#get_seven_chr_defcode-search_in_ancestorsfalse-prioritize_blocksfalse)
   * [get_use_additional_code(code, search_in_ancestors=False, prioritize_blocks=False)](#get_use_additional_codecode-search_in_ancestorsfalse-prioritize_blocksfalse)
   * [get_code_first(code, search_in_ancestors=False, prioritize_blocks=False)](#get_code_firstcode-search_in_ancestorsfalse-prioritize_blocksfalse)
+  * [get_code_also(code, search_in_ancestors=False, prioritize_blocks=False)](#get_code_alsocode-search_in_ancestorsfalse-prioritize_blocksfalse)
+  * [get_notes(code, search_in_ancestors=False, prioritize_blocks=False)](#get_notescode-search_in_ancestorsfalse-prioritize_blocksfalse)
   * [get_full_data(code, search_in_ancestors=False, prioritize_blocks=False)](#get_full_datacode-search_in_ancestorsfalse-prioritize_blocksfalse)
   * [get_parent(code, prioritize_blocks=False)](#get_parentcode-prioritize_blocksfalse)
   * [get_children(code, prioritize_blocks=False)](#get_childrencode-prioritize_blocksfalse)
@@ -45,6 +47,7 @@ A simple python library for ICD-10-CM codes
 * [Conclusion](#conclusion)
 
 ## Release notes
+* **1.4.0**: The data in the fields "codeAlso" and "notes" can now be retrieved using the get_code_also() and get_notes() functions
 * **1.3.0**:
   * Users can now use their preferred ICD-10-CM release by providing properly formatted files as inputs
   * The default ICD-10-CM release of the library is now the **April 2025 release**
@@ -64,7 +67,7 @@ The objective of this library is to provide a simple instrument for dealing with
 If you are looking for a library that deals with ICD-10 codes instead of ICD-10-CM codes, you can check the [simple_icd_10 library](https://github.com/StefanoTrv/simple_icd_10), which is based on the 2019 version of ICD-10. If you are interested in the ICD-11 MMS classification, you can check out instead the [simple_icd_11 library](https://github.com/StefanoTrv/simple_icd_11).  
 There is also a Java version of this library, [SimpleICD10CM-Java-edition](https://github.com/StefanoTrv/SimpleICD10CM-Java-edition).
 
-The data used in this library was taken from the [website of the CDC]((https://www.cdc.gov/nchs/icd/icd-10-cm/files.html). This library currently uses the **April 2025 release of ICD-10-CM**. This package can be configured to use other releases of the ICD-10-CM classification, read the section [Using other ICD-10-CM releases](#using-other-icd-10-cm-releases) for more details.
+The data used in this library was taken from the [website of the CDC](https://www.cdc.gov/nchs/icd/icd-10-cm/files.html). This library currently uses the **April 2025 release of ICD-10-CM**. This package can be configured to use other releases of the ICD-10-CM classification, read the section [Using other ICD-10-CM releases](#using-other-icd-10-cm-releases) for more details.
 
 If you feel like supporting me, please check out the [Conclusion section](#conclusion).
 
@@ -322,6 +325,30 @@ cm.get_code_first("S04.01")
 cm.get_code_first("S04.01",search_in_ancestors=True)
 #'any associated intracranial injury (S06.-)'
 ```
+### get_code_also(code, search_in_ancestors=False, prioritize_blocks=False)
+This function takes a string as input. If the string is a valid ICD-10-CM code, it returns a **string** containing the data of the "codeAlso" field of this code, otherwise it raises a ValueError. If this code does not have a "codeAlso" field, it returns an empty string. Please see [Instructional Notations](https://github.com/StefanoTrv/simple_icd_10_CM/blob/master/Instructional%20Notations.md) if you have doubts about the meaning of this field. When the optional argument `search_in_ancestors` is set to True, if the given code doesn't have a "codeAlso" field but one of its ancestor does, the "codeAlso" data of the closer ancestor that contains such a field is returned. For the meaning of the optional argument `prioritize_blocks`, please see [Blocks containing only one category](#blocks-containing-only-one-category).
+```python
+cm.get_code_also("I82.41")
+#''
+cm.get_code_also("Z23")
+#', if applicable, encounter for immunization safety counseling (Z71.85)'
+cm.get_code_also("Z49.0")
+#''
+cm.get_code_also("Z49.0",search_in_ancestors=True)
+#'associated end stage renal disease (N18.6)'
+```
+### get_notes(code, search_in_ancestors=False, prioritize_blocks=False)
+This function takes a string as input. If the string is a valid ICD-10-CM code, it returns a **string** containing the data of the "notes" field of this code, otherwise it raises a ValueError. If this code does not have a "notes" field, it returns an empty string. When the optional argument `search_in_ancestors` is set to True, if the given code doesn't have a "notes" field but one of its ancestor does, the "notes" data of the closer ancestor that contains such a field is returned. For the meaning of the optional argument `prioritize_blocks`, please see [Blocks containing only one category](#blocks-containing-only-one-category).
+```python
+cm.get_notes("I82.41")
+#''
+cm.get_notes("Z23")
+#'procedure codes are required to identify the types of immunizations given'
+cm.get_notes("C91.00")
+#''
+cm.get_notes("C91.00",search_in_ancestors=True)
+#'Codes in subcategory C91.0- should only be used for T-cell and B-cell precursor leukemia'
+```
 ### get_full_data(code, search_in_ancestors=False, prioritize_blocks=False)
 This function takes a string as input. If the string is a valid ICD-10-CM code, it returns a string containing all the available data of the code, otherwise it raises a ValueError. The empty fields are omitted from the string, except for the list of children (see second example below). When the optional argument `search_in_ancestors` is set to True, if the given code doesn't have a certain field but one of its ancestor does, the data of the closer ancestor that contains such a field is returned: see the previous functions to know which are the fields that are influenced by this argument and which are not. For the meaning of the optional argument `prioritize_blocks`, please see [Blocks containing only one category](#blocks-containing-only-one-category).
 ```python
@@ -464,7 +491,8 @@ If you find this library useful and are feeling generous, consider making a dona
 
 ---
 
-Paypal: [![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/donate?hosted_button_id=9HMMFAZE248VN)
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/J3J81G2OSG)  
+[![Paypal](https://pics.paypal.com/00/s/NDU5Y2RmMjQtMTVmYi00MDIyLTgyMzMtMTFiNDY1MjUzMDA5/file.PNG)](https://www.paypal.com/donate?hosted_button_id=9HMMFAZE248VN)
 
 Curecoin: BKxCWuWzsqtLzAvAjtpsHpJ7LqFHPubqft
 
