@@ -23,8 +23,8 @@ _all_codes_list_no_dots: list[str] = []
 
 _code_to_index_dictionary: dict[str, int] = {}
 
-_all_codes_package_file_name:str = 'code-list-April-2025.txt'
-_classification_data_package_file_name:str = 'icd10cm-tabular-April-2025.xml'
+_all_codes_package_file_name:str = 'icd10cm-codes-oct2025.txt'
+_classification_data_package_file_name:str = 'icd10cm-tabular-oct2025.xml'
 
 class _CodeTree:
     def __init__(self, tree, parent = None, seven_chr_def_ancestor = None, seven_chr_note_ancestor = None, use_additional_code_ancestor = None, code_first_ancestor = None, code_also_ancestor = None, notes_ancestor = None):
@@ -95,21 +95,25 @@ class _CodeTree:
             elif subtree.tag=="useAdditionalCode":
             # NOTE: multiple useAdditionalCode elements may be present, so self.use_additional_code should always be appended and never overwritten
                 for i in range(0,len(subtree)):#in case there are multiple lines
-                    self.use_additional_code=self.use_additional_code+"\n"+subtree[i].text
+                    if subtree[i].text:
+                        self.use_additional_code=self.use_additional_code+"\n"+subtree[i].text
                 new_use_additional_code_ancestor=self
             elif subtree.tag=="codeFirst":
                 for i in range(0,len(subtree)):#in case there are multiple lines
-                    self.code_first=self.code_first+"\n"+subtree[i].text
+                    if subtree[i].text:
+                        self.code_first=self.code_first+"\n"+subtree[i].text
                 new_code_first_ancestor=self
             elif subtree.tag=="codeAlso":
             # see NOTE for useAdditionalCode
                 for i in range(0,len(subtree)):#in case there are multiple lines
-                    self.code_also=self.code_also+"\n"+subtree[i].text
+                    if subtree[i].text:
+                        self.code_also=self.code_also+"\n"+subtree[i].text
                 new_code_also_ancestor=self
             elif subtree.tag=="notes":
             # see NOTE for useAdditionalCode
                 for i in range(0,len(subtree)):#in case there are multiple lines
-                    self.notes=self.notes+"\n"+subtree[i].text
+                    if subtree[i].text:
+                        self.notes=self.notes+"\n"+subtree[i].text
                 new_notes_ancestor=self
         
         #cleans the use_additional_code, code_first, code_also and notes fields from extra new lines

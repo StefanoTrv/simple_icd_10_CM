@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ICD10CM.tabular>
-  <version>2025</version>
+  <version>2026</version>
   <introduction>
     <introSection type="title">
       <title>ICD-10-CM TABULAR LIST of DISEASES and INJURIES</title>
@@ -5024,6 +5024,9 @@
         <includes>
           <note>Carrier of viral hepatitis</note>
         </includes>
+        <useAdditionalCode>
+          <note>code, if applicable, for ascites (R18.8)</note>
+        </useAdditionalCode>
         <diag>
           <name>B18.0</name>
           <desc>Chronic viral hepatitis B with delta-agent</desc>
@@ -7392,16 +7395,30 @@
         <diag>
           <name>B88.0</name>
           <desc>Other acariasis</desc>
-          <inclusionTerm>
-            <note>Acarine dermatitis</note>
-            <note>Dermatitis due to Demodex species</note>
-            <note>Dermatitis due to Dermanyssus gallinae</note>
-            <note>Dermatitis due to Liponyssoides sanguineus</note>
-            <note>Trombiculosis</note>
-          </inclusionTerm>
           <excludes2>
             <note>scabies (B86)</note>
           </excludes2>
+          <diag>
+            <name>B88.01</name>
+            <desc>Infestation by Demodex mites</desc>
+            <inclusionTerm>
+              <note>Demodex brevis infestation</note>
+              <note>Demodex folliculorum infestation</note>
+            </inclusionTerm>
+            <codeAlso>
+              <note>, if applicable, eyelid inflammation (H01.8-)</note>
+            </codeAlso>
+          </diag>
+          <diag>
+            <name>B88.09</name>
+            <desc>Other acariasis</desc>
+            <inclusionTerm>
+              <note>Acarine dermatitis</note>
+              <note>Dermatitis due to Dermanyssus gallinae</note>
+              <note>Dermatitis due to Liponyssoides sanguineus</note>
+              <note>Trombiculosis</note>
+            </inclusionTerm>
+          </diag>
         </diag>
         <diag>
           <name>B88.1</name>
@@ -7615,8 +7632,8 @@
             <inclusionTerm>
               <note>E. coli O157:H- (nonmotile) with confirmation of Shiga toxin</note>
               <note>E. coli O157 with confirmation of Shiga toxin when H antigen is unknown, or is not H7</note>
-              <note>O157:H7 Escherichia coli [E.coli] with or without confirmation of Shiga toxin-production</note>
-              <note>Shiga toxin-producing Escherichia coli [E.coli] O157:H7 with or without confirmation of Shiga toxin-production</note>
+              <note>O157:H7 Escherichia coli [E. coli] with or without confirmation of Shiga toxin-production</note>
+              <note>Shiga toxin-producing Escherichia coli [E. coli] O157:H7 with or without confirmation of Shiga toxin-production</note>
               <note>STEC O157:H7 with or without confirmation of Shiga toxin-production</note>
             </inclusionTerm>
           </diag>
@@ -7624,8 +7641,8 @@
             <name>B96.22</name>
             <desc>Other specified Shiga toxin-producing Escherichia coli [E. coli] [STEC] as the cause of diseases classified elsewhere</desc>
             <inclusionTerm>
-              <note>Non-O157 Shiga toxin-producing Escherichia coli [E.coli]</note>
-              <note>Non-O157 Shiga toxin-producing Escherichia coli [E.coli] with known O group</note>
+              <note>Non-O157 Shiga toxin-producing Escherichia coli [E. coli]</note>
+              <note>Non-O157 Shiga toxin-producing Escherichia coli [E. coli] with known O group</note>
             </inclusionTerm>
           </diag>
           <diag>
@@ -11135,6 +11152,25 @@
             </diag>
           </diag>
         </diag>
+        <diag>
+          <name>C50.A</name>
+          <desc>Malignant inflammatory neoplasm of breast</desc>
+          <inclusionTerm>
+            <note>Inflammatory breast cancer (IBC)</note>
+          </inclusionTerm>
+          <diag>
+            <name>C50.A0</name>
+            <desc>Malignant inflammatory neoplasm of unspecified breast</desc>
+          </diag>
+          <diag>
+            <name>C50.A1</name>
+            <desc>Malignant inflammatory neoplasm of right breast</desc>
+          </diag>
+          <diag>
+            <name>C50.A2</name>
+            <desc>Malignant inflammatory neoplasm of left breast</desc>
+          </diag>
+        </diag>
       </diag>
     </section>
     <section id="C51-C58">
@@ -12310,7 +12346,7 @@
             <name>C7B.04</name>
             <desc>Secondary carcinoid tumors of peritoneum</desc>
             <inclusionTerm>
-              <note>Mesentary metastasis of carcinoid tumor</note>
+              <note>Mesentery metastasis of carcinoid tumor</note>
             </inclusionTerm>
           </diag>
           <diag>
@@ -12420,7 +12456,7 @@
         <desc>Secondary and unspecified malignant neoplasm of lymph nodes</desc>
         <excludes1>
           <note>malignant neoplasm of lymph nodes, specified as primary (C81-C86, C88, C96.-)</note>
-          <note>mesentary metastasis of carcinoid tumor (C7B.04)</note>
+          <note>mesentery metastasis of carcinoid tumor (C7B.04)</note>
           <note>secondary carcinoid tumors of distant lymph nodes (C7B.01)</note>
         </excludes1>
         <diag>
@@ -16851,9 +16887,9 @@
             <note>Benign neoplasm of large intestine NOS</note>
             <note>Polyposis (hereditary) of colon</note>
           </inclusionTerm>
-          <excludes1>
+          <excludes2>
             <note>inflammatory polyp of colon (K51.4-)</note>
-          </excludes1>
+          </excludes2>
         </diag>
         <diag>
           <name>D12.7</name>
@@ -19300,6 +19336,9 @@
           <diag>
             <name>D48.11</name>
             <desc>Desmoid tumor</desc>
+            <inclusionTerm>
+              <note>Aggressive fibromatosis</note>
+            </inclusionTerm>
             <diag>
               <name>D48.110</name>
               <desc>Desmoid tumor of head and neck</desc>
@@ -19743,12 +19782,12 @@
             <note>Anemia associated with deficiency of molybdenum</note>
             <note>Anemia associated with deficiency of zinc</note>
           </inclusionTerm>
-          <excludes1>
+          <excludes2>
             <note>nutritional deficiencies without anemia, such as:</note>
             <note>copper deficiency NOS (E61.0)</note>
             <note>molybdenum deficiency NOS (E61.5)</note>
             <note>zinc deficiency NOS (E60)</note>
-          </excludes1>
+          </excludes2>
         </diag>
         <diag>
           <name>D53.9</name>
@@ -21058,13 +21097,15 @@
               </inclusionTerm>
               <excludes1>
                 <note>antiphospholipid antibody, finding without diagnosis (R76.0)</note>
+                <note>lupus anticoagulant (LAC) finding without diagnosis (R76.0)</note>
+                <note>systemic lupus erythematosus [SLE] inhibitor finding without diagnosis (R76.0)</note>
+              </excludes1>
+              <excludes2>
                 <note>antiphospholipid antibody syndrome (D68.61)</note>
                 <note>antiphospholipid antibody with hypercoagulable state (D68.61)</note>
-                <note>lupus anticoagulant (LAC) finding without diagnosis (R76.0)</note>
                 <note>lupus anticoagulant (LAC) with hypercoagulable state (D68.62)</note>
-                <note>systemic lupus erythematosus [SLE] inhibitor finding without diagnosis (R76.0)</note>
                 <note>systemic lupus erythematosus [SLE] inhibitor with hypercoagulable state (D68.62)</note>
-              </excludes1>
+              </excludes2>
             </diag>
             <diag>
               <name>D68.318</name>
@@ -21166,9 +21207,11 @@
             </inclusionTerm>
             <excludes1>
               <note>anti-phospholipid antibody, finding without diagnosis (R76.0)</note>
+            </excludes1>
+            <excludes2>
               <note>anti-phospholipid antibody with hemorrhagic disorder (D68.312)</note>
               <note>lupus anticoagulant syndrome (D68.62)</note>
-            </excludes1>
+            </excludes2>
           </diag>
           <diag>
             <name>D68.62</name>
@@ -21178,11 +21221,13 @@
               <note>Presence of systemic lupus erythematosus [SLE] inhibitor</note>
             </inclusionTerm>
             <excludes1>
+              <note>lupus anticoagulant (LAC) finding without diagnosis (R76.0)</note>
+            </excludes1>
+            <excludes2>
               <note>anticardiolipin syndrome (D68.61)</note>
               <note>antiphospholipid syndrome (D68.61)</note>
-              <note>lupus anticoagulant (LAC) finding without diagnosis (R76.0)</note>
               <note>lupus anticoagulant (LAC) with hemorrhagic disorder (D68.312)</note>
-            </excludes1>
+            </excludes2>
           </diag>
           <diag>
             <name>D68.69</name>
@@ -21418,12 +21463,32 @@
       <diag>
         <name>D71</name>
         <desc>Functional disorders of polymorphonuclear neutrophils</desc>
-        <inclusionTerm>
-          <note>Cell membrane receptor complex [CR3] defect</note>
-          <note>Chronic (childhood) granulomatous disease</note>
-          <note>Congenital dysphagocytosis</note>
-          <note>Progressive septic granulomatosis</note>
-        </inclusionTerm>
+        <diag>
+          <name>D71.1</name>
+          <desc>Leukocyte adhesion deficiency</desc>
+          <inclusionTerm>
+            <note>LAD-I</note>
+            <note>LAD-II</note>
+            <note>LAD-III</note>
+            <note>Leukocyte adhesion deficiency type I</note>
+            <note>Leukocyte adhesion deficiency type II</note>
+            <note>Leukocyte adhesion deficiency type III</note>
+          </inclusionTerm>
+        </diag>
+        <diag>
+          <name>D71.8</name>
+          <desc>Other functional disorders of polymorphonuclear neutrophils</desc>
+          <inclusionTerm>
+            <note>Cell membrane receptor complex [CR3] defect</note>
+            <note>Chronic (childhood) granulomatous disease</note>
+            <note>Congenital dysphagocytosis</note>
+            <note>Progressive septic granulomatosis</note>
+          </inclusionTerm>
+        </diag>
+        <diag>
+          <name>D71.9</name>
+          <desc>Functional disorders of polymorphonuclear neutrophils, unspecified</desc>
+        </diag>
       </diag>
       <diag>
         <name>D72</name>
@@ -22061,7 +22126,7 @@
       </includes>
       <excludes1>
         <note>autoimmune disease (systemic) NOS (M35.9)</note>
-        <note>functional disorders of polymorphonuclear neutrophils (D71)</note>
+        <note>functional disorders of polymorphonuclear neutrophils (D71-)</note>
         <note>human immunodeficiency virus [HIV] disease (B20)</note>
       </excludes1>
       <diag>
@@ -24630,6 +24695,17 @@
         <diag>
           <name>E11.9</name>
           <desc>Type 2 diabetes mellitus without complications</desc>
+          <excludes1>
+            <note>type 2 diabetes mellitus, without complications in remission (E11.A)</note>
+          </excludes1>
+        </diag>
+        <diag>
+          <name>E11.A</name>
+          <desc>Type 2 diabetes mellitus without complications in remission</desc>
+          <excludes1>
+            <note>type 2 diabetes mellitus, with complications  (E11.0-E11.8)</note>
+            <note>type 2 diabetes mellitus, without complications not in remission (E11.9)</note>
+          </excludes1>
         </diag>
       </diag>
       <diag>
@@ -25582,6 +25658,12 @@
             <note>Adrenomedullary hyperplasia</note>
             <note>Catecholamine hypersecretion</note>
           </inclusionTerm>
+          <codeAlso>
+            <note>, if applicable:</note>
+            <note>malignant pheochromocytoma (C74.1-)</note>
+            <note>pheochromocytoma (benign) (D35.0-)</note>
+            <note>secondary hypertension (I15.2)</note>
+          </codeAlso>
         </diag>
         <diag>
           <name>E27.8</name>
@@ -27093,9 +27175,6 @@
             <diag>
               <name>E71.540</name>
               <desc>Rhizomelic chondrodysplasia punctata</desc>
-              <excludes1>
-                <note>chondrodysplasia punctata NOS (Q77.3)</note>
-              </excludes1>
             </diag>
             <diag>
               <name>E71.541</name>
@@ -27282,6 +27361,48 @@
               <note>Oxalosis</note>
               <note>Oxaluria</note>
             </inclusionTerm>
+            <excludes1>
+              <note>secondary hyperoxaluria (E72.54-)</note>
+            </excludes1>
+            <diag>
+              <name>E72.530</name>
+              <desc>Primary hyperoxaluria, type 1</desc>
+            </diag>
+            <diag>
+              <name>E72.538</name>
+              <desc>Other specified primary hyperoxaluria</desc>
+              <inclusionTerm>
+                <note>Primary hyperoxaluria, type 2</note>
+                <note>Primary hyperoxaluria, type 3</note>
+              </inclusionTerm>
+            </diag>
+            <diag>
+              <name>E72.539</name>
+              <desc>Primary hyperoxaluria, unspecified</desc>
+            </diag>
+          </diag>
+          <diag>
+            <name>E72.54</name>
+            <desc>Secondary hyperoxaluria</desc>
+            <excludes1>
+              <note>primary hyperoxaluria (E72.53-)</note>
+            </excludes1>
+            <diag>
+              <name>E72.540</name>
+              <desc>Dietary hyperoxaluria</desc>
+            </diag>
+            <diag>
+              <name>E72.541</name>
+              <desc>Enteric hyperoxaluria</desc>
+            </diag>
+            <diag>
+              <name>E72.548</name>
+              <desc>Other secondary hyperoxaluria</desc>
+            </diag>
+            <diag>
+              <name>E72.549</name>
+              <desc>Secondary hyperoxaluria, unspecified</desc>
+            </diag>
           </diag>
           <diag>
             <name>E72.59</name>
@@ -27877,6 +27998,21 @@
           <diag>
             <name>E78.01</name>
             <desc>Familial hypercholesterolemia</desc>
+            <diag>
+              <name>E78.010</name>
+              <desc>Homozygous familial hypercholesterolemia [HoFH]</desc>
+            </diag>
+            <diag>
+              <name>E78.011</name>
+              <desc>Heterozygous familial hypercholesterolemia [HeFH]</desc>
+            </diag>
+            <diag>
+              <name>E78.019</name>
+              <desc>Familial hypercholesterolemia, unspecified</desc>
+              <inclusionTerm>
+                <note>Familial hypercholesterolemia NOS</note>
+              </inclusionTerm>
+            </diag>
           </diag>
         </diag>
         <diag>
@@ -28215,6 +28351,9 @@
             <note>adult osteomalacia (M83.-)</note>
             <note>osteoporosis (M80.-)</note>
           </excludes1>
+          <excludes2>
+            <note>disorders of pyrophosphate metabolism (E83.82-)</note>
+          </excludes2>
           <diag>
             <name>E83.30</name>
             <desc>Disorder of phosphorus metabolism, unspecified</desc>
@@ -28305,6 +28444,49 @@
           <diag>
             <name>E83.81</name>
             <desc>Hungry bone syndrome</desc>
+          </diag>
+          <diag>
+            <name>E83.82</name>
+            <desc>Disorders of pyrophosphate metabolism</desc>
+            <diag>
+              <name>E83.820</name>
+              <desc>Generalized arterial calcification of infancy with unspecified genetic causality</desc>
+              <codeAlso>
+                <note>, if applicable, associated conditions such as:</note>
+                <note>heart failure (I50.-)</note>
+                <note>other secondary hypertension (I15.8)</note>
+              </codeAlso>
+            </diag>
+            <diag>
+              <name>E83.821</name>
+              <desc>ENPP1 deficiency causing generalized arterial calcification of infancy</desc>
+              <codeAlso>
+                <note>, if applicable, associated conditions such as:</note>
+                <note>heart failure (I50.-)</note>
+                <note>other secondary hypertension (I15.8)</note>
+              </codeAlso>
+            </diag>
+            <diag>
+              <name>E83.822</name>
+              <desc>ENPP1 deficiency causing autosomal recessive hypophosphatemic rickets type 2</desc>
+            </diag>
+            <diag>
+              <name>E83.823</name>
+              <desc>ABCC6 deficiency causing generalized arterial calcification of infancy</desc>
+              <codeAlso>
+                <note>, if applicable, associated conditions such as:</note>
+                <note>heart failure (I50.-)</note>
+                <note>other secondary hypertension (I15.8)</note>
+              </codeAlso>
+            </diag>
+            <diag>
+              <name>E83.824</name>
+              <desc>ABCC6 deficiency causing pseudoxanthoma elasticum</desc>
+            </diag>
+            <diag>
+              <name>E83.825</name>
+              <desc>CD73 deficiency causing arterial calcification</desc>
+            </diag>
           </diag>
           <diag>
             <name>E83.89</name>
@@ -28637,7 +28819,7 @@
               <note>Type 2 plasminogen deficiency</note>
             </inclusionTerm>
             <codeAlso>
-              <note>, if applicable, ligneous conjunctivitis (H10.51)</note>
+              <note>, if applicable, ligneous conjunctivitis (H10.51-)</note>
             </codeAlso>
             <useAdditionalCode>
               <note>code for associated findings, such as:</note>
@@ -28657,12 +28839,57 @@
         <diag>
           <name>E88.1</name>
           <desc>Lipodystrophy, not elsewhere classified</desc>
-          <inclusionTerm>
-            <note>Lipodystrophy NOS</note>
-          </inclusionTerm>
           <excludes1>
             <note>Whipple's disease (K90.81)</note>
           </excludes1>
+          <diag>
+            <name>E88.10</name>
+            <desc>Lipodystrophy, unspecified</desc>
+            <inclusionTerm>
+              <note>Lipodystrophy NOS</note>
+            </inclusionTerm>
+          </diag>
+          <diag>
+            <name>E88.11</name>
+            <desc>Partial lipodystrophy</desc>
+            <inclusionTerm>
+              <note>Acquired partial lipodystrophy (APL)</note>
+              <note>Barraquer-Simons lipodystrophy</note>
+              <note>Familial partial lipodystrophy (FPLD)</note>
+            </inclusionTerm>
+          </diag>
+          <diag>
+            <name>E88.12</name>
+            <desc>Generalized lipodystrophy</desc>
+            <inclusionTerm>
+              <note>Acquired generalized lipodystrophy (AGL)</note>
+              <note>Berardinelli-Siep syndrome</note>
+              <note>Congenital generalized lipodystrophy (CGL)</note>
+              <note>Lawrence syndrome</note>
+            </inclusionTerm>
+          </diag>
+          <diag>
+            <name>E88.13</name>
+            <desc>Localized lipodystrophy</desc>
+            <inclusionTerm>
+              <note>Injection lipodystrophy</note>
+              <note>Insulin lipodystrophy</note>
+            </inclusionTerm>
+          </diag>
+          <diag>
+            <name>E88.14</name>
+            <desc>HIV-associated lipodystrophy</desc>
+            <codeFirst>
+              <note>any human immunodeficiency virus [HIV] disease (B20)</note>
+            </codeFirst>
+            <useAdditionalCode>
+              <note>code for adverse effect, if applicable, to identify drug (T37.5X5-)</note>
+            </useAdditionalCode>
+          </diag>
+          <diag>
+            <name>E88.19</name>
+            <desc>Other lipodystrophy, not elsewhere classified</desc>
+          </diag>
         </diag>
         <diag>
           <name>E88.2</name>
@@ -28718,6 +28945,18 @@
           <diag>
             <name>E88.43</name>
             <desc>Disorders of mitochondrial tRNA synthetases</desc>
+            <inclusionTerm>
+              <note>ARS2-related mitochondrial disorders</note>
+              <note>LBSL</note>
+              <note>Leukoencephalopathy with brainstem - spinal cord involvement - lactate elevation</note>
+              <note>Leukoencephalopathy with thalamus - brainstem involvement - high lactate</note>
+              <note>LTBL</note>
+              <note>Mitochondrial aminoacyl-tRNA synthetase disorders</note>
+            </inclusionTerm>
+            <codeAlso>
+              <note>, if applicable, associated condition such as:</note>
+              <note>leukoencephalopathy (G93.49)</note>
+            </codeAlso>
           </diag>
           <diag>
             <name>E88.49</name>
@@ -29250,7 +29489,7 @@
           <note>hypothyroidism, acquired (E00-E03.-)</note>
           <note>intoxications (T36-T65)</note>
           <note>Jakob-Creutzfeldt disease (A81.0-)</note>
-          <note>multiple sclerosis (G35)</note>
+          <note>multiple sclerosis (G35-)</note>
           <note>neurocognitive disorder with Lewy bodies (G31.83)</note>
           <note>neurosyphilis (A52.17)</note>
           <note>niacin deficiency [pellagra] (E52)</note>
@@ -34077,7 +34316,7 @@
         <desc>Obsessive-compulsive disorder</desc>
         <excludes2>
           <note>obsessive-compulsive personality (disorder) (F60.5)</note>
-          <note>obsessive-compulsive symptoms occurring in depression (F32-F33)</note>
+          <note>obsessive-compulsive symptoms occurring in depression (F32.-, F33.-)</note>
           <note>obsessive-compulsive symptoms occurring in schizophrenia (F20.-)</note>
         </excludes2>
         <diag>
@@ -34454,7 +34693,7 @@
           <codeFirst>
             <note>underlying cause, if known, such as:</note>
             <note>amyotrophic lateral sclerosis (G12.21)</note>
-            <note>multiple sclerosis (G35)</note>
+            <note>multiple sclerosis (G35-)</note>
             <note>sequelae of cerebrovascular disease (I69.-)</note>
             <note>sequelae of traumatic intracranial injury (S06.-)</note>
           </codeFirst>
@@ -35227,7 +35466,7 @@
             <note>shoplifting as the reason for observation for suspected mental disorder (Z03.8)</note>
           </excludes1>
           <excludes2>
-            <note>depressive disorder with stealing (F31-F33)</note>
+            <note>depressive disorder with stealing (F31.-,  F32.-, F33.-)</note>
             <note>stealing due to underlying mental condition-code to mental condition</note>
             <note>stealing in mental disorders due to known physiological condition (F01-F09)</note>
           </excludes2>
@@ -36260,7 +36499,7 @@
           <name>G00.1</name>
           <desc>Pneumococcal meningitis</desc>
           <inclusionTerm>
-            <note>Meningtitis due to Streptococcal pneumoniae</note>
+            <note>Meningitis due to Streptococcal pneumoniae</note>
           </inclusionTerm>
         </diag>
         <diag>
@@ -36395,7 +36634,7 @@
         <excludes2>
           <note>acute transverse myelitis (G37.3)</note>
           <note>alcoholic encephalopathy (G31.2)</note>
-          <note>multiple sclerosis (G35)</note>
+          <note>multiple sclerosis (G35-)</note>
           <note>myalgic encephalomyelitis (G93.32)</note>
           <note>subacute necrotizing myelitis (G37.4)</note>
           <note>toxic encephalitis (G92.8)</note>
@@ -37030,6 +37269,7 @@
           <desc>Hypomyelination with atrophy of the basal ganglia and cerebellum</desc>
           <inclusionTerm>
             <note>H-ABC</note>
+            <note>TUBB4A-related neurologic disorders</note>
           </inclusionTerm>
         </diag>
         <diag>
@@ -37455,6 +37695,10 @@
             <desc>Alexander disease</desc>
           </diag>
           <diag>
+            <name>G31.87</name>
+            <desc>Primary progressive apraxia of speech</desc>
+          </diag>
+          <diag>
             <name>G31.89</name>
             <desc>Other specified degenerative diseases of nervous system</desc>
           </diag>
@@ -37527,13 +37771,68 @@
       <diag>
         <name>G35</name>
         <desc>Multiple sclerosis</desc>
-        <inclusionTerm>
-          <note>Disseminated multiple sclerosis</note>
-          <note>Generalized multiple sclerosis</note>
-          <note>Multiple sclerosis NOS</note>
-          <note>Multiple sclerosis of brain stem</note>
-          <note>Multiple sclerosis of cord</note>
-        </inclusionTerm>
+        <diag>
+          <name>G35.A</name>
+          <desc>Relapsing-remitting multiple sclerosis</desc>
+          <inclusionTerm>
+            <note>Exclude1:	demyelinating disease of central nervous system, unspecified (G37.9)</note>
+          </inclusionTerm>
+        </diag>
+        <diag>
+          <name>G35.B</name>
+          <desc>Primary progressive multiple sclerosis</desc>
+          <diag>
+            <name>G35.B0</name>
+            <desc>Primary progressive multiple sclerosis, unspecified</desc>
+          </diag>
+          <diag>
+            <name>G35.B1</name>
+            <desc>Active primary progressive multiple sclerosis</desc>
+            <inclusionTerm>
+              <note>Primary progressive multiple sclerosis with evidence of inflammatory disease activity</note>
+            </inclusionTerm>
+          </diag>
+          <diag>
+            <name>G35.B2</name>
+            <desc>Non-active primary progressive multiple sclerosis</desc>
+            <inclusionTerm>
+              <note>Primary progressive multiple sclerosis without evidence of inflammatory disease activity</note>
+            </inclusionTerm>
+          </diag>
+        </diag>
+        <diag>
+          <name>G35.C</name>
+          <desc>Secondary progressive multiple sclerosis</desc>
+          <diag>
+            <name>G35.C0</name>
+            <desc>Secondary progressive multiple sclerosis, unspecified</desc>
+          </diag>
+          <diag>
+            <name>G35.C1</name>
+            <desc>Active secondary progressive multiple sclerosis</desc>
+            <inclusionTerm>
+              <note>Secondary progressive multiple sclerosis with evidence of inflammatory disease activity</note>
+            </inclusionTerm>
+          </diag>
+          <diag>
+            <name>G35.C2</name>
+            <desc>Non-active secondary progressive multiple sclerosis</desc>
+            <inclusionTerm>
+              <note>Secondary progressive multiple sclerosis without evidence of inflammatory disease activity</note>
+            </inclusionTerm>
+          </diag>
+        </diag>
+        <diag>
+          <name>G35.D</name>
+          <desc>Multiple sclerosis, unspecified</desc>
+          <inclusionTerm>
+            <note>Disseminated multiple sclerosis</note>
+            <note>Generalized multiple sclerosis</note>
+            <note>Multiple sclerosis NOS</note>
+            <note>Multiple sclerosis of brain stem</note>
+            <note>Multiple sclerosis of cord</note>
+          </inclusionTerm>
+        </diag>
       </diag>
       <diag>
         <name>G36</name>
@@ -37595,7 +37894,7 @@
           </inclusionTerm>
           <excludes1>
             <note>acute flaccid myelitis (G04.82)</note>
-            <note>multiple sclerosis (G35)</note>
+            <note>multiple sclerosis (G35-)</note>
             <note>neuromyelitis optica [Devic] (G36.0)</note>
           </excludes1>
         </diag>
@@ -37630,6 +37929,9 @@
         <diag>
           <name>G37.9</name>
           <desc>Demyelinating disease of central nervous system, unspecified</desc>
+          <inclusionTerm>
+            <note>Clinically isolated syndromes</note>
+          </inclusionTerm>
         </diag>
       </diag>
     </section>
@@ -40493,13 +40795,19 @@
               </inclusionTerm>
             </diag>
             <diag>
+              <name>G71.036</name>
+              <desc>Limb girdle muscular dystrophy due to fukutin related protein dysfunction</desc>
+              <inclusionTerm>
+                <note>LGMD R9 FKRP-related</note>
+                <note>Limb girdle muscular dystrophy due to FKRP deficiency</note>
+                <note>Limb girdle muscular dystrophy type 2I</note>
+              </inclusionTerm>
+            </diag>
+            <diag>
               <name>G71.038</name>
               <desc>Other limb girdle muscular dystrophy</desc>
               <inclusionTerm>
-                <note>LGMD R9 FKRP-related</note>
                 <note>LGMD R22 collagen 6-related</note>
-                <note>Limb girdle muscular dystrophy due to fukutin related protein dysfunction</note>
-                <note>Limb girdle muscular dystrophy type 2I</note>
                 <note>Other autosomal recessive limb girdle muscular dystrophy</note>
               </inclusionTerm>
             </diag>
@@ -41143,7 +41451,7 @@
           <note>limb pain (M79.6-)</note>
           <note>lumbar region pain (M54.5-)</note>
           <note>painful urination (R30.9)</note>
-          <note>pelvic and perineal pain (R10.2)</note>
+          <note>pelvic and perineal pain (R10.2-)</note>
           <note>shoulder pain (M25.51-)</note>
           <note>spine pain (M54.-)</note>
           <note>throat pain (R07.0)</note>
@@ -42657,6 +42965,45 @@
         <diag>
           <name>H01.8</name>
           <desc>Other specified inflammations of eyelid</desc>
+          <codeAlso>
+            <note>, if applicable, infestation by Demodex mites (B88.01)</note>
+          </codeAlso>
+          <diag>
+            <name>H01.81</name>
+            <desc>Other specified inflammation of right upper eyelid</desc>
+          </diag>
+          <diag>
+            <name>H01.82</name>
+            <desc>Other specified inflammation of right lower eyelid</desc>
+          </diag>
+          <diag>
+            <name>H01.83</name>
+            <desc>Other specified inflammation of right eye, unspecified eyelid</desc>
+          </diag>
+          <diag>
+            <name>H01.84</name>
+            <desc>Other specified inflammation of left upper eyelid</desc>
+          </diag>
+          <diag>
+            <name>H01.85</name>
+            <desc>Other specified inflammation of left lower eyelid</desc>
+          </diag>
+          <diag>
+            <name>H01.86</name>
+            <desc>Other specified inflammation of left eye, unspecified eyelid</desc>
+          </diag>
+          <diag>
+            <name>H01.89</name>
+            <desc>Other specified inflammation of unspecified eye, unspecified eyelid</desc>
+          </diag>
+          <diag>
+            <name>H01.8A</name>
+            <desc>Other specified inflammation of right eye, upper and lower eyelids</desc>
+          </diag>
+          <diag>
+            <name>H01.8B</name>
+            <desc>Other specified inflammation of left eye, upper and lower eyelids</desc>
+          </diag>
         </diag>
         <diag>
           <name>H01.9</name>
@@ -45117,6 +45464,36 @@
             <diag>
               <name>H05.829</name>
               <desc>Myopathy of extraocular muscles, unspecified orbit</desc>
+            </diag>
+          </diag>
+          <diag>
+            <name>H05.83</name>
+            <desc>Thyroid orbitopathy</desc>
+            <inclusionTerm>
+              <note>Graves' ophthalmopathy</note>
+              <note>Graves' orbitopathy</note>
+              <note>Thyroid eye disease</note>
+            </inclusionTerm>
+            <codeAlso>
+              <note>, if applicable, any associated conditions such as:</note>
+              <note>autoimmune thyroiditis (E06.3)</note>
+              <note>thyrotoxicosis with diffuse goiter (E05.0-)</note>
+            </codeAlso>
+            <diag>
+              <name>H05.831</name>
+              <desc>Thyroid orbitopathy, right orbit</desc>
+            </diag>
+            <diag>
+              <name>H05.832</name>
+              <desc>Thyroid orbitopathy, left orbit</desc>
+            </diag>
+            <diag>
+              <name>H05.833</name>
+              <desc>Thyroid orbitopathy, bilateral</desc>
+            </diag>
+            <diag>
+              <name>H05.839</name>
+              <desc>Thyroid orbitopathy, unspecified orbit</desc>
             </diag>
           </diag>
           <diag>
@@ -50450,8 +50827,10 @@
           <desc>Retinal breaks without detachment</desc>
           <excludes1>
             <note>chorioretinal scars after surgery for detachment (H59.81-)</note>
-            <note>peripheral retinal degeneration without break (H35.4-)</note>
           </excludes1>
+          <excludes2>
+            <note>peripheral retinal degeneration without break (H35.4-)</note>
+          </excludes2>
           <diag>
             <name>H33.30</name>
             <desc>Unspecified retinal break</desc>
@@ -51317,8 +51696,10 @@
           <desc>Peripheral retinal degeneration</desc>
           <excludes1>
             <note>hereditary retinal degeneration (dystrophy) (H35.5-)</note>
-            <note>peripheral retinal degeneration with retinal break (H33.3-)</note>
           </excludes1>
+          <excludes2>
+            <note>peripheral retinal degeneration with retinal break (H33.3-)</note>
+          </excludes2>
           <diag>
             <name>H35.40</name>
             <desc>Unspecified peripheral retinal degeneration</desc>
@@ -52311,6 +52692,32 @@
             </diag>
           </diag>
           <diag>
+            <name>H40.84</name>
+            <desc>Neovascular secondary angle closure glaucoma</desc>
+            <codeFirst>
+              <note>the underlying condition such as:</note>
+              <note>central retinal vein occlusion (H34.81)</note>
+              <note>diabetes mellitus (E08.39, E09.39, E10.39, E11.39, E13.39)</note>
+              <note>retinal ischemia (H35.82)</note>
+            </codeFirst>
+            <diag>
+              <name>H40.841</name>
+              <desc>Neovascular secondary angle closure glaucoma, right eye</desc>
+            </diag>
+            <diag>
+              <name>H40.842</name>
+              <desc>Neovascular secondary angle closure glaucoma, left eye</desc>
+            </diag>
+            <diag>
+              <name>H40.843</name>
+              <desc>Neovascular secondary angle closure glaucoma, bilateral</desc>
+            </diag>
+            <diag>
+              <name>H40.849</name>
+              <desc>Neovascular secondary angle closure glaucoma, unspecified eye</desc>
+            </diag>
+          </diag>
+          <diag>
             <name>H40.89</name>
             <desc>Other specified glaucoma</desc>
           </diag>
@@ -52336,6 +52743,7 @@
           <note>glaucoma (in) onchocerciasis (B73.02)</note>
           <note>glaucoma (in) syphilis (A52.71)</note>
           <note>glaucoma (in) tuberculous (A18.59)</note>
+          <note>neovascular secondary angle closure glaucoma (H40.84-)</note>
         </excludes1>
       </diag>
     </section>
@@ -54853,9 +55261,9 @@
           <diag>
             <name>H53.03</name>
             <desc>Strabismic amblyopia</desc>
-            <excludes1>
+            <excludes2>
               <note>strabismus (H50.-)</note>
-            </excludes1>
+            </excludes2>
             <diag>
               <name>H53.031</name>
               <desc>Strabismic amblyopia, right eye</desc>
@@ -62039,6 +62447,35 @@
             </codeAlso>
           </diag>
           <diag>
+            <name>I27.84</name>
+            <desc>Fontan related circulation</desc>
+            <diag>
+              <name>I27.840</name>
+              <desc>Fontan-associated liver disease [FALD]</desc>
+            </diag>
+            <diag>
+              <name>I27.841</name>
+              <desc>Fontan-associated lymphatic dysfunction</desc>
+              <codeAlso>
+                <note>associated conditions such as:</note>
+                <note>chylothorax (J94.0)</note>
+                <note>Fontan associated protein-losing enteropathy (K90.89)</note>
+                <note>plastic (obstructive) bronchitis (J44.89)</note>
+              </codeAlso>
+            </diag>
+            <diag>
+              <name>I27.848</name>
+              <desc>Other Fontan-associated condition</desc>
+              <useAdditionalCode>
+                <note>code to specify the Fontan associated condition</note>
+              </useAdditionalCode>
+            </diag>
+            <diag>
+              <name>I27.849</name>
+              <desc>Fontan related circulation, unspecified</desc>
+            </diag>
+          </diag>
+          <diag>
             <name>I27.89</name>
             <desc>Other specified pulmonary heart diseases</desc>
           </diag>
@@ -63268,11 +63705,9 @@
       <diag>
         <name>I51</name>
         <desc>Complications and ill-defined descriptions of heart disease</desc>
-        <excludes1>
-          <note>any condition in I51.4-I51.9 due to hypertension (I11.-)</note>
-          <note>any condition in I51.4-I51.9 due to hypertension and chronic kidney disease (I13.-)</note>
+        <excludes2>
           <note>heart disease specified as rheumatic (I00-I09)</note>
-        </excludes1>
+        </excludes2>
         <diag>
           <name>I51.0</name>
           <desc>Cardiac septal defect, acquired</desc>
@@ -63333,6 +63768,10 @@
             <note>Myocardial disease</note>
             <note>Senile degeneration of heart or myocardium</note>
           </inclusionTerm>
+          <excludes1>
+            <note>myocardial degeneration due to hypertension (I11.-)</note>
+            <note>myocardial degeneration due to hypertension and chronic kidney disease (I13.-)</note>
+          </excludes1>
         </diag>
         <diag>
           <name>I51.7</name>
@@ -63342,6 +63781,10 @@
             <note>Cardiac hypertrophy</note>
             <note>Ventricular dilatation</note>
           </inclusionTerm>
+          <excludes1>
+            <note>cardiomegaly due to hypertension (I11.-)</note>
+            <note>cardiomegaly due to hypertension and chronic kidney disease (I13.-)</note>
+          </excludes1>
         </diag>
         <diag>
           <name>I51.8</name>
@@ -67351,6 +67794,9 @@
         <diag>
           <name>I70.9</name>
           <desc>Other and unspecified atherosclerosis</desc>
+          <excludes2>
+            <note>disorders of pyrophosphate metabolism (E83.82-)</note>
+          </excludes2>
           <diag>
             <name>I70.90</name>
             <desc>Unspecified atherosclerosis</desc>
@@ -68145,7 +68591,7 @@
           <note>suppurative phlebitis</note>
         </includes>
         <codeFirst>
-          <note>phlebitis and thrombophlebitis complicating abortion, ectopic or molar pregnancy (O00-O07, O08.7)</note>
+          <note>, if applicable:	phlebitis and thrombophlebitis complicating abortion, ectopic or molar pregnancy (O00-O07, O08.7)</note>
           <note>phlebitis and thrombophlebitis complicating pregnancy, childbirth and the puerperium (O22.-, O87.-)</note>
         </codeFirst>
         <excludes1>
@@ -71585,7 +72031,7 @@
           <note>acute bronchitis with bronchiectasis (J47.0)</note>
           <note>acute bronchitis with chronic obstructive asthma (J44.0)</note>
           <note>acute bronchitis with chronic obstructive pulmonary disease (J44.0)</note>
-          <note>allergic bronchitis NOS (J45.909-)</note>
+          <note>allergic bronchitis NOS (J45.909)</note>
           <note>bronchitis due to chemicals, fumes and vapors (J68.0)</note>
           <note>chronic bronchitis NOS (J42)</note>
           <note>chronic mucopurulent bronchitis (J41.1)</note>
@@ -72321,7 +72767,7 @@
         </useAdditionalCode>
         <excludes1>
           <note>acute bronchitis (J20.-)</note>
-          <note>allergic bronchitis NOS (J45.909-)</note>
+          <note>allergic bronchitis NOS (J45.909)</note>
           <note>asthmatic bronchitis NOS (J45.9-)</note>
           <note>bronchitis due to chemicals, gases, fumes and vapors (J68.0)</note>
         </excludes1>
@@ -72386,13 +72832,13 @@
         <desc>Emphysema</desc>
         <excludes1>
           <note>compensatory emphysema (J98.3)</note>
-          <note>emphysema due to inhalation of chemicals, gases, fumes or vapors (J68.4)</note>
           <note>interstitial emphysema (J98.2)</note>
           <note>mediastinal emphysema (J98.2)</note>
           <note>neonatal interstitial emphysema (P25.0)</note>
           <note>surgical (subcutaneous) emphysema (T81.82)</note>
         </excludes1>
         <excludes2>
+          <note>emphysema due to inhalation of chemicals, gases, fumes or vapors (J68.4)</note>
           <note>emphysema with chronic (obstructive) bronchitis (J44.-)</note>
           <note>emphysematous (obstructive) bronchitis (J44.-)</note>
           <note>traumatic subcutaneous emphysema (T79.7)</note>
@@ -72450,14 +72896,12 @@
         <codeAlso>
           <note>type of asthma, if applicable (J45.-)</note>
         </codeAlso>
-        <excludes1>
+        <excludes2>
+          <note>bronchiectasis (J47.-)</note>
           <note>chronic bronchitis NOS (J42)</note>
           <note>chronic simple and mucopurulent bronchitis (J41.-)</note>
           <note>chronic tracheitis (J42)</note>
           <note>chronic tracheobronchitis (J42)</note>
-        </excludes1>
-        <excludes2>
-          <note>bronchiectasis (J47.-)</note>
           <note>emphysema without chronic bronchitis (J43.-)</note>
         </excludes2>
         <diag>
@@ -73315,8 +73759,10 @@
         <diag>
           <name>J84.1</name>
           <desc>Other interstitial pulmonary diseases with fibrosis</desc>
+          <codeAlso>
+            <note>, if applicable, pulmonary fibrosis (chronic) due to inhalation of chemicals, gases, fumes or vapors (J68.4)</note>
+          </codeAlso>
           <excludes1>
-            <note>pulmonary fibrosis (chronic) due to inhalation of chemicals, gases, fumes or vapors (J68.4)</note>
             <note>pulmonary fibrosis (chronic) following radiation (J70.1)</note>
           </excludes1>
           <diag>
@@ -80156,6 +80602,9 @@
           <diag>
             <name>K75.81</name>
             <desc>Nonalcoholic steatohepatitis (NASH)</desc>
+            <inclusionTerm>
+              <note>Metabolic dysfunction-associated steatohepatitis (MASH)</note>
+            </inclusionTerm>
             <useAdditionalCode>
               <note>code, if applicable, hepatic fibrosis (K74.0-)</note>
             </useAdditionalCode>
@@ -80195,6 +80644,7 @@
           <name>K76.0</name>
           <desc>Fatty (change of) liver, not elsewhere classified</desc>
           <inclusionTerm>
+            <note>Metabolic dysfunction-associated steatotic liver disease (MASLD)</note>
             <note>Nonalcoholic fatty liver disease (NAFLD)</note>
           </inclusionTerm>
           <excludes1>
@@ -81750,7 +82200,7 @@
             </diag>
             <diag>
               <name>L02.212</name>
-              <desc>Cutaneous abscess of back [any part, except buttock]</desc>
+              <desc>Cutaneous abscess of back [any part, except buttock and flank]</desc>
             </diag>
             <diag>
               <name>L02.213</name>
@@ -81767,6 +82217,10 @@
             <diag>
               <name>L02.216</name>
               <desc>Cutaneous abscess of umbilicus</desc>
+            </diag>
+            <diag>
+              <name>L02.217</name>
+              <desc>Cutaneous abscess of flank</desc>
             </diag>
             <diag>
               <name>L02.219</name>
@@ -81786,7 +82240,7 @@
             </diag>
             <diag>
               <name>L02.222</name>
-              <desc>Furuncle of back [any part, except buttock]</desc>
+              <desc>Furuncle of back [any part, except buttock and flank]</desc>
             </diag>
             <diag>
               <name>L02.223</name>
@@ -81803,6 +82257,10 @@
             <diag>
               <name>L02.226</name>
               <desc>Furuncle of umbilicus</desc>
+            </diag>
+            <diag>
+              <name>L02.227</name>
+              <desc>Furuncle of flank</desc>
             </diag>
             <diag>
               <name>L02.229</name>
@@ -82436,6 +82894,10 @@
               <name>L03.319</name>
               <desc>Cellulitis of trunk, unspecified</desc>
             </diag>
+            <diag>
+              <name>L03.31A</name>
+              <desc>Cellulitis of flank</desc>
+            </diag>
           </diag>
           <diag>
             <name>L03.32</name>
@@ -82471,6 +82933,10 @@
             <diag>
               <name>L03.329</name>
               <desc>Acute lymphangitis of trunk, unspecified</desc>
+            </diag>
+            <diag>
+              <name>L03.32A</name>
+              <desc>Acute lymphangitis of flank</desc>
             </diag>
           </diag>
         </diag>
@@ -82863,7 +83329,7 @@
         <note>In this block the terms dermatitis and eczema are used synonymously and interchangeably.</note>
       </notes>
       <excludes2>
-        <note>chronic (childhood) granulomatous disease (D71)</note>
+        <note>chronic (childhood) granulomatous disease (D71-)</note>
         <note>dermatitis gangrenosa (L08.0)</note>
         <note>dermatitis herpetiformis (L13.0)</note>
         <note>dry skin dermatitis (L85.3)</note>
@@ -83799,7 +84265,7 @@
           <note>corneal scars and opacities (H17.-)</note>
           <note>corneal ulcer (H16.0-)</note>
           <note>edema of eyelid (H02.84-)</note>
-          <note>inflammation of eyelid (H01.8)</note>
+          <note>inflammation of eyelid (H01.8-)</note>
           <note>keratoconjunctivitis sicca (H16.22-)</note>
           <note>mechanical lagophthalmos (H02.22-)</note>
           <note>stomatitis (K12.-)</note>
@@ -86612,6 +87078,9 @@
         <diag>
           <name>L97.2</name>
           <desc>Non-pressure chronic ulcer of calf</desc>
+          <inclusionTerm>
+            <note>Non-pressure chronic ulcer of shin</note>
+          </inclusionTerm>
           <diag>
             <name>L97.20</name>
             <desc>Non-pressure chronic ulcer of unspecified calf</desc>
@@ -87407,6 +87876,186 @@
             </diag>
           </diag>
           <diag>
+            <name>L98.43</name>
+            <desc>Non-pressure chronic ulcer of abdomen</desc>
+            <diag>
+              <name>L98.431</name>
+              <desc>Non-pressure chronic ulcer of abdomen limited to breakdown of skin</desc>
+            </diag>
+            <diag>
+              <name>L98.432</name>
+              <desc>Non-pressure chronic ulcer of abdomen with fat layer exposed</desc>
+            </diag>
+            <diag>
+              <name>L98.433</name>
+              <desc>Non-pressure chronic ulcer of abdomen with necrosis of muscle</desc>
+            </diag>
+            <diag>
+              <name>L98.434</name>
+              <desc>Non-pressure chronic ulcer of abdomen with necrosis of bone</desc>
+            </diag>
+            <diag>
+              <name>L98.435</name>
+              <desc>Non-pressure chronic ulcer of abdomen with muscle involvement without evidence of necrosis</desc>
+            </diag>
+            <diag>
+              <name>L98.436</name>
+              <desc>Non-pressure chronic ulcer of abdomen with bone involvement without evidence of necrosis</desc>
+            </diag>
+            <diag>
+              <name>L98.438</name>
+              <desc>Non-pressure chronic ulcer of abdomen with other specified severity</desc>
+            </diag>
+            <diag>
+              <name>L98.439</name>
+              <desc>Non-pressure chronic ulcer of abdomen with unspecified severity</desc>
+            </diag>
+          </diag>
+          <diag>
+            <name>L98.44</name>
+            <desc>Non-pressure chronic ulcer of chest</desc>
+            <diag>
+              <name>L98.441</name>
+              <desc>Non-pressure chronic ulcer of chest limited to breakdown of skin</desc>
+            </diag>
+            <diag>
+              <name>L98.442</name>
+              <desc>Non-pressure chronic ulcer of chest with fat layer exposed</desc>
+            </diag>
+            <diag>
+              <name>L98.443</name>
+              <desc>Non-pressure chronic ulcer of chest with necrosis of muscle</desc>
+            </diag>
+            <diag>
+              <name>L98.444</name>
+              <desc>Non-pressure chronic ulcer of chest with necrosis of bone</desc>
+            </diag>
+            <diag>
+              <name>L98.445</name>
+              <desc>Non-pressure chronic ulcer of chest with muscle involvement without evidence of necrosis</desc>
+            </diag>
+            <diag>
+              <name>L98.446</name>
+              <desc>Non-pressure chronic ulcer of chest with bone involvement without evidence of necrosis</desc>
+            </diag>
+            <diag>
+              <name>L98.448</name>
+              <desc>Non-pressure chronic ulcer of chest with other specified severity</desc>
+            </diag>
+            <diag>
+              <name>L98.449</name>
+              <desc>Non-pressure chronic ulcer of chest with unspecified severity</desc>
+            </diag>
+          </diag>
+          <diag>
+            <name>L98.45</name>
+            <desc>Non-pressure chronic ulcer of neck</desc>
+            <diag>
+              <name>L98.451</name>
+              <desc>Non-pressure chronic ulcer of neck limited to breakdown of skin</desc>
+            </diag>
+            <diag>
+              <name>L98.452</name>
+              <desc>Non-pressure chronic ulcer of neck with fat layer exposed</desc>
+            </diag>
+            <diag>
+              <name>L98.453</name>
+              <desc>Non-pressure chronic ulcer of neck with necrosis of muscle</desc>
+            </diag>
+            <diag>
+              <name>L98.454</name>
+              <desc>Non-pressure chronic ulcer of neck with necrosis of bone</desc>
+            </diag>
+            <diag>
+              <name>L98.455</name>
+              <desc>Non-pressure chronic ulcer of neck with muscle involvement without evidence of necrosis</desc>
+            </diag>
+            <diag>
+              <name>L98.456</name>
+              <desc>Non-pressure chronic ulcer of neck with bone involvement without evidence of necrosis</desc>
+            </diag>
+            <diag>
+              <name>L98.458</name>
+              <desc>Non-pressure chronic ulcer of neck with other specified severity</desc>
+            </diag>
+            <diag>
+              <name>L98.459</name>
+              <desc>Non-pressure chronic ulcer of neck with unspecified severity</desc>
+            </diag>
+          </diag>
+          <diag>
+            <name>L98.46</name>
+            <desc>Non-pressure chronic ulcer of face</desc>
+            <diag>
+              <name>L98.461</name>
+              <desc>Non-pressure chronic ulcer of face limited to breakdown of skin</desc>
+            </diag>
+            <diag>
+              <name>L98.462</name>
+              <desc>Non-pressure chronic ulcer of face with fat layer exposed</desc>
+            </diag>
+            <diag>
+              <name>L98.463</name>
+              <desc>Non-pressure chronic ulcer of face with necrosis of muscle</desc>
+            </diag>
+            <diag>
+              <name>L98.464</name>
+              <desc>Non-pressure chronic ulcer of face with necrosis of bone</desc>
+            </diag>
+            <diag>
+              <name>L98.465</name>
+              <desc>Non-pressure chronic ulcer of face with muscle involvement without evidence of necrosis</desc>
+            </diag>
+            <diag>
+              <name>L98.466</name>
+              <desc>Non-pressure chronic ulcer of face with bone involvement without evidence of necrosis</desc>
+            </diag>
+            <diag>
+              <name>L98.468</name>
+              <desc>Non-pressure chronic ulcer of face with other specified severity</desc>
+            </diag>
+            <diag>
+              <name>L98.469</name>
+              <desc>Non-pressure chronic ulcer of face with unspecified severity</desc>
+            </diag>
+          </diag>
+          <diag>
+            <name>L98.47</name>
+            <desc>Non-pressure chronic ulcer of groin</desc>
+            <diag>
+              <name>L98.471</name>
+              <desc>Non-pressure chronic ulcer of groin limited to breakdown of skin</desc>
+            </diag>
+            <diag>
+              <name>L98.472</name>
+              <desc>Non-pressure chronic ulcer of groin with fat layer exposed</desc>
+            </diag>
+            <diag>
+              <name>L98.473</name>
+              <desc>Non-pressure chronic ulcer of groin with necrosis of muscle</desc>
+            </diag>
+            <diag>
+              <name>L98.474</name>
+              <desc>Non-pressure chronic ulcer of groin with necrosis of bone</desc>
+            </diag>
+            <diag>
+              <name>L98.475</name>
+              <desc>Non-pressure chronic ulcer of groin with muscle involvement without evidence of necrosis</desc>
+            </diag>
+            <diag>
+              <name>L98.476</name>
+              <desc>Non-pressure chronic ulcer of groin with bone involvement without evidence of necrosis</desc>
+            </diag>
+            <diag>
+              <name>L98.478</name>
+              <desc>Non-pressure chronic ulcer of groin with other specified severity</desc>
+            </diag>
+            <diag>
+              <name>L98.479</name>
+              <desc>Non-pressure chronic ulcer of groin with unspecified severity</desc>
+            </diag>
+          </diag>
+          <diag>
             <name>L98.49</name>
             <desc>Non-pressure chronic ulcer of skin of other sites</desc>
             <inclusionTerm>
@@ -87443,6 +88092,362 @@
             <diag>
               <name>L98.499</name>
               <desc>Non-pressure chronic ulcer of skin of other sites with unspecified severity</desc>
+            </diag>
+          </diag>
+        </diag>
+        <diag>
+          <name>L98.A</name>
+          <desc>Non-pressure chronic ulcer of upper limb, not elsewhere classified</desc>
+          <inclusionTerm>
+            <note>Chronic ulcer of upper limb NOS</note>
+            <note>Non-healing ulcer of upper limb</note>
+            <note>Ulcer of upper limb NEC</note>
+          </inclusionTerm>
+          <excludes2>
+            <note>gangrene (I96)</note>
+            <note>pressure ulcer (pressure area) (L89.-)</note>
+            <note>skin infections (L00-L08)</note>
+            <note>specific infections classified to A00-B99</note>
+            <note>ulcer of lower limb NEC (L97.-)</note>
+            <note>varicose ulcer (I83.0-I83.93)</note>
+          </excludes2>
+          <diag>
+            <name>L98.A1</name>
+            <desc>Non-pressure chronic ulcer of upper arm</desc>
+            <inclusionTerm>
+              <note>Non-pressure chronic ulcer of axilla</note>
+            </inclusionTerm>
+            <diag>
+              <name>L98.A11</name>
+              <desc>Non-pressure chronic ulcer of right upper arm</desc>
+              <diag>
+                <name>L98.A111</name>
+                <desc>Non-pressure chronic ulcer of right upper arm limited to breakdown of skin</desc>
+              </diag>
+              <diag>
+                <name>L98.A112</name>
+                <desc>Non-pressure chronic ulcer of right upper arm with fat layer exposed</desc>
+              </diag>
+              <diag>
+                <name>L98.A113</name>
+                <desc>Non-pressure chronic ulcer of right upper arm with necrosis of muscle</desc>
+              </diag>
+              <diag>
+                <name>L98.A114</name>
+                <desc>Non-pressure chronic ulcer of right upper arm with necrosis of bone</desc>
+              </diag>
+              <diag>
+                <name>L98.A115</name>
+                <desc>Non-pressure chronic ulcer of right upper arm with muscle involvement without evidence of necrosis</desc>
+              </diag>
+              <diag>
+                <name>L98.A116</name>
+                <desc>Non-pressure chronic ulcer of right upper arm with bone involvement without evidence of necrosis</desc>
+              </diag>
+              <diag>
+                <name>L98.A118</name>
+                <desc>Non-pressure chronic ulcer of right upper arm with other specified severity</desc>
+              </diag>
+              <diag>
+                <name>L98.A119</name>
+                <desc>Non-pressure chronic ulcer of right upper arm with unspecified severity</desc>
+              </diag>
+            </diag>
+            <diag>
+              <name>L98.A12</name>
+              <desc>Non-pressure chronic ulcer of left upper arm</desc>
+              <diag>
+                <name>L98.A121</name>
+                <desc>Non-pressure chronic ulcer of left upper arm limited to breakdown of skin</desc>
+              </diag>
+              <diag>
+                <name>L98.A122</name>
+                <desc>Non-pressure chronic ulcer of left upper arm with fat layer exposed</desc>
+              </diag>
+              <diag>
+                <name>L98.A123</name>
+                <desc>Non-pressure chronic ulcer of left upper arm with necrosis of muscle</desc>
+              </diag>
+              <diag>
+                <name>L98.A124</name>
+                <desc>Non-pressure chronic ulcer of left upper arm with necrosis of bone</desc>
+              </diag>
+              <diag>
+                <name>L98.A125</name>
+                <desc>Non-pressure chronic ulcer of left upper arm with muscle involvement without evidence of necrosis</desc>
+              </diag>
+              <diag>
+                <name>L98.A126</name>
+                <desc>Non-pressure chronic ulcer of left upper arm with bone involvement without evidence of necrosis</desc>
+              </diag>
+              <diag>
+                <name>L98.A128</name>
+                <desc>Non-pressure chronic ulcer of left upper arm with other specified severity</desc>
+              </diag>
+              <diag>
+                <name>L98.A129</name>
+                <desc>Non-pressure chronic ulcer of left upper arm with unspecified severity</desc>
+              </diag>
+            </diag>
+            <diag>
+              <name>L98.A19</name>
+              <desc>Non-pressure chronic ulcer of unspecified upper arm</desc>
+              <diag>
+                <name>L98.A191</name>
+                <desc>Non-pressure chronic ulcer of unspecified upper arm limited to breakdown of skin</desc>
+              </diag>
+              <diag>
+                <name>L98.A192</name>
+                <desc>Non-pressure chronic ulcer of unspecified upper arm with fat layer exposed</desc>
+              </diag>
+              <diag>
+                <name>L98.A193</name>
+                <desc>Non-pressure chronic ulcer of unspecified upper arm with necrosis of muscle</desc>
+              </diag>
+              <diag>
+                <name>L98.A194</name>
+                <desc>Non-pressure chronic ulcer of unspecified upper arm with necrosis of bone</desc>
+              </diag>
+              <diag>
+                <name>L98.A195</name>
+                <desc>Non-pressure chronic ulcer of unspecified upper arm with muscle involvement without evidence of necrosis</desc>
+              </diag>
+              <diag>
+                <name>L98.A196</name>
+                <desc>Non-pressure chronic ulcer of unspecified upper arm with bone involvement without evidence of necrosis</desc>
+              </diag>
+              <diag>
+                <name>L98.A198</name>
+                <desc>Non-pressure chronic ulcer of unspecified upper arm with other specified severity</desc>
+              </diag>
+              <diag>
+                <name>L98.A199</name>
+                <desc>Non-pressure chronic ulcer of unspecified upper arm with unspecified severity</desc>
+              </diag>
+            </diag>
+          </diag>
+          <diag>
+            <name>L98.A2</name>
+            <desc>Non-pressure chronic ulcer of forearm</desc>
+            <diag>
+              <name>L98.A21</name>
+              <desc>Non-pressure chronic ulcer of right forearm</desc>
+              <diag>
+                <name>L98.A211</name>
+                <desc>Non-pressure chronic ulcer of right forearm limited to breakdown of skin</desc>
+              </diag>
+              <diag>
+                <name>L98.A212</name>
+                <desc>Non-pressure chronic ulcer of right forearm with fat layer exposed</desc>
+              </diag>
+              <diag>
+                <name>L98.A213</name>
+                <desc>Non-pressure chronic ulcer of right forearm with necrosis of muscle</desc>
+              </diag>
+              <diag>
+                <name>L98.A214</name>
+                <desc>Non-pressure chronic ulcer of right forearm with necrosis of bone</desc>
+              </diag>
+              <diag>
+                <name>L98.A215</name>
+                <desc>Non-pressure chronic ulcer of right forearm with muscle involvement without evidence of necrosis</desc>
+              </diag>
+              <diag>
+                <name>L98.A216</name>
+                <desc>Non-pressure chronic ulcer of right forearm with bone involvement without evidence of necrosis</desc>
+              </diag>
+              <diag>
+                <name>L98.A218</name>
+                <desc>Non-pressure chronic ulcer of right forearm with other specified severity</desc>
+              </diag>
+              <diag>
+                <name>L98.A219</name>
+                <desc>Non-pressure chronic ulcer of right forearm with unspecified severity</desc>
+              </diag>
+            </diag>
+            <diag>
+              <name>L98.A22</name>
+              <desc>Non-pressure chronic ulcer of left forearm</desc>
+              <diag>
+                <name>L98.A221</name>
+                <desc>Non-pressure chronic ulcer of left forearm limited to breakdown of skin</desc>
+              </diag>
+              <diag>
+                <name>L98.A222</name>
+                <desc>Non-pressure chronic ulcer of left forearm with fat layer exposed</desc>
+              </diag>
+              <diag>
+                <name>L98.A223</name>
+                <desc>Non-pressure chronic ulcer of left forearm with necrosis of muscle</desc>
+              </diag>
+              <diag>
+                <name>L98.A224</name>
+                <desc>Non-pressure chronic ulcer of left forearm with necrosis of bone</desc>
+              </diag>
+              <diag>
+                <name>L98.A225</name>
+                <desc>Non-pressure chronic ulcer of left forearm with muscle involvement without evidence of necrosis</desc>
+              </diag>
+              <diag>
+                <name>L98.A226</name>
+                <desc>Non-pressure chronic ulcer of left forearm with bone involvement without evidence of necrosis</desc>
+              </diag>
+              <diag>
+                <name>L98.A228</name>
+                <desc>Non-pressure chronic ulcer of left forearm with other specified severity</desc>
+              </diag>
+              <diag>
+                <name>L98.A229</name>
+                <desc>Non-pressure chronic ulcer of left forearm with unspecified severity</desc>
+              </diag>
+            </diag>
+            <diag>
+              <name>L98.A29</name>
+              <desc>Non-pressure chronic ulcer of unspecified forearm</desc>
+              <diag>
+                <name>L98.A291</name>
+                <desc>Non-pressure chronic ulcer of unspecified forearm limited to breakdown of skin</desc>
+              </diag>
+              <diag>
+                <name>L98.A292</name>
+                <desc>Non-pressure chronic ulcer of unspecified forearm with fat layer exposed</desc>
+              </diag>
+              <diag>
+                <name>L98.A293</name>
+                <desc>Non-pressure chronic ulcer of unspecified forearm with necrosis of muscle</desc>
+              </diag>
+              <diag>
+                <name>L98.A294</name>
+                <desc>Non-pressure chronic ulcer of unspecified forearm with necrosis of bone</desc>
+              </diag>
+              <diag>
+                <name>L98.A295</name>
+                <desc>Non-pressure chronic ulcer of unspecified forearm with muscle involvement without evidence of necrosis</desc>
+              </diag>
+              <diag>
+                <name>L98.A296</name>
+                <desc>Non-pressure chronic ulcer of unspecified forearm with bone involvement without evidence of necrosis</desc>
+              </diag>
+              <diag>
+                <name>L98.A298</name>
+                <desc>Non-pressure chronic ulcer of unspecified forearm with other specified severity</desc>
+              </diag>
+              <diag>
+                <name>L98.A299</name>
+                <desc>Non-pressure chronic ulcer of unspecified forearm with unspecified severity</desc>
+              </diag>
+            </diag>
+          </diag>
+          <diag>
+            <name>L98.A3</name>
+            <desc>Non-pressure chronic ulcer of hand</desc>
+            <diag>
+              <name>L98.A31</name>
+              <desc>Non-pressure chronic ulcer of right hand</desc>
+              <diag>
+                <name>L98.A311</name>
+                <desc>Non-pressure chronic ulcer of right hand limited to breakdown of skin</desc>
+              </diag>
+              <diag>
+                <name>L98.A312</name>
+                <desc>Non-pressure chronic ulcer of right hand with fat layer exposed</desc>
+              </diag>
+              <diag>
+                <name>L98.A313</name>
+                <desc>Non-pressure chronic ulcer of right hand with necrosis of muscle</desc>
+              </diag>
+              <diag>
+                <name>L98.A314</name>
+                <desc>Non-pressure chronic ulcer of right hand with necrosis of bone</desc>
+              </diag>
+              <diag>
+                <name>L98.A315</name>
+                <desc>Non-pressure chronic ulcer of right hand with muscle involvement without evidence of necrosis</desc>
+              </diag>
+              <diag>
+                <name>L98.A316</name>
+                <desc>Non-pressure chronic ulcer of right hand with bone involvement without evidence of necrosis</desc>
+              </diag>
+              <diag>
+                <name>L98.A318</name>
+                <desc>Non-pressure chronic ulcer of right hand with other specified severity</desc>
+              </diag>
+              <diag>
+                <name>L98.A319</name>
+                <desc>Non-pressure chronic ulcer of right hand with unspecified severity</desc>
+              </diag>
+            </diag>
+            <diag>
+              <name>L98.A32</name>
+              <desc>Non-pressure chronic ulcer of left hand</desc>
+              <diag>
+                <name>L98.A321</name>
+                <desc>Non-pressure chronic ulcer of left hand limited to breakdown of skin</desc>
+              </diag>
+              <diag>
+                <name>L98.A322</name>
+                <desc>Non-pressure chronic ulcer of left hand with fat layer exposed</desc>
+              </diag>
+              <diag>
+                <name>L98.A323</name>
+                <desc>Non-pressure chronic ulcer of left hand with necrosis of muscle</desc>
+              </diag>
+              <diag>
+                <name>L98.A324</name>
+                <desc>Non-pressure chronic ulcer of left hand with necrosis of bone</desc>
+              </diag>
+              <diag>
+                <name>L98.A325</name>
+                <desc>Non-pressure chronic ulcer of left hand with muscle involvement without evidence of necrosis</desc>
+              </diag>
+              <diag>
+                <name>L98.A326</name>
+                <desc>Non-pressure chronic ulcer of left hand with bone involvement without evidence of necrosis</desc>
+              </diag>
+              <diag>
+                <name>L98.A328</name>
+                <desc>Non-pressure chronic ulcer of left hand with other specified severity</desc>
+              </diag>
+              <diag>
+                <name>L98.A329</name>
+                <desc>Non-pressure chronic ulcer of left hand with unspecified severity</desc>
+              </diag>
+            </diag>
+            <diag>
+              <name>L98.A39</name>
+              <desc>Non-pressure chronic ulcer of unspecified hand</desc>
+              <diag>
+                <name>L98.A391</name>
+                <desc>Non-pressure chronic ulcer of unspecified hand limited to breakdown of skin</desc>
+              </diag>
+              <diag>
+                <name>L98.A392</name>
+                <desc>Non-pressure chronic ulcer of unspecified hand with fat layer exposed</desc>
+              </diag>
+              <diag>
+                <name>L98.A393</name>
+                <desc>Non-pressure chronic ulcer of unspecified hand with necrosis of muscle</desc>
+              </diag>
+              <diag>
+                <name>L98.A394</name>
+                <desc>Non-pressure chronic ulcer of unspecified hand with necrosis of bone</desc>
+              </diag>
+              <diag>
+                <name>L98.A395</name>
+                <desc>Non-pressure chronic ulcer of unspecified hand with muscle involvement without evidence of necrosis</desc>
+              </diag>
+              <diag>
+                <name>L98.A396</name>
+                <desc>Non-pressure chronic ulcer of unspecified hand with bone involvement without evidence of necrosis</desc>
+              </diag>
+              <diag>
+                <name>L98.A398</name>
+                <desc>Non-pressure chronic ulcer of unspecified hand with other specified severity</desc>
+              </diag>
+              <diag>
+                <name>L98.A399</name>
+                <desc>Non-pressure chronic ulcer of unspecified hand with unspecified severity</desc>
+              </diag>
             </diag>
           </diag>
         </diag>
@@ -90298,6 +91303,13 @@
         <diag>
           <name>M05.9</name>
           <desc>Rheumatoid arthritis with rheumatoid factor, unspecified</desc>
+        </diag>
+        <diag>
+          <name>M05.A</name>
+          <desc>Abnormal rheumatoid factor and anti-citrullinated protein antibody with rheumatoid arthritis</desc>
+          <codeFirst>
+            <note>rheumatoid arthritis with rheumatoid factor by site, if  known (M05.00 to M05.8A)</note>
+          </codeFirst>
         </diag>
       </diag>
       <diag>
@@ -96010,7 +97022,7 @@
             </diag>
             <diag>
               <name>M21.159</name>
-              <desc>Varus deformity, not elsewhere classified, unspecified</desc>
+              <desc>Varus deformity, not elsewhere classified, unspecified hip</desc>
             </diag>
           </diag>
           <diag>
@@ -97492,7 +98504,7 @@
             </diag>
             <diag>
               <name>M24.076</name>
-              <desc>Loose body in unspecified toe joints</desc>
+              <desc>Loose body in unspecified toe joint(s)</desc>
             </diag>
           </diag>
           <diag>
@@ -100976,6 +101988,12 @@
         <diag>
           <name>M36.3</name>
           <desc>Arthropathy in other blood disorders</desc>
+          <codeFirst>
+            <note>underlying disease, such as:</note>
+            <note>disease of blood and blood-forming organs, unspecified (D75.9)</note>
+            <note>other hemoglobinopathies (D58.2)</note>
+            <note>thalassemia (D56.-)</note>
+          </codeFirst>
         </diag>
         <diag>
           <name>M36.4</name>
@@ -104634,7 +105652,7 @@
             </diag>
             <diag>
               <name>M61.129</name>
-              <desc>Myositis ossificans progressiva, unspecified arm</desc>
+              <desc>Myositis ossificans progressiva, unspecified upper arm</desc>
             </diag>
           </diag>
           <diag>
@@ -118691,9 +119709,6 @@
         <diag>
           <name>N00.5</name>
           <desc>Acute nephritic syndrome with diffuse mesangiocapillary glomerulonephritis</desc>
-          <inclusionTerm>
-            <note>Acute nephritic syndrome with membranoproliferative glomerulonephritis, types 1 and 3, or NOS</note>
-          </inclusionTerm>
           <excludes1>
             <note>Acute nephritic syndrome with C3 glomerulonephritis (N00.A)</note>
             <note>Acute nephritic syndrome with C3 glomerulopathy (N00.A)</note>
@@ -118734,6 +119749,18 @@
           <excludes1>
             <note>Acute nephritic syndrome (with C3 glomerulopathy) with dense deposit disease (N00.6)</note>
           </excludes1>
+        </diag>
+        <diag>
+          <name>N00.B</name>
+          <desc>Acute nephritic syndrome with immune complex membranoproliferative glomerulonephritis</desc>
+          <diag>
+            <name>N00.B1</name>
+            <desc>Acute nephritic syndrome with idiopathic immune membranoproliferative glomerulonephritis (IC-MPGN)</desc>
+          </diag>
+          <diag>
+            <name>N00.B2</name>
+            <desc>Acute nephritic syndrome with secondary immune complex membranoproliferative glomerulonephritis (IC-MPGN)</desc>
+          </diag>
         </diag>
       </diag>
       <diag>
@@ -119097,9 +120124,6 @@
         <diag>
           <name>N04.5</name>
           <desc>Nephrotic syndrome with diffuse mesangiocapillary glomerulonephritis</desc>
-          <inclusionTerm>
-            <note>Nephrotic syndrome with membranoproliferative glomerulonephritis, types 1 and 3, or NOS</note>
-          </inclusionTerm>
           <excludes1>
             <note>Nephrotic syndrome with C3 glomerulonephritis (N04.A)</note>
             <note>Nephrotic syndrome with C3 glomerulopathy (N04.A)</note>
@@ -119140,6 +120164,18 @@
           <excludes1>
             <note>Nephrotic syndrome (with C3 glomerulopathy) with dense deposit disease (N04.6)</note>
           </excludes1>
+        </diag>
+        <diag>
+          <name>N04.B</name>
+          <desc>Nephrotic syndrome with immune complex membranoproliferative glomerulonephritis (IC-MPGN)</desc>
+          <diag>
+            <name>N04.B1</name>
+            <desc>Nephrotic syndrome with idiopathic immune complex membranoproliferative glomerulonephritis (IC-MPGN)</desc>
+          </diag>
+          <diag>
+            <name>N04.B2</name>
+            <desc>Nephrotic syndrome with secondary immune complex membranoproliferative glomerulonephritis (IC-MPGN)</desc>
+          </diag>
         </diag>
       </diag>
       <diag>
@@ -119438,6 +120474,14 @@
           <excludes1>
             <note>Hereditary nephropathy, not elsewhere classified (with C3 glomerulopathy) with dense deposit disease (N07.6)</note>
           </excludes1>
+        </diag>
+        <diag>
+          <name>N07.B</name>
+          <desc>Hereditary nephropathy, not elsewhere classified with APOL1-mediated kidney disease [AMKD]</desc>
+          <inclusionTerm>
+            <note>AMKD (with glomerulonephritis)</note>
+            <note>AMKD (with glomerulosclerosis)</note>
+          </inclusionTerm>
         </diag>
       </diag>
       <diag>
@@ -121922,7 +122966,7 @@
         <name>N61</name>
         <desc>Inflammatory disorders of breast</desc>
         <excludes1>
-          <note>inflammatory carcinoma of breast (C50.9)</note>
+          <note>inflammatory carcinoma of breast (C50.A-)</note>
           <note>inflammatory disorder of breast associated with childbirth (O91.-)</note>
           <note>neonatal infective mastitis (P39.0)</note>
           <note>thrombophlebitis of breast [Mondor's disease] (I80.8)</note>
@@ -123986,7 +125030,7 @@
             <note>any associated conditions such as:</note>
             <note>abnormal uterine and vaginal bleeding, unspecified (N93.9)</note>
             <note>female infertility of uterine origin (N97.2)</note>
-            <note>pelvic and perineal pain (R10.2)</note>
+            <note>pelvic and perineal pain (R10.2-)</note>
           </codeAlso>
           <excludes1>
             <note>maternal care for cesarean scar defect (isthmocele) (O34.22)</note>
@@ -131729,7 +132773,7 @@
             <note>Perineal laceration, rupture or tear during delivery as in O70.0, also involving vaginal muscles</note>
           </inclusionTerm>
           <excludes1>
-            <note>perineal laceration involving anal sphincter (O70.2)</note>
+            <note>perineal laceration involving anal sphincter (O70.2-)</note>
           </excludes1>
         </diag>
         <diag>
@@ -131782,7 +132826,7 @@
           <name>O70.4</name>
           <desc>Anal sphincter tear complicating delivery, not associated with third degree laceration</desc>
           <excludes1>
-            <note>anal sphincter tear with third degree perineal laceration (O70.2)</note>
+            <note>anal sphincter tear with third degree perineal laceration (O70.2-)</note>
           </excludes1>
         </diag>
         <diag>
@@ -132700,7 +133744,7 @@
           <name>O90.4</name>
           <desc>Postpartum acute kidney failure</desc>
           <excludes1>
-            <note>non-anuria and oliguria (R34)</note>
+            <note>anuria and oliguria (R34)</note>
           </excludes1>
           <diag>
             <name>O90.41</name>
@@ -135278,7 +136322,7 @@
         </diag>
         <diag>
           <name>P09.6</name>
-          <desc>Abnormal findings on neonatal screening for neonatal hearing loss</desc>
+          <desc>Abnormal findings on neonatal hearing screening</desc>
           <excludes2>
             <note>encounter for hearing examination following failed hearing screening (Z01.110)</note>
           </excludes2>
@@ -137656,7 +138700,7 @@
   </chapter>
   <chapter>
     <name>17</name>
-    <desc>Congenital malformations, deformations and chromosomal abnormalities (Q00-Q99)</desc>
+    <desc>Congenital malformations, deformations, chromosomal abnormalities, and genetic disorders (Q00-QA0)</desc>
     <notes>
       <note>Codes from this chapter are not for use on maternal records</note>
     </notes>
@@ -137696,6 +138740,9 @@
       </sectionRef>
       <sectionRef first="Q90" last="Q99" id="Q90-Q99">
          Chromosomal abnormalities, not elsewhere classified
+      </sectionRef>
+      <sectionRef first="QA0" last="QA0" id="QA0">
+         Genetic disorders, not elsewhere classified
       </sectionRef>
     </sectionIndex>
     <section id="Q00-Q07">
@@ -139338,6 +140385,9 @@
             <note>Congenital aneurysm, specified site NEC</note>
             <note>Spinal vessel anomaly</note>
           </inclusionTerm>
+          <excludes2>
+            <note>disorders of pyrophosphate metabolism (E83.82-)</note>
+          </excludes2>
         </diag>
         <diag>
           <name>Q28.9</name>
@@ -142373,21 +143423,21 @@
           <desc>Craniosynostosis</desc>
           <diag>
             <name>Q75.00</name>
-            <desc>Craniosynostosis unspecified</desc>
+            <desc>Craniosynostosis, unspecified</desc>
             <inclusionTerm>
               <note>Craniosynostosis NOS</note>
             </inclusionTerm>
             <diag>
               <name>Q75.001</name>
-              <desc>Craniosynostosis unspecified, unilateral</desc>
+              <desc>Craniosynostosis, unspecified type, unilateral</desc>
             </diag>
             <diag>
               <name>Q75.002</name>
-              <desc>Craniosynostosis unspecified, bilateral</desc>
+              <desc>Craniosynostosis, unspecified type, bilateral</desc>
             </diag>
             <diag>
               <name>Q75.009</name>
-              <desc>Craniosynostosis unspecified</desc>
+              <desc>Craniosynostosis, unspecified</desc>
               <inclusionTerm>
                 <note>Imperfect fusion of skull</note>
               </inclusionTerm>
@@ -142407,29 +143457,26 @@
           <diag>
             <name>Q75.02</name>
             <desc>Coronal craniosynostosis</desc>
-            <inclusionTerm>
-              <note>Non-deformational anterior plagiocephaly</note>
-            </inclusionTerm>
             <excludes1>
               <note>dolichocephaly (Q67.2)</note>
             </excludes1>
             <diag>
               <name>Q75.021</name>
-              <desc>Coronal craniosynostosis unilateral</desc>
+              <desc>Coronal craniosynostosis, unilateral</desc>
               <inclusionTerm>
                 <note>Non-deformational anterior plagiocephaly</note>
               </inclusionTerm>
             </diag>
             <diag>
               <name>Q75.022</name>
-              <desc>Coronal craniosynostosis bilateral</desc>
+              <desc>Coronal craniosynostosis, bilateral</desc>
               <inclusionTerm>
                 <note>Non-deformational brachycephaly</note>
               </inclusionTerm>
             </diag>
             <diag>
               <name>Q75.029</name>
-              <desc>Coronal craniosynostosis unspecified</desc>
+              <desc>Coronal craniosynostosis, unspecified</desc>
             </diag>
           </diag>
           <diag>
@@ -142711,7 +143758,7 @@
           <name>Q77.3</name>
           <desc>Chondrodysplasia punctata</desc>
           <excludes1>
-            <note>Rhizomelic chondrodysplasia punctata (E71.43)</note>
+            <note>Rhizomelic chondrodysplasia punctata (E71.540)</note>
           </excludes1>
         </diag>
         <diag>
@@ -143099,6 +144146,9 @@
           <excludes1>
             <note>Ehlers-Danlos syndromes (Q79.6-)</note>
           </excludes1>
+          <excludes2>
+            <note>disorders of pyrophosphate metabolism (E83.82-)</note>
+          </excludes2>
         </diag>
         <diag>
           <name>Q82.9</name>
@@ -143482,6 +144532,34 @@
             <desc>Kleefstra syndrome</desc>
           </diag>
           <diag>
+            <name>Q87.87</name>
+            <desc>Hao-Fountain Syndrome</desc>
+            <inclusionTerm>
+              <note>HAFOUS</note>
+            </inclusionTerm>
+            <useAdditionalCode>
+              <note>code, if applicable, for associated conditions such as:</note>
+              <note>autism spectrum disorder (F84.0)</note>
+              <note>developmental speech disorder (F80.-)</note>
+              <note>epilepsy, by specific type (G40.-)</note>
+              <note>intellectual disabilities (F70-F79)</note>
+              <note>pervasive developmental disorders (F84.-)</note>
+            </useAdditionalCode>
+          </diag>
+          <diag>
+            <name>Q87.88</name>
+            <desc>CTNNB1 syndrome</desc>
+            <useAdditionalCode>
+              <note>code, if applicable, for associated conditions such as:</note>
+              <note>cerebral palsy (G80.-)</note>
+              <note>congenital heart malformations (Q20.0-Q24.9)</note>
+              <note>developmental disorder of speech and language (F80.-)</note>
+              <note>exudative retinopathy (H35.02-)</note>
+              <note>intellectual disability (F70-F79)</note>
+              <note>microcephaly (Q02)</note>
+            </useAdditionalCode>
+          </diag>
+          <diag>
             <name>Q87.89</name>
             <desc>Other specified congenital malformation syndromes, not elsewhere classified</desc>
           </diag>
@@ -143571,6 +144649,19 @@
           <useAdditionalCode>
             <note>code(s) to identify all associated manifestations</note>
           </useAdditionalCode>
+          <diag>
+            <name>Q89.81</name>
+            <desc>Kabuki syndrome</desc>
+            <inclusionTerm>
+              <note>Kabuki syndrome, type 1, due to KMT2D mutation</note>
+              <note>Kabuki syndrome, type 2, due to KDM6A mutation</note>
+              <note>Niikawa-Kuroki syndrome</note>
+            </inclusionTerm>
+          </diag>
+          <diag>
+            <name>Q89.89</name>
+            <desc>Other specified congenital malformations</desc>
+          </diag>
         </diag>
         <diag>
           <name>Q89.9</name>
@@ -144004,10 +145095,153 @@
         <diag>
           <name>Q99.8</name>
           <desc>Other specified chromosome abnormalities</desc>
+          <diag>
+            <name>Q99.81</name>
+            <desc>Usher syndrome</desc>
+            <useAdditionalCode>
+              <note>code to identify any auditory and visual manifestations</note>
+            </useAdditionalCode>
+            <diag>
+              <name>Q99.811</name>
+              <desc>Usher syndrome, type 1</desc>
+            </diag>
+            <diag>
+              <name>Q99.812</name>
+              <desc>Usher syndrome, type 2</desc>
+            </diag>
+            <diag>
+              <name>Q99.813</name>
+              <desc>Usher syndrome, type 3</desc>
+            </diag>
+            <diag>
+              <name>Q99.818</name>
+              <desc>Other Usher syndrome</desc>
+              <inclusionTerm>
+                <note>Usher syndrome, type 4</note>
+              </inclusionTerm>
+            </diag>
+            <diag>
+              <name>Q99.819</name>
+              <desc>Usher syndrome, unspecified</desc>
+            </diag>
+          </diag>
+          <diag>
+            <name>Q99.89</name>
+            <desc>Other specified chromosome abnormalities</desc>
+          </diag>
         </diag>
         <diag>
           <name>Q99.9</name>
           <desc>Chromosomal abnormality, unspecified</desc>
+        </diag>
+      </diag>
+    </section>
+    <section id="QA0">
+      <desc> Genetic disorders, not elsewhere classified (QA0)</desc>
+      <diag>
+        <name>QA0</name>
+        <desc>Neurodevelopmental disorders related to specific genetic pathogenic variants</desc>
+        <codeAlso>
+          <note>, if applicable, any associated conditions, such as:</note>
+          <note>attention-deficit hyperactivity disorders (F90.-)</note>
+          <note>autism spectrum disorder (F84.0)</note>
+          <note>developmental and epileptic encephalopathy (G93.45)</note>
+          <note>epilepsy, by specific type (G40.-)</note>
+          <note>intellectual disabilities (F70-F79)</note>
+          <note>pervasive developmental disorders (F84.-)</note>
+        </codeAlso>
+        <diag>
+          <name>QA0.0</name>
+          <desc>Neurodevelopmental disorders related to pathogenic variants in specific genes</desc>
+          <diag>
+            <name>QA0.01</name>
+            <desc>Neurodevelopmental disorders related to pathogenic variants in certain specific genes</desc>
+            <diag>
+              <name>QA0.010</name>
+              <desc>Neurodevelopmental disorders, related to pathogenic variants in ion channel genes</desc>
+              <diag>
+                <name>QA0.0101</name>
+                <desc>SCN2A-related neurodevelopmental disorder</desc>
+              </diag>
+              <diag>
+                <name>QA0.0102</name>
+                <desc>CACNA1A-related neurodevelopmental disorder</desc>
+              </diag>
+              <diag>
+                <name>QA0.0109</name>
+                <desc>Neurodevelopmental disorder related to pathogenic variant in other ion channel gene</desc>
+                <inclusionTerm>
+                  <note>SCN8A-related neurodevelopmental disorder</note>
+                </inclusionTerm>
+              </diag>
+            </diag>
+            <diag>
+              <name>QA0.011</name>
+              <desc>Neurodevelopmental disorders, related to pathogenic variants in glutamate receptor genes</desc>
+            </diag>
+            <diag>
+              <name>QA0.012</name>
+              <desc>Neurodevelopmental disorders, related to pathogenic variants in other receptor genes</desc>
+            </diag>
+            <diag>
+              <name>QA0.013</name>
+              <desc>Neurodevelopmental disorders, related to pathogenic variants in other transporter and solute carrier genes</desc>
+              <diag>
+                <name>QA0.0131</name>
+                <desc>SLC6A1-related disorder</desc>
+                <inclusionTerm>
+                  <note>GABA transporter 1 deficiency</note>
+                </inclusionTerm>
+              </diag>
+              <diag>
+                <name>QA0.0139</name>
+                <desc>Neurodevelopmental disorder, related to pathogenic variant in other transporter or solute carrier gene</desc>
+              </diag>
+            </diag>
+            <diag>
+              <name>QA0.014</name>
+              <desc>Neurodevelopmental disorders, related to pathogenic variants in synapse related genes</desc>
+              <diag>
+                <name>QA0.0141</name>
+                <desc>Syntaxin-binding protein 1-related disorder</desc>
+                <inclusionTerm>
+                  <note>STXBP1-related disorders</note>
+                </inclusionTerm>
+              </diag>
+              <diag>
+                <name>QA0.0142</name>
+                <desc>DLG4-related synaptopathy</desc>
+              </diag>
+              <diag>
+                <name>QA0.0149</name>
+                <desc>Neurodevelopmental disorder, related to pathogenic variant in other synapse related gene</desc>
+                <inclusionTerm>
+                  <note>Other genetic synaptopathy</note>
+                </inclusionTerm>
+              </diag>
+            </diag>
+            <diag>
+              <name>QA0.015</name>
+              <desc>Neurodevelopmental disorders, related to genes associated with transcription and gene expression</desc>
+              <diag>
+                <name>QA0.0151</name>
+                <desc>FOXG1 syndrome</desc>
+                <inclusionTerm>
+                  <note>FOXG1-related disorder</note>
+                  <note>FOXG1-related encephalopathy</note>
+                  <note>FOXG1-related neurodevelopmental disorder</note>
+                </inclusionTerm>
+              </diag>
+              <diag>
+                <name>QA0.0159</name>
+                <desc>Neurodevelopmental disorder, related to other genes associated with transcription and gene expression</desc>
+              </diag>
+            </diag>
+          </diag>
+        </diag>
+        <diag>
+          <name>QA0.8</name>
+          <desc>Other neurodevelopmental disorders related to pathogenic variants in other specific genes</desc>
         </diag>
       </diag>
     </section>
@@ -144615,6 +145849,7 @@
           <note>renal colic (N23)</note>
         </excludes1>
         <excludes2>
+          <note>costovertebral (angle) tenderness (R39.85)</note>
           <note>dorsalgia (M54.-)</note>
           <note>flatulence and related conditions (R14.-)</note>
         </excludes2>
@@ -144633,6 +145868,10 @@
         <diag>
           <name>R10.1</name>
           <desc>Pain localized to upper abdomen</desc>
+          <excludes2>
+            <note>pain localized to flank (R10.A-)</note>
+            <note>pelvic and perineal pain (R10.2-)</note>
+          </excludes2>
           <diag>
             <name>R10.10</name>
             <desc>Upper abdominal pain, unspecified</desc>
@@ -144662,10 +145901,38 @@
           <excludes1>
             <note>vulvodynia (N94.81)</note>
           </excludes1>
+          <excludes2>
+            <note>pain localized to other parts of lower abdomen (R10.3-)</note>
+            <note>pain localized to upper abdomen (R10.1-)</note>
+          </excludes2>
+          <diag>
+            <name>R10.20</name>
+            <desc>Pelvic and perineal pain unspecified side</desc>
+          </diag>
+          <diag>
+            <name>R10.21</name>
+            <desc>Pelvic and perineal pain right side</desc>
+          </diag>
+          <diag>
+            <name>R10.22</name>
+            <desc>Pelvic and perineal pain left side</desc>
+          </diag>
+          <diag>
+            <name>R10.23</name>
+            <desc>Pelvic and perineal pain bilateral</desc>
+          </diag>
+          <diag>
+            <name>R10.24</name>
+            <desc>Suprapubic pain</desc>
+          </diag>
         </diag>
         <diag>
           <name>R10.3</name>
           <desc>Pain localized to other parts of lower abdomen</desc>
+          <excludes2>
+            <note>pain localized to flank (R10.A-)</note>
+            <note>pelvic and perineal pain (R10.2-)</note>
+          </excludes2>
           <diag>
             <name>R10.30</name>
             <desc>Lower abdominal pain, unspecified</desc>
@@ -144692,6 +145959,10 @@
             <inclusionTerm>
               <note>Abdominal tenderness NOS</note>
             </inclusionTerm>
+            <excludes2>
+              <note>pain localized to other parts of lower abdomen (R10.3-)</note>
+              <note>pain localized to upper abdomen (R10.1-)</note>
+            </excludes2>
             <diag>
               <name>R10.811</name>
               <desc>Right upper quadrant abdominal tenderness</desc>
@@ -144728,6 +145999,10 @@
           <diag>
             <name>R10.82</name>
             <desc>Rebound abdominal tenderness</desc>
+            <excludes2>
+              <note>pain localized to other parts of lower abdomen (R10.3-)</note>
+              <note>pain localized to upper abdomen (R10.1-)</note>
+            </excludes2>
             <diag>
               <name>R10.821</name>
               <desc>Right upper quadrant rebound abdominal tenderness</desc>
@@ -144779,10 +146054,72 @@
               <note>generalized abdominal pain associated with acute abdomen (R10.0)</note>
             </excludes1>
           </diag>
+          <diag>
+            <name>R10.85</name>
+            <desc>Abdominal pain of multiple sites</desc>
+            <excludes1>
+              <note>abdominal rigidity NOS (R19.3)</note>
+              <note>generalized abdominal pain associated with acute abdomen (R10.0)</note>
+              <note>generalized abdominal pain NOS (R10.84)</note>
+              <note>localized abdominal pain (R10.1-R10.4-)</note>
+            </excludes1>
+          </diag>
+          <diag>
+            <name>R10.8A</name>
+            <desc>Flank tenderness</desc>
+            <diag>
+              <name>R10.8A1</name>
+              <desc>Right flank tenderness</desc>
+            </diag>
+            <diag>
+              <name>R10.8A2</name>
+              <desc>Left flank tenderness</desc>
+            </diag>
+            <diag>
+              <name>R10.8A3</name>
+              <desc>Suprapubic tenderness</desc>
+            </diag>
+            <diag>
+              <name>R10.8A9</name>
+              <desc>Flank tenderness, unspecified</desc>
+              <inclusionTerm>
+                <note>Flank tenderness NOS</note>
+              </inclusionTerm>
+            </diag>
+          </diag>
         </diag>
         <diag>
           <name>R10.9</name>
           <desc>Unspecified abdominal pain</desc>
+        </diag>
+        <diag>
+          <name>R10.A</name>
+          <desc>Pain localized to flank</desc>
+          <inclusionTerm>
+            <note>Lateral abdomen pain</note>
+            <note>Lateral flank pain</note>
+            <note>Latus region pain</note>
+          </inclusionTerm>
+          <excludes2>
+            <note>pain localized to other parts of lower abdomen (R10.3-)</note>
+            <note>pain localized to upper abdomen (R10.1-)</note>
+          </excludes2>
+          <diag>
+            <name>R10.A0</name>
+            <desc>Flank pain, unspecified side</desc>
+          </diag>
+          <diag>
+            <name>R10.A1</name>
+            <desc>Flank pain, right side</desc>
+          </diag>
+          <diag>
+            <name>R10.A2</name>
+            <desc>Flank pain, left side</desc>
+          </diag>
+          <diag>
+            <name>R10.A3</name>
+            <desc>Flank pain, bilateral</desc>
+          </diag>
         </diag>
       </diag>
       <diag>
@@ -144849,6 +146186,22 @@
               <note>bulimia nervosa (F50.20)</note>
               <note>diabetes mellitus due to underlying condition (E08.-)</note>
             </excludes2>
+          </diag>
+          <diag>
+            <name>R11.16</name>
+            <desc>Cannabis hyperemesis syndrome</desc>
+            <inclusionTerm>
+              <note>Cannabinoid hyperemesis syndrome</note>
+            </inclusionTerm>
+            <codeAlso>
+              <note></note>
+              <note>cannabis abuse (F12.1-)</note>
+              <note>cannabis dependence (F12.2-)</note>
+              <note>cannabis use, unspecified (F12.92-, F12.93, F12.95-, F12.98-, F12.99)</note>
+              <note>manifestations, such as:</note>
+              <note>dehydration  (E86.0)</note>
+              <note>electrolyte imbalance (E87.8}</note>
+            </codeAlso>
           </diag>
         </diag>
         <diag>
@@ -144961,10 +146314,10 @@
         <diag>
           <name>R15.0</name>
           <desc>Incomplete defecation</desc>
-          <excludes1>
+          <excludes2>
             <note>constipation (K59.0-)</note>
             <note>fecal impaction (K56.41)</note>
-          </excludes1>
+          </excludes2>
         </diag>
         <diag>
           <name>R15.1</name>
@@ -146051,7 +147404,7 @@
             <name>R39.12</name>
             <desc>Poor urinary stream</desc>
             <inclusionTerm>
-              <note>Weak urinary steam</note>
+              <note>Weak urinary stream</note>
             </inclusionTerm>
           </diag>
           <diag>
@@ -146127,6 +147480,29 @@
             <desc>Bilateral non-palpable testicles</desc>
           </diag>
           <diag>
+            <name>R39.85</name>
+            <desc>Costovertebral (angle) tenderness</desc>
+            <excludes2>
+              <note>abdominal and pelvic pain (R10.-)</note>
+            </excludes2>
+            <diag>
+              <name>R39.851</name>
+              <desc>Costovertebral (angle) tenderness, right side</desc>
+            </diag>
+            <diag>
+              <name>R39.852</name>
+              <desc>Costovertebral (angle) tenderness, left side</desc>
+            </diag>
+            <diag>
+              <name>R39.853</name>
+              <desc>Costovertebral (angle) tenderness, bilateral</desc>
+            </diag>
+            <diag>
+              <name>R39.859</name>
+              <desc>Costovertebral (angle) tenderness, unspecified side</desc>
+            </diag>
+          </diag>
+          <diag>
             <name>R39.89</name>
             <desc>Other symptoms and signs involving the genitourinary system</desc>
           </diag>
@@ -146171,7 +147547,7 @@
           <excludes1>
             <note>catatonic schizophrenia (F20.2)</note>
             <note>coma (R40.2-)</note>
-            <note>depressive stupor (F31-F33)</note>
+            <note>depressive stupor (F31.-, F32.-, F33.-)</note>
             <note>dissociative stupor (F44.2)</note>
             <note>manic stupor (F30.2)</note>
           </excludes1>
@@ -146401,6 +147777,12 @@
             <codeFirst>
               <note>underlying condition</note>
             </codeFirst>
+            <excludes1>
+              <note>coma scale, best motor response (R40.24.-)</note>
+              <note>coma scale, best verbal response (R40.22.-)</note>
+              <note>coma scale, eyes open (R40.21.-)</note>
+              <note>Glasgow coma scale, total score (R40.23.-)</note>
+            </excludes1>
           </diag>
         </diag>
         <diag>
@@ -147082,7 +148464,7 @@
           <note>joint pain (M25.5-)</note>
           <note>limb pain (M79.6-)</note>
           <note>lumbar region pain (M54.5-)</note>
-          <note>pelvic and perineal pain (R10.2)</note>
+          <note>pelvic and perineal pain (R10.2-)</note>
           <note>shoulder pain (M25.51-)</note>
           <note>spine pain (M54.-)</note>
           <note>throat pain (R07.0)</note>
@@ -147139,7 +148521,7 @@
             <note>exhaustion and fatigue due to exposure (T73.2)</note>
             <note>exhaustion and fatigue due to heat (T67.-)</note>
             <note>exhaustion and fatigue due to pregnancy (O26.8-)</note>
-            <note>exhaustion and fatigue due to recurrent depressive episode (F33)</note>
+            <note>exhaustion and fatigue due to recurrent depressive episode (F33-)</note>
             <note>exhaustion and fatigue due to senile debility (R54)</note>
           </excludes1>
           <diag>
@@ -147444,6 +148826,7 @@
             <desc>Failure to thrive (child)</desc>
             <inclusionTerm>
               <note>Failure to gain weight</note>
+              <note>Faltering growth</note>
             </inclusionTerm>
             <excludes1>
               <note>failure to thrive in child under 28 days old (P92.6)</note>
@@ -147667,6 +149050,9 @@
           <diag>
             <name>R65.21</name>
             <desc>Severe sepsis with septic shock</desc>
+            <excludes1>
+              <note>postprocedural septic shock (T81.12-)</note>
+            </excludes1>
           </diag>
         </diag>
       </diag>
@@ -147790,7 +149176,7 @@
         <name>R69</name>
         <desc>Illness, unspecified</desc>
         <inclusionTerm>
-          <note>Unknown and unspecified cases of morbidity</note>
+          <note>Unknown and unspecified causes of morbidity</note>
         </inclusionTerm>
       </diag>
     </section>
@@ -147993,9 +149379,24 @@
         <diag>
           <name>R76.8</name>
           <desc>Other specified abnormal immunological findings in serum</desc>
-          <inclusionTerm>
-            <note>Raised level of immunoglobulins NOS</note>
-          </inclusionTerm>
+          <diag>
+            <name>R76.81</name>
+            <desc>Abnormal rheumatoid factor and anti-citrullinated protein antibody without rheumatoid arthritis</desc>
+            <inclusionTerm>
+              <note>Abnormal anti-CCP</note>
+              <note>Abnormal anti-cyclic citrullinated protein antibody and rheumatoid factor</note>
+            </inclusionTerm>
+            <excludes1>
+              <note>rheumatoid arthritis with rheumatoid factor (M05.-)</note>
+            </excludes1>
+          </diag>
+          <diag>
+            <name>R76.89</name>
+            <desc>Other specified abnormal immunological findings in serum</desc>
+            <inclusionTerm>
+              <note>Raised level of immunoglobulins NOS</note>
+            </inclusionTerm>
+          </diag>
         </diag>
         <diag>
           <name>R76.9</name>
@@ -148372,7 +149773,8 @@
               <name>R82.992</name>
               <desc>Hyperoxaluria</desc>
               <excludes1>
-                <note>Primary hyperoxaluria (E72.53)</note>
+                <note>primary hyperoxaluria (E72.53-)</note>
+                <note>secondary hyperoxaluria (E72.54-)</note>
               </excludes1>
             </diag>
             <diag>
@@ -148828,7 +150230,7 @@
                 <note>Abnormal cervical cytology NOS</note>
                 <note>Abnormal Papanicolaou smear of cervix NOS</note>
                 <note>Abnormal thin preparation smear of cervix NOS</note>
-                <note>Atypical endocervial cells of cervix NOS</note>
+                <note>Atypical endocervical cells of cervix NOS</note>
                 <note>Atypical endometrial cells of cervix NOS</note>
                 <note>Atypical glandular cells of cervix NOS</note>
               </inclusionTerm>
@@ -154291,10 +155693,10 @@
           <name>S12.8</name>
           <desc>Fracture of other parts of neck</desc>
           <inclusionTerm>
-            <note>Hyoid bone</note>
-            <note>Larynx</note>
-            <note>Thyroid cartilage</note>
-            <note>Trachea</note>
+            <note>Fracture of hyoid bone</note>
+            <note>Fracture of larynx</note>
+            <note>Fracture of thyroid cartilage</note>
+            <note>Fracture of trachea</note>
           </inclusionTerm>
           <sevenChrNote>
             <note>The appropriate 7th character is to be added to code S12.8</note>
@@ -158267,10 +159669,18 @@
         <diag>
           <name>S30.1</name>
           <desc>Contusion of abdominal wall</desc>
-          <inclusionTerm>
-            <note>Contusion of flank</note>
-            <note>Contusion of groin</note>
-          </inclusionTerm>
+          <diag>
+            <name>S30.11</name>
+            <desc>Contusion of abdominal wall</desc>
+          </diag>
+          <diag>
+            <name>S30.12</name>
+            <desc>Contusion of groin</desc>
+          </diag>
+          <diag>
+            <name>S30.13</name>
+            <desc>Contusion of flank (latus) region</desc>
+          </diag>
         </diag>
         <diag>
           <name>S30.2</name>
@@ -158342,6 +159752,10 @@
               <name>S30.817</name>
               <desc>Abrasion of anus</desc>
             </diag>
+            <diag>
+              <name>S30.81A</name>
+              <desc>Abrasion of flank</desc>
+            </diag>
           </diag>
           <diag>
             <name>S30.82</name>
@@ -158377,6 +159791,10 @@
             <diag>
               <name>S30.827</name>
               <desc>Blister (nonthermal) of anus</desc>
+            </diag>
+            <diag>
+              <name>S30.82A</name>
+              <desc>Blister (nonthermal) of flank</desc>
             </diag>
           </diag>
           <diag>
@@ -158415,6 +159833,10 @@
             <diag>
               <name>S30.846</name>
               <desc>External constriction of unspecified external genital organs, female</desc>
+            </diag>
+            <diag>
+              <name>S30.84A</name>
+              <desc>External constriction of flank</desc>
             </diag>
           </diag>
           <diag>
@@ -158455,6 +159877,10 @@
               <name>S30.857</name>
               <desc>Superficial foreign body of anus</desc>
             </diag>
+            <diag>
+              <name>S30.85A</name>
+              <desc>Superficial foreign body of flank</desc>
+            </diag>
           </diag>
           <diag>
             <name>S30.86</name>
@@ -158490,6 +159916,10 @@
             <diag>
               <name>S30.867</name>
               <desc>Insect bite (nonvenomous) of anus</desc>
+            </diag>
+            <diag>
+              <name>S30.86A</name>
+              <desc>Insect bite (nonvenomous) of flank</desc>
             </diag>
           </diag>
           <diag>
@@ -158530,6 +159960,10 @@
               <name>S30.877</name>
               <desc>Other superficial bite of anus</desc>
             </diag>
+            <diag>
+              <name>S30.87A</name>
+              <desc>Other superficial bite of flank</desc>
+            </diag>
           </diag>
         </diag>
         <diag>
@@ -158566,6 +160000,10 @@
           <diag>
             <name>S30.98</name>
             <desc>Unspecified superficial injury of anus</desc>
+          </diag>
+          <diag>
+            <name>S30.9A</name>
+            <desc>Unspecified superficial injury of flank</desc>
           </diag>
         </diag>
       </diag>
@@ -158729,10 +160167,25 @@
               <desc>Unspecified open wound of abdominal wall, periumbilic region without penetration into peritoneal cavity</desc>
             </diag>
             <diag>
+              <name>S31.106</name>
+              <desc>Unspecified open wound of abdominal wall, right flank without penetration into peritoneal cavity</desc>
+            </diag>
+            <diag>
+              <name>S31.107</name>
+              <desc>Unspecified open wound of abdominal wall, left flank without penetration into peritoneal cavity</desc>
+            </diag>
+            <diag>
               <name>S31.109</name>
               <desc>Unspecified open wound of abdominal wall, unspecified quadrant without penetration into peritoneal cavity</desc>
               <inclusionTerm>
                 <note>Unspecified open wound of abdominal wall NOS</note>
+              </inclusionTerm>
+            </diag>
+            <diag>
+              <name>S31.10A</name>
+              <desc>Unspecified open wound of abdominal wall, unspecified flank without penetration into peritoneal cavity</desc>
+              <inclusionTerm>
+                <note>Open wound of abdominal wall of flank NOS without penetration into peritoneal cavity</note>
               </inclusionTerm>
             </diag>
           </diag>
@@ -158764,8 +160217,23 @@
               <desc>Laceration without foreign body of abdominal wall, periumbilic region without penetration into peritoneal cavity</desc>
             </diag>
             <diag>
+              <name>S31.116</name>
+              <desc>Laceration without foreign body of abdominal wall, right flank without penetration into peritoneal cavity</desc>
+            </diag>
+            <diag>
+              <name>S31.117</name>
+              <desc>Laceration without foreign body of abdominal wall, left flank without penetration into peritoneal cavity</desc>
+            </diag>
+            <diag>
               <name>S31.119</name>
               <desc>Laceration without foreign body of abdominal wall, unspecified quadrant without penetration into peritoneal cavity</desc>
+            </diag>
+            <diag>
+              <name>S31.11A</name>
+              <desc>Laceration without foreign body of abdominal wall, unspecified flank without penetration into peritoneal cavity</desc>
+              <inclusionTerm>
+                <note>Laceration without foreign body of flank NOS without penetration into peritoneal cavity</note>
+              </inclusionTerm>
             </diag>
           </diag>
           <diag>
@@ -158796,8 +160264,23 @@
               <desc>Laceration of abdominal wall with foreign body, periumbilic region without penetration into peritoneal cavity</desc>
             </diag>
             <diag>
+              <name>S31.126</name>
+              <desc>Laceration with foreign body of abdominal wall, right flank without penetration into peritoneal cavity</desc>
+            </diag>
+            <diag>
+              <name>S31.127</name>
+              <desc>Laceration with foreign body of abdominal wall, left flank without penetration into peritoneal cavity</desc>
+            </diag>
+            <diag>
               <name>S31.129</name>
               <desc>Laceration of abdominal wall with foreign body, unspecified quadrant without penetration into peritoneal cavity</desc>
+            </diag>
+            <diag>
+              <name>S31.12A</name>
+              <desc>Laceration with foreign body of abdominal wall unspecified flank without penetration into peritoneal cavity</desc>
+              <inclusionTerm>
+                <note>Laceration with foreign body of abdominal wall of flank NOS without penetration into peritoneal cavity</note>
+              </inclusionTerm>
             </diag>
           </diag>
           <diag>
@@ -158828,8 +160311,23 @@
               <desc>Puncture wound of abdominal wall without foreign body, periumbilic region without penetration into peritoneal cavity</desc>
             </diag>
             <diag>
+              <name>S31.136</name>
+              <desc>Puncture wound of abdominal wall without foreign body, right flank without penetration into peritoneal cavity</desc>
+            </diag>
+            <diag>
+              <name>S31.137</name>
+              <desc>Puncture wound of abdominal wall without foreign body, left flank without penetration into peritoneal cavity</desc>
+            </diag>
+            <diag>
               <name>S31.139</name>
               <desc>Puncture wound of abdominal wall without foreign body, unspecified quadrant without penetration into peritoneal cavity</desc>
+            </diag>
+            <diag>
+              <name>S31.13A</name>
+              <desc>Puncture wound of abdominal wall without foreign body, unspecified flank without penetration into peritoneal cavity</desc>
+              <inclusionTerm>
+                <note>Puncture wound of abdominal wall of flank NOS without foreign body</note>
+              </inclusionTerm>
             </diag>
           </diag>
           <diag>
@@ -158860,8 +160358,23 @@
               <desc>Puncture wound of abdominal wall with foreign body, periumbilic region without penetration into peritoneal cavity</desc>
             </diag>
             <diag>
+              <name>S31.146</name>
+              <desc>Puncture wound of abdominal wall with foreign body, right flank without penetration into peritoneal cavity</desc>
+            </diag>
+            <diag>
+              <name>S31.147</name>
+              <desc>Puncture wound of abdominal wall with foreign body, left flank without penetration into peritoneal cavity</desc>
+            </diag>
+            <diag>
               <name>S31.149</name>
               <desc>Puncture wound of abdominal wall with foreign body, unspecified quadrant without penetration into peritoneal cavity</desc>
+            </diag>
+            <diag>
+              <name>S31.14A</name>
+              <desc>Puncture wound of abdominal wall with foreign body, unspecified flank without penetration into peritoneal cavity</desc>
+              <inclusionTerm>
+                <note>Puncture wound of abdominal wall with foreign body of flank NOS without penetration into peritoneal cavity</note>
+              </inclusionTerm>
             </diag>
           </diag>
           <diag>
@@ -158898,8 +160411,23 @@
               <desc>Open bite of abdominal wall, periumbilic region without penetration into peritoneal cavity</desc>
             </diag>
             <diag>
+              <name>S31.156</name>
+              <desc>Open bite of abdominal wall, right flank without penetration into peritoneal cavity</desc>
+            </diag>
+            <diag>
+              <name>S31.157</name>
+              <desc>Open bite of abdominal wall, left flank without penetration into peritoneal cavity</desc>
+            </diag>
+            <diag>
               <name>S31.159</name>
               <desc>Open bite of abdominal wall, unspecified quadrant without penetration into peritoneal cavity</desc>
+            </diag>
+            <diag>
+              <name>S31.15A</name>
+              <desc>Open bite of abdominal wall, unspecified flank without penetration into peritoneal cavity</desc>
+              <inclusionTerm>
+                <note>Open bite of abdominal wall of flank NOS without penetration into peritoneal cavity</note>
+              </inclusionTerm>
             </diag>
           </diag>
         </diag>
@@ -159124,8 +160652,23 @@
               <desc>Unspecified open wound of abdominal wall, periumbilic region with penetration into peritoneal cavity</desc>
             </diag>
             <diag>
+              <name>S31.606</name>
+              <desc>Unspecified open wound of abdominal wall, right flank with penetration into peritoneal cavity</desc>
+            </diag>
+            <diag>
+              <name>S31.607</name>
+              <desc>Unspecified open wound of abdominal wall, left flank with penetration into peritoneal cavity</desc>
+            </diag>
+            <diag>
               <name>S31.609</name>
               <desc>Unspecified open wound of abdominal wall, unspecified quadrant with penetration into peritoneal cavity</desc>
+            </diag>
+            <diag>
+              <name>S31.60A</name>
+              <desc>Unspecified open wound of abdominal wall, unspecified flank with penetration into peritoneal cavity</desc>
+              <inclusionTerm>
+                <note>Unspecified open wound of abdominal wall of flank NOS, with penetration into peritoneal cavity</note>
+              </inclusionTerm>
             </diag>
           </diag>
           <diag>
@@ -159156,8 +160699,23 @@
               <desc>Laceration without foreign body of abdominal wall, periumbilic region with penetration into peritoneal cavity</desc>
             </diag>
             <diag>
+              <name>S31.616</name>
+              <desc>Laceration without foreign body of abdominal wall, right flank with penetration into peritoneal cavity</desc>
+            </diag>
+            <diag>
+              <name>S31.617</name>
+              <desc>Laceration without foreign body of abdominal wall, left flank with penetration into peritoneal cavity</desc>
+            </diag>
+            <diag>
               <name>S31.619</name>
               <desc>Laceration without foreign body of abdominal wall, unspecified quadrant with penetration into peritoneal cavity</desc>
+            </diag>
+            <diag>
+              <name>S31.61A</name>
+              <desc>Laceration without foreign body of abdominal wall, unspecified flank with penetration into peritoneal cavity</desc>
+              <inclusionTerm>
+                <note>Laceration without foreign body of abdominal wall of flank NOS, with penetration into peritoneal cavity</note>
+              </inclusionTerm>
             </diag>
           </diag>
           <diag>
@@ -159188,8 +160746,23 @@
               <desc>Laceration with foreign body of abdominal wall, periumbilic region with penetration into peritoneal cavity</desc>
             </diag>
             <diag>
+              <name>S31.626</name>
+              <desc>Laceration with foreign body of abdominal wall, right flank with penetration into peritoneal cavity</desc>
+            </diag>
+            <diag>
+              <name>S31.627</name>
+              <desc>Laceration with foreign body of abdominal wall, left flank with penetration into peritoneal cavity</desc>
+            </diag>
+            <diag>
               <name>S31.629</name>
               <desc>Laceration with foreign body of abdominal wall, unspecified quadrant with penetration into peritoneal cavity</desc>
+            </diag>
+            <diag>
+              <name>S31.62A</name>
+              <desc>Laceration with foreign body of abdominal wall, unspecified flank with penetration into peritoneal cavity</desc>
+              <inclusionTerm>
+                <note>Laceration with foreign body of abdominal wall, flank NOS, with penetration into peritoneal cavity</note>
+              </inclusionTerm>
             </diag>
           </diag>
           <diag>
@@ -159220,8 +160793,23 @@
               <desc>Puncture wound without foreign body of abdominal wall, periumbilic region with penetration into peritoneal cavity</desc>
             </diag>
             <diag>
+              <name>S31.636</name>
+              <desc>Puncture wound of abdominal wall without foreign body, right flank with penetration into peritoneal cavity</desc>
+            </diag>
+            <diag>
+              <name>S31.637</name>
+              <desc>Puncture wound of abdominal wall without foreign body, left flank with penetration into peritoneal cavity</desc>
+            </diag>
+            <diag>
               <name>S31.639</name>
               <desc>Puncture wound without foreign body of abdominal wall, unspecified quadrant with penetration into peritoneal cavity</desc>
+            </diag>
+            <diag>
+              <name>S31.63A</name>
+              <desc>Puncture wound of abdominal wall without foreign body, unspecified flank with penetration into peritoneal cavity</desc>
+              <inclusionTerm>
+                <note>Puncture wound of abdominal wall without foreign body, flank NOS, with penetration into peritoneal cavity</note>
+              </inclusionTerm>
             </diag>
           </diag>
           <diag>
@@ -159252,8 +160840,23 @@
               <desc>Puncture wound with foreign body of abdominal wall, periumbilic region with penetration into peritoneal cavity</desc>
             </diag>
             <diag>
+              <name>S31.646</name>
+              <desc>Puncture wound of abdominal wall with foreign body, right flank with penetration into peritoneal cavity</desc>
+            </diag>
+            <diag>
+              <name>S31.647</name>
+              <desc>Puncture wound of abdominal wall with foreign body, left flank with penetration into peritoneal cavity</desc>
+            </diag>
+            <diag>
               <name>S31.649</name>
               <desc>Puncture wound with foreign body of abdominal wall, unspecified quadrant with penetration into peritoneal cavity</desc>
+            </diag>
+            <diag>
+              <name>S31.64A</name>
+              <desc>Puncture wound of abdominal wall with foreign body, unspecified flank with penetration into peritoneal cavity</desc>
+              <inclusionTerm>
+                <note>Puncture wound of abdominal wall with foreign body, flank NOS, with penetration into peritoneal cavity</note>
+              </inclusionTerm>
             </diag>
           </diag>
           <diag>
@@ -159287,8 +160890,23 @@
               <desc>Open bite of abdominal wall, periumbilic region with penetration into peritoneal cavity</desc>
             </diag>
             <diag>
+              <name>S31.656</name>
+              <desc>Open bite of abdominal wall, right flank with penetration into peritoneal cavity</desc>
+            </diag>
+            <diag>
+              <name>S31.657</name>
+              <desc>Open bite of abdominal wall, left flank with penetration into peritoneal cavity</desc>
+            </diag>
+            <diag>
               <name>S31.659</name>
               <desc>Open bite of abdominal wall, unspecified quadrant with penetration into peritoneal cavity</desc>
+            </diag>
+            <diag>
+              <name>S31.65A</name>
+              <desc>Open bite of abdominal wall, unspecified flank with penetration into peritoneal cavity</desc>
+              <inclusionTerm>
+                <note>Open bite of abdominal wall, flank NOS, with penetration into peritoneal cavity</note>
+              </inclusionTerm>
             </diag>
           </diag>
         </diag>
@@ -162132,7 +163750,6 @@
           <name>S37.6</name>
           <desc>Injury of uterus</desc>
           <excludes1>
-            <note>injury to gravid uterus (O9A.2-)</note>
             <note>injury to uterus during delivery (O71.-)</note>
           </excludes1>
           <diag>
@@ -173305,18 +174922,18 @@
         </diag>
         <diag>
           <name>S62.9</name>
-          <desc>Unspecified fracture of wrist and hand</desc>
+          <desc>Unspecified fracture of hand</desc>
           <diag>
             <name>S62.90</name>
-            <desc>Unspecified fracture of unspecified wrist and hand</desc>
+            <desc>Unspecified fracture of unspecified hand</desc>
           </diag>
           <diag>
             <name>S62.91</name>
-            <desc>Unspecified fracture of right wrist and hand</desc>
+            <desc>Unspecified fracture of right hand</desc>
           </diag>
           <diag>
             <name>S62.92</name>
-            <desc>Unspecified fracture of left wrist and hand</desc>
+            <desc>Unspecified fracture of left hand</desc>
           </diag>
         </diag>
       </diag>
@@ -178809,7 +180426,7 @@
           </diag>
           <diag>
             <name>S74.21</name>
-            <desc>Injury of cutaneous sensory nerve at hip and high level, right leg</desc>
+            <desc>Injury of cutaneous sensory nerve at hip and thigh level, right leg</desc>
           </diag>
           <diag>
             <name>S74.22</name>
@@ -195773,6 +197390,41 @@
             <desc>Underdosing of unspecified systemic antibiotic</desc>
           </diag>
         </diag>
+        <diag>
+          <name>T36.A</name>
+          <desc>Poisoning by, adverse effect of and underdosing of fluoroquinolone antibiotics</desc>
+          <diag placeholder="true">
+            <name>T36.AX</name>
+            <desc>Poisoning by, adverse effect of and underdosing of fluoroquinolone antibiotics</desc>
+            <diag>
+              <name>T36.AX1</name>
+              <desc>Poisoning by fluoroquinolone antibiotics, accidental (unintentional)</desc>
+              <inclusionTerm>
+                <note>Poisoning by fluoroquinolone antibiotics NOS</note>
+              </inclusionTerm>
+            </diag>
+            <diag>
+              <name>T36.AX2</name>
+              <desc>Poisoning by fluoroquinolone antibiotics, intentional self-harm</desc>
+            </diag>
+            <diag>
+              <name>T36.AX3</name>
+              <desc>Poisoning by fluoroquinolone antibiotics, assault</desc>
+            </diag>
+            <diag>
+              <name>T36.AX4</name>
+              <desc>Poisoning by fluoroquinolone antibiotics, undetermined</desc>
+            </diag>
+            <diag>
+              <name>T36.AX5</name>
+              <desc>Adverse effect of fluoroquinolone antibiotics</desc>
+            </diag>
+            <diag>
+              <name>T36.AX6</name>
+              <desc>Underdosing of fluoroquinolone antibiotics</desc>
+            </diag>
+          </diag>
+        </diag>
       </diag>
       <diag>
         <name>T37</name>
@@ -205413,6 +207065,36 @@
             </diag>
           </diag>
           <diag>
+            <name>T65.84</name>
+            <desc>Toxic effect of xylazine</desc>
+            <useAdditionalCode>
+              <note>code(s) for all associated manifestations, such as:</note>
+              <note>cellulitis and acute lymphangitis (L03.-)</note>
+              <note>cutaneous abscess, furuncle and carbuncle (L02.-)</note>
+              <note>non-pressure chronic ulcer of lower limb, not elsewhere classified (L97.-)</note>
+              <note>non-pressure chronic ulcer of skin, not elsewhere classified (L98.4-)</note>
+            </useAdditionalCode>
+            <diag>
+              <name>T65.841</name>
+              <desc>Toxic effect of xylazine, accidental (unintentional)</desc>
+              <inclusionTerm>
+                <note>Toxic effect of xylazine NOS</note>
+              </inclusionTerm>
+            </diag>
+            <diag>
+              <name>T65.842</name>
+              <desc>Toxic effect of xylazine, intentional self-harm</desc>
+            </diag>
+            <diag>
+              <name>T65.843</name>
+              <desc>Toxic effect of xylazine, assault</desc>
+            </diag>
+            <diag>
+              <name>T65.844</name>
+              <desc>Toxic effect of xylazine, undetermined</desc>
+            </diag>
+          </diag>
+          <diag>
             <name>T65.89</name>
             <desc>Toxic effect of other specified substances</desc>
             <diag>
@@ -206324,6 +208006,24 @@
             <desc>Effects of weightlessness</desc>
           </diag>
           <diag>
+            <name>T75.83</name>
+            <desc>Effects of war theater</desc>
+            <useAdditionalCode>
+              <note>code to identify associated manifestations</note>
+            </useAdditionalCode>
+            <diag>
+              <name>T75.830</name>
+              <desc>Gulf war illness</desc>
+              <inclusionTerm>
+                <note>Gulf war syndrome</note>
+              </inclusionTerm>
+            </diag>
+            <diag>
+              <name>T75.838</name>
+              <desc>Effects of other war theater</desc>
+            </diag>
+          </diag>
+          <diag>
             <name>T75.89</name>
             <desc>Other specified effects of external causes</desc>
           </diag>
@@ -206517,10 +208217,46 @@
           <diag>
             <name>T78.07</name>
             <desc>Anaphylactic reaction due to milk and dairy products</desc>
+            <diag>
+              <name>T78.070</name>
+              <desc>Anaphylactic reaction due to milk and dairy products with tolerance to baked milk</desc>
+              <excludes1>
+                <note>Anaphylactic reaction due to milk and dairy products with reactivity to baked milk (T78.071)</note>
+              </excludes1>
+            </diag>
+            <diag>
+              <name>T78.071</name>
+              <desc>Anaphylactic reaction due to milk and dairy products with reactivity to baked milk</desc>
+              <excludes1>
+                <note>Anaphylactic reaction due to milk and dairy products with tolerance to baked milk (T78.070)</note>
+              </excludes1>
+            </diag>
+            <diag>
+              <name>T78.079</name>
+              <desc>Anaphylactic reaction due to milk and dairy products, unspecified</desc>
+            </diag>
           </diag>
           <diag>
             <name>T78.08</name>
             <desc>Anaphylactic reaction due to eggs</desc>
+            <diag>
+              <name>T78.080</name>
+              <desc>Anaphylactic reaction due to egg with tolerance to baked egg</desc>
+              <excludes1>
+                <note>Anaphylactic reaction due to egg with reactivity to baked egg (T78.081)</note>
+              </excludes1>
+            </diag>
+            <diag>
+              <name>T78.081</name>
+              <desc>Anaphylactic reaction due to egg with reactivity to baked egg</desc>
+              <excludes1>
+                <note>Anaphylactic reaction due to egg with tolerance to baked egg (T78.080)</note>
+              </excludes1>
+            </diag>
+            <diag>
+              <name>T78.089</name>
+              <desc>Anaphylactic reaction due to eggs, unspecified</desc>
+            </diag>
           </diag>
           <diag>
             <name>T78.09</name>
@@ -206546,6 +208282,54 @@
             <note>food protein-induced enterocolitis syndrome (K52.21)</note>
             <note>food protein-induced enteropathy (K52.22)</note>
           </excludes2>
+          <diag>
+            <name>T78.11</name>
+            <desc>Other adverse food reactions due to milk and dairy products</desc>
+            <diag>
+              <name>T78.110</name>
+              <desc>Other adverse food reactions due to milk and dairy products with tolerance to baked milk</desc>
+              <excludes1>
+                <note>Other adverse food reaction due to milk and dairy products with reactivity to baked milk (T78.111)</note>
+              </excludes1>
+            </diag>
+            <diag>
+              <name>T78.111</name>
+              <desc>Other adverse food reaction due to milk and dairy products with reactivity to baked milk</desc>
+              <excludes1>
+                <note>Other adverse food reaction due to milk and dairy products with tolerance to baked milk (T78.110)</note>
+              </excludes1>
+            </diag>
+            <diag>
+              <name>T78.119</name>
+              <desc>Other adverse food reaction due to milk and dairy products with baked milk tolerance/reactivity, unspecified</desc>
+            </diag>
+          </diag>
+          <diag>
+            <name>T78.12</name>
+            <desc>Other adverse food reaction due to eggs</desc>
+            <diag>
+              <name>T78.120</name>
+              <desc>Other adverse food reaction due to egg with tolerance to baked egg</desc>
+              <excludes1>
+                <note>Other adverse food reaction due to egg with reactivity to baked egg (T78.121)</note>
+              </excludes1>
+            </diag>
+            <diag>
+              <name>T78.121</name>
+              <desc>Other adverse food reaction due to egg with reactivity to baked egg</desc>
+              <excludes1>
+                <note>Other adverse food reaction due to egg with tolerance to baked egg (T78.120)</note>
+              </excludes1>
+            </diag>
+            <diag>
+              <name>T78.129</name>
+              <desc>Other adverse food reaction due to egg with baked egg tolerance/reactivity, unspecified</desc>
+            </diag>
+          </diag>
+          <diag>
+            <name>T78.19</name>
+            <desc>Other adverse food reactions, not elsewhere classified</desc>
+          </diag>
         </diag>
         <diag>
           <name>T78.2</name>
@@ -212645,7 +214429,7 @@
               <name>V06.938</name>
               <desc>Pedestrian on other standing micro-mobility pedestrian conveyance injured in collision with other nonmotor vehicle, unspecified whether traffic or nontraffic accident</desc>
               <inclusionTerm>
-                <note>Pedestrian on hoverboard injured in collision with other nonmotor, unspecified whether traffic or nontraffic accident</note>
+                <note>Pedestrian on hoverboard injured in collision with other nonmotor vehicle, unspecified whether traffic or nontraffic accident</note>
                 <note>Pedestrian on segway injured in collision with other nonmotor vehicle, unspecified whether traffic or nontraffic accident</note>
               </inclusionTerm>
             </diag>
@@ -222601,7 +224385,7 @@
             <name>W44.A9</name>
             <desc>Other batteries entering into or through a natural orifice</desc>
             <inclusionTerm>
-              <note>Cylindrical battery</note>
+              <note>Cylindrical battery entering into or through a natural orifice</note>
             </inclusionTerm>
           </diag>
         </diag>
@@ -222756,7 +224540,7 @@
         </diag>
         <diag>
           <name>W44.G</name>
-          <desc>Other non-organic objects entering into or through a natural  orifice</desc>
+          <desc>Other non-organic objects entering into or through a natural orifice</desc>
           <diag>
             <name>W44.G0</name>
             <desc>Other non-organic objects unspecified, entering into or through a natural orifice</desc>
@@ -222803,6 +224587,13 @@
             <name>W44.H2</name>
             <desc>Knife, sword or dagger entering into or through a natural orifice</desc>
           </diag>
+          <diag>
+            <name>W44.H9</name>
+            <desc>Other sharp object entering into or through a natural orifice</desc>
+            <inclusionTerm>
+              <note>Shard pottery entering into or through a natural orifice</note>
+            </inclusionTerm>
+          </diag>
         </diag>
         <diag>
           <name>W44.8</name>
@@ -222840,6 +224631,10 @@
         <diag>
           <name>W45.0</name>
           <desc>Nail entering through skin</desc>
+        </diag>
+        <diag>
+          <name>W45.3</name>
+          <desc>Fishing hook entering through skin</desc>
         </diag>
         <diag>
           <name>W45.8</name>
@@ -225970,7 +227765,7 @@
             </diag>
             <diag>
               <name>Y07.435</name>
-              <desc>Stepbrother, perpetrator or maltreatment and neglect</desc>
+              <desc>Stepbrother, perpetrator of maltreatment and neglect</desc>
             </diag>
             <diag>
               <name>Y07.436</name>
@@ -227713,6 +229508,33 @@
             <desc>War operations involving friendly fire</desc>
           </diag>
         </diag>
+        <diag>
+          <name>Y36.A</name>
+          <desc>Blast overpressure in war operations</desc>
+          <codeAlso>
+            <note>type of explosive, if known</note>
+            <note>accidental detonation of onboard munitions (Y36.140)</note>
+            <note>explosion of grenade (Y36.290)</note>
+            <note>explosion of torpedo (Y36.040)</note>
+            <note>improvised explosive device (Y36.230)</note>
+          </codeAlso>
+          <diag>
+            <name>Y36.A1</name>
+            <desc>Low level blast overpressure in war operations</desc>
+            <inclusionTerm>
+              <note>LLB overpressure in war operations</note>
+              <note>Low level blast overpressure due to explosion in war operations</note>
+            </inclusionTerm>
+          </diag>
+          <diag>
+            <name>Y36.A2</name>
+            <desc>High level blast overpressure in war operations</desc>
+            <inclusionTerm>
+              <note>High level blast overpressure due to explosion in war  operations</note>
+              <note>HLB overpressure in war operations</note>
+            </inclusionTerm>
+          </diag>
+        </diag>
       </diag>
       <diag>
         <name>Y37</name>
@@ -228386,6 +230208,33 @@
           <diag>
             <name>Y37.92</name>
             <desc>Military operations involving friendly fire</desc>
+          </diag>
+        </diag>
+        <diag>
+          <name>Y37.A</name>
+          <desc>Blast overpressure in military operations</desc>
+          <codeAlso>
+            <note>type of explosive, if known</note>
+            <note>accidental detonation of onboard munitions (Y37.140)</note>
+            <note>explosion of grenade (Y37.290)</note>
+            <note>explosion of torpedo (Y37.040)</note>
+            <note>improvised explosive device (Y37.230)</note>
+          </codeAlso>
+          <diag>
+            <name>Y37.A1</name>
+            <desc>Low level blast overpressure in military operations</desc>
+            <inclusionTerm>
+              <note>LLB overpressure in military operations</note>
+              <note>Low level blast overpressure due to explosion in military operations</note>
+            </inclusionTerm>
+          </diag>
+          <diag>
+            <name>Y37.A2</name>
+            <desc>High level blast overpressure in military operations</desc>
+            <inclusionTerm>
+              <note>High level blast overpressure due to explosion in military operations</note>
+              <note>HLB overpressure in military operations</note>
+            </inclusionTerm>
           </diag>
         </diag>
       </diag>
@@ -230541,6 +232390,7 @@
           <note>Y93.I	Activities involving roller coasters and other types of external motion</note>
           <note>Y93.J	Activities involving playing musical instrument</note>
           <note>Y93.K	Activities involving animal care</note>
+          <note>Y93.L	Other outdoor activity</note>
           <note>Y93.8	Activities, other specified</note>
           <note>Y93.9	Activity, unspecified</note>
         </notes>
@@ -231218,6 +233068,18 @@
           </diag>
         </diag>
         <diag>
+          <name>Y93.L</name>
+          <desc>Other outdoor activity</desc>
+          <diag>
+            <name>Y93.L1</name>
+            <desc>Activity, splitting wood</desc>
+          </diag>
+          <diag>
+            <name>Y93.L9</name>
+            <desc>Activity, other outdoor activity</desc>
+          </diag>
+        </diag>
+        <diag>
           <name>Y93.8</name>
           <desc>Activities, other specified</desc>
           <diag>
@@ -231374,9 +233236,9 @@
       <notes>
         <note>Nonspecific abnormal findings disclosed at the time of these examinations are classified to categories R70-R94.</note>
       </notes>
-      <excludes1>
+      <excludes2>
         <note>examinations related to pregnancy and reproduction (Z30-Z36, Z39.-)</note>
-      </excludes1>
+      </excludes2>
       <diag>
         <name>Z00</name>
         <desc>Encounter for general examination without complaint, suspected or reported diagnosis</desc>
@@ -231530,10 +233392,10 @@
         <excludes1>
           <note>encounter for examination for administrative purposes (Z02.-)</note>
           <note>encounter for examination for suspected conditions, proven not to exist (Z03.-)</note>
-          <note>encounter for laboratory and radiologic examinations as a component of general medical examinations (Z00.0-)</note>
           <note>encounter for laboratory, radiologic and imaging examinations for sign(s) and symptom(s) - code to the sign(s) or symptom(s)</note>
         </excludes1>
         <excludes2>
+          <note>encounter for laboratory and radiologic examinations as a component of general medical examinations (Z00.0-)</note>
           <note>screening examinations (Z11-Z13)</note>
         </excludes2>
         <diag>
@@ -232711,6 +234573,32 @@
             <desc>Genetic susceptibility to malignant neoplasm of endometrium</desc>
           </diag>
           <diag>
+            <name>Z15.05</name>
+            <desc>Genetic susceptibility to malignant neoplasm of fallopian tube(s)</desc>
+          </diag>
+          <diag>
+            <name>Z15.06</name>
+            <desc>Genetic susceptibility to malignant neoplasm of digestive system</desc>
+            <diag>
+              <name>Z15.060</name>
+              <desc>Genetic susceptibility to colorectal cancer</desc>
+            </diag>
+            <diag>
+              <name>Z15.068</name>
+              <desc>Genetic susceptibility to other malignant neoplasm of digestive system</desc>
+              <inclusionTerm>
+                <note>Genetic susceptibility to biliary tract cancer</note>
+                <note>Genetic susceptibility to gastric cancer</note>
+                <note>Genetic susceptibility to pancreatic cancer</note>
+                <note>Genetic susceptibility to small bowel cancer</note>
+              </inclusionTerm>
+            </diag>
+          </diag>
+          <diag>
+            <name>Z15.07</name>
+            <desc>Genetic susceptibility to malignant neoplasm of urinary tract</desc>
+          </diag>
+          <diag>
             <name>Z15.09</name>
             <desc>Genetic susceptibility to other malignant neoplasm</desc>
           </diag>
@@ -232740,6 +234628,13 @@
           <useAdditionalCode>
             <note>code to identify body mass index (BMI), if known (Z68.-)</note>
           </useAdditionalCode>
+        </diag>
+        <diag>
+          <name>Z15.3</name>
+          <desc>Genetic susceptibility to kidney disease</desc>
+          <codeAlso>
+            <note>, if applicable, hypertension (I10-I1A)</note>
+          </codeAlso>
         </diag>
         <diag>
           <name>Z15.8</name>
@@ -234584,7 +236479,7 @@
             <note>Admission for prophylactic organ removal</note>
           </inclusionTerm>
           <useAdditionalCode>
-            <note>code to identify risk factor</note>
+            <note>code to identify risk factor, such as genetic  susceptibility to malignant neoplasm Z15.-</note>
           </useAdditionalCode>
           <diag>
             <name>Z40.00</name>
@@ -234597,9 +236492,6 @@
           <diag>
             <name>Z40.02</name>
             <desc>Encounter for prophylactic removal of ovary(s)</desc>
-            <inclusionTerm>
-              <note>Encounter for prophylactic removal of ovary(s) and fallopian tube(s)</note>
-            </inclusionTerm>
           </diag>
           <diag>
             <name>Z40.03</name>
@@ -234613,6 +236505,25 @@
         <diag>
           <name>Z40.8</name>
           <desc>Encounter for other prophylactic surgery</desc>
+          <diag>
+            <name>Z40.81</name>
+            <desc>Encounter for prophylactic surgery for removal of ovary(s) for persons without known genetic/familial risk factors</desc>
+            <inclusionTerm>
+              <note>Encounter for prophylactic oophorectomy for persons without known genetic/ familial risk factors</note>
+            </inclusionTerm>
+          </diag>
+          <diag>
+            <name>Z40.82</name>
+            <desc>Encounter for prophylactic surgery for removal of fallopian tube(s) for persons without known genetic/familial risk factors</desc>
+            <inclusionTerm>
+              <note>Encounter for prophylactic salpingectomy for persons without known genetic/familial risk factors</note>
+              <note>Opportunistic salpingectomy</note>
+            </inclusionTerm>
+          </diag>
+          <diag>
+            <name>Z40.89</name>
+            <desc>Encounter for other prophylactic surgery</desc>
+          </diag>
         </diag>
         <diag>
           <name>Z40.9</name>
@@ -235816,6 +237727,9 @@
         <diag>
           <name>Z56.6</name>
           <desc>Other physical and mental strain related to work</desc>
+          <inclusionTerm>
+            <note>Workplace stress</note>
+          </inclusionTerm>
         </diag>
         <diag>
           <name>Z56.8</name>
@@ -235834,6 +237748,10 @@
           <diag>
             <name>Z56.89</name>
             <desc>Other problems related to employment</desc>
+            <inclusionTerm>
+              <note>Furloughed</note>
+              <note>Underemployed</note>
+            </inclusionTerm>
           </diag>
         </diag>
         <diag>
@@ -235964,6 +237882,7 @@
             <name>Z59.02</name>
             <desc>Unsheltered homelessness</desc>
             <inclusionTerm>
+              <note>Lives in a homeless encampment</note>
               <note>Residing in place not meant for human habitation such as: abandoned buildings, cars, parks, sidewalk</note>
               <note>Residing on the street</note>
             </inclusionTerm>
@@ -236001,6 +237920,7 @@
             </inclusionTerm>
             <excludes2>
               <note>basic services unavailable in physical environment (Z58.81)</note>
+              <note>financial insecurity, difficulty paying for utilities (Z59.861)</note>
               <note>lack of adequate food (Z59.4-)</note>
               <note>other problems related to housing and economic circumstances (Z59.8-)</note>
             </excludes2>
@@ -236010,6 +237930,7 @@
             <desc>Other inadequate housing</desc>
             <inclusionTerm>
               <note>Pest infestation</note>
+              <note>Poor housing weatherization</note>
               <note>Restriction of space</note>
               <note>Technical defects in home preventing adequate care</note>
               <note>Unsatisfactory surroundings</note>
@@ -236110,7 +238031,7 @@
               <desc>Housing instability, housed unspecified</desc>
               <excludes2>
                 <note>extreme poverty (Z59.5)</note>
-                <note>financial insecurity (Z59.86)</note>
+                <note>financial insecurity (Z59.86-)</note>
                 <note>low income (Z59.6)</note>
                 <note>material hardship due to limited financial resources, not elsewhere classified (Z59.87)</note>
               </excludes2>
@@ -236136,7 +238057,6 @@
             <name>Z59.86</name>
             <desc>Financial insecurity</desc>
             <inclusionTerm>
-              <note>Bankruptcy</note>
               <note>Burdensome debt</note>
               <note>Economic strain</note>
               <note>Financial strain</note>
@@ -236149,6 +238069,31 @@
               <note>low income (Z59.6)</note>
               <note>material hardship, not elsewhere classified (Z59.87)</note>
             </excludes2>
+            <diag>
+              <name>Z59.861</name>
+              <desc>Financial insecurity, difficulty paying for utilities</desc>
+              <inclusionTerm>
+                <note>Difficulty paying for electricity</note>
+                <note>Difficulty paying for heat</note>
+                <note>Difficulty paying for oil</note>
+                <note>Difficulty paying water bill</note>
+                <note>Utility disconnect notice due to inability to pay</note>
+              </inclusionTerm>
+              <excludes2>
+                <note>inadequate housing utilities (Z59.12)</note>
+              </excludes2>
+            </diag>
+            <diag>
+              <name>Z59.868</name>
+              <desc>Other specified financial insecurity</desc>
+              <inclusionTerm>
+                <note>Bankruptcy</note>
+              </inclusionTerm>
+            </diag>
+            <diag>
+              <name>Z59.869</name>
+              <desc>Financial insecurity, unspecified</desc>
+            </diag>
           </diag>
           <diag>
             <name>Z59.87</name>
@@ -236157,12 +238102,11 @@
               <note>Material deprivation due to limited financial resources</note>
               <note>Unable to obtain adequate childcare due to limited financial resources</note>
               <note>Unable to obtain adequate clothing due to limited financial resources</note>
-              <note>Unable to obtain adequate utilities due to limited financial resources</note>
               <note>Unable to obtain basic needs due to limited financial resources</note>
             </inclusionTerm>
             <excludes2>
               <note>extreme poverty (Z59.5)</note>
-              <note>financial insecurity, not elsewhere classified (Z59.86)</note>
+              <note>financial insecurity, not elsewhere classified (Z59.86-)</note>
               <note>low income (Z59.6)</note>
             </excludes2>
           </diag>
@@ -237795,6 +239739,24 @@
           </diag>
         </diag>
         <diag>
+          <name>Z77.3</name>
+          <desc>Contact with and (suspected) exposure to war theater</desc>
+          <diag>
+            <name>Z77.31</name>
+            <desc>Contact with and (suspected) exposure to Gulf War theater</desc>
+            <inclusionTerm>
+              <note>Contact with and (suspected) exposure to Persian Gulf War theater</note>
+            </inclusionTerm>
+          </diag>
+          <diag>
+            <name>Z77.39</name>
+            <desc>Contact with and (suspected) exposure to other war theater</desc>
+            <inclusionTerm>
+              <note>Agent Orange exposure</note>
+            </inclusionTerm>
+          </diag>
+        </diag>
+        <diag>
           <name>Z77.9</name>
           <desc>Other contact with and (suspected) exposures hazardous to health</desc>
         </diag>
@@ -238182,6 +240144,10 @@
             <desc>Family history of malignant neoplasm of testis</desc>
           </diag>
           <diag>
+            <name>Z80.44</name>
+            <desc>Family history of malignant neoplasm of fallopian tube(s)</desc>
+          </diag>
+          <diag>
             <name>Z80.49</name>
             <desc>Family history of malignant neoplasm of other genital organs</desc>
           </diag>
@@ -238516,7 +240482,7 @@
             </diag>
             <diag>
               <name>Z83.718</name>
-              <desc>Other family history of colon polyps</desc>
+              <desc>Family history of other colon polyps</desc>
               <inclusionTerm>
                 <note>Family history of inflammatory colon polyps</note>
               </inclusionTerm>
@@ -238555,6 +240521,14 @@
           <inclusionTerm>
             <note>Conditions classifiable to N00-N29</note>
           </inclusionTerm>
+          <diag>
+            <name>Z84.11</name>
+            <desc>Family history of APOL1-mediated kidney disease [AMKD]</desc>
+          </diag>
+          <diag>
+            <name>Z84.19</name>
+            <desc>Family history of other disorders of kidney and ureter</desc>
+          </diag>
         </diag>
         <diag>
           <name>Z84.2</name>
@@ -238585,6 +240559,15 @@
             <name>Z84.89</name>
             <desc>Family history of other specified conditions</desc>
           </diag>
+        </diag>
+        <diag>
+          <name>Z84.A</name>
+          <desc>Family history of exposure to diethylstilbestrol</desc>
+          <inclusionTerm>
+            <note>DES granddaughter or grandson</note>
+            <note>Family history of DES exposure</note>
+            <note>Third generation DES exposure</note>
+          </inclusionTerm>
         </diag>
       </diag>
       <diag>
@@ -238836,6 +240819,10 @@
           <diag>
             <name>Z85.49</name>
             <desc>Personal history of malignant neoplasm of other male genital organs</desc>
+          </diag>
+          <diag>
+            <name>Z85.4A</name>
+            <desc>Personal history of malignant neoplasm of fallopian tube(s)</desc>
           </diag>
         </diag>
         <diag>
@@ -239133,6 +241120,10 @@
               <inclusionTerm>
                 <note>Conditions classifiable to D09</note>
               </inclusionTerm>
+            </diag>
+            <diag>
+              <name>Z86.00A</name>
+              <desc>Personal history of in-situ neoplasm of the fallopian tube(s)</desc>
             </diag>
           </diag>
           <diag>
@@ -239456,8 +241447,8 @@
             <name>Z87.41</name>
             <desc>Personal history of dysplasia of the female genital tract</desc>
             <excludes1>
-              <note>personal history of intraepithelial neoplasia III of female genital tract (Z86.001, Z86.008)</note>
-              <note>personal history of malignant neoplasm of female genital tract (Z85.40-Z85.44)</note>
+              <note>personal history of intraepithelial neoplasia III of female genital tract (Z86.001, Z86.008, Z86.00A)</note>
+              <note>personal history of malignant neoplasm of female genital tract (Z85.40-Z85.44, Z85.4A)</note>
             </excludes1>
             <diag>
               <name>Z87.410</name>
@@ -240307,10 +242298,46 @@
               <excludes1>
                 <note>lactose intolerance (E73.-)</note>
               </excludes1>
+              <diag>
+                <name>Z91.0110</name>
+                <desc>Allergy to milk products, unspecified</desc>
+              </diag>
+              <diag>
+                <name>Z91.0111</name>
+                <desc>Allergy to milk products with tolerance to baked milk</desc>
+                <excludes1>
+                  <note>Allergy to milk products with reactivity to baked milk (Z91.0112)</note>
+                </excludes1>
+              </diag>
+              <diag>
+                <name>Z91.0112</name>
+                <desc>Allergy to milk products with reactivity to baked milk</desc>
+                <excludes1>
+                  <note>Allergy to milk products with tolerance to baked milk (Z91.0111)</note>
+                </excludes1>
+              </diag>
             </diag>
             <diag>
               <name>Z91.012</name>
               <desc>Allergy to eggs</desc>
+              <diag>
+                <name>Z91.0120</name>
+                <desc>Allergy to eggs, unspecified</desc>
+              </diag>
+              <diag>
+                <name>Z91.0121</name>
+                <desc>Allergy to eggs with tolerance to baked egg</desc>
+                <excludes1>
+                  <note>Allergy to eggs with reactivity to baked egg (Z91.0122)</note>
+                </excludes1>
+              </diag>
+              <diag>
+                <name>Z91.0122</name>
+                <desc>Allergy to eggs with reactivity to baked egg</desc>
+                <excludes1>
+                  <note>Allergy to egg with tolerance to baked egg (Z91.0121)</note>
+                </excludes1>
+              </diag>
             </diag>
             <diag>
               <name>Z91.013</name>
@@ -240724,6 +242751,22 @@
               <note>Increased risk for social isolation</note>
             </inclusionTerm>
           </diag>
+        </diag>
+        <diag>
+          <name>Z91.B</name>
+          <desc>Personal risk factor of exposure to diethylstilbestrol</desc>
+          <inclusionTerm>
+            <note>DES daughter or son</note>
+            <note>Personal risk factor of exposure to DES</note>
+            <note>Personal risk factor of exposure to DES in utero</note>
+            <note>Second generation DES exposure</note>
+          </inclusionTerm>
+          <codeAlso>
+            <note>, associated conditions, such as:</note>
+            <note>conditions classifiable to C50.-</note>
+            <note>osteoporosis  (M80.-)</note>
+            <note>premature menopause (E28.31-)</note>
+          </codeAlso>
         </diag>
       </diag>
       <diag>
@@ -241434,6 +243477,7 @@
         <excludes2>
           <note>aftercare (Z43-Z49, Z51)</note>
           <note>follow-up medical care (Z08-Z09)</note>
+          <note>Fontan related circulation (I27.84-)</note>
           <note>postprocedural complication - see Alphabetical Index</note>
         </excludes2>
         <diag>
@@ -241637,6 +243681,9 @@
           <diag>
             <name>Z99.11</name>
             <desc>Dependence on respirator [ventilator] status</desc>
+            <inclusionTerm>
+              <note>Ventilator status</note>
+            </inclusionTerm>
           </diag>
           <diag>
             <name>Z99.12</name>
