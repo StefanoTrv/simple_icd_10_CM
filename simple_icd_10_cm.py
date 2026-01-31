@@ -219,9 +219,12 @@ class _CodeTree:
                     new_XML = "<diag_ext><name>"+extended_name+extension+"</name><desc>"+self.description+", "+dictionary[extension]+"</desc></diag_ext>"
                     self.children.append(_CodeTree(ET.fromstring(new_XML),parent=self,seven_chr_def_ancestor=new_seven_chr_def_ancestor,seven_chr_note_ancestor=new_seven_chr_note_ancestor,use_additional_code_ancestor=new_use_additional_code_ancestor,code_first_ancestor=new_code_first_ancestor,code_also_ancestor=new_code_also_ancestor,notes_ancestor=new_notes_ancestor))
 
-def _load_codes(all_codes_file_path:Optional[str] = None, classification_data_file_path:Optional[str] = None, suppress_warnings:bool = False) -> None: # either both or none of the strings must be None
-    if suppress_warnings:
-        warnings.filterwarnings("ignore", category=SimpleICD10CMWarning)
+def _load_codes(all_codes_file_path:Optional[str] = None, classification_data_file_path:Optional[str] = None, suppress_warnings:Optional[bool] = None) -> None: # either both or none of the strings must be None
+    if suppress_warnings is not None:
+        if suppress_warnings:
+            warnings.filterwarnings("ignore", category=SimpleICD10CMWarning)
+        else:
+            warnings.simplefilter("default", category=SimpleICD10CMWarning)
     
     #loads the list of all codes, to remove later from the tree the ones that do not exist for very specific rules not easily extracted from the XML file
     if all_codes_file_path is None:
@@ -260,9 +263,9 @@ def _load_codes(all_codes_file_path:Optional[str] = None, classification_data_fi
 
 _load_codes()
 
-def change_version(all_codes_file_path:Optional[str] = None, classification_data_file_path:Optional[str] = None) -> None:
+def change_version(all_codes_file_path:Optional[str] = None, classification_data_file_path:Optional[str] = None, suppress_warnings:Optional[bool] = None) -> None:
     if (all_codes_file_path is None and classification_data_file_path is None) or (all_codes_file_path is not None and classification_data_file_path is not None):
-        _load_codes(all_codes_file_path=all_codes_file_path,classification_data_file_path=classification_data_file_path)
+        _load_codes(all_codes_file_path=all_codes_file_path,classification_data_file_path=classification_data_file_path,suppress_warnings=suppress_warnings)
     else:
         ac_error = "None" if all_codes_file_path is None else "\"" + all_codes_file_path + "\""
         cd_error = "None" if classification_data_file_path is None else "\"" + classification_data_file_path + "\""
