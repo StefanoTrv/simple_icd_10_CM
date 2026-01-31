@@ -43,7 +43,7 @@ A simple python library for ICD-10-CM codes
   * [get_index(code)](#get_indexcode)
   * [remove_dot(code)](#remove_dotcode)
   * [add_dot(code)](#add_dotcode)
-  * [change_version(all_codes_file_path=None, classification_data_file_path=None)](#change_versionall_codes_file_pathnone-classification_data_file_pathnone)
+  * [change_version(all_codes_file_path=None, classification_data_file_path=None, suppress_warnings=None)](#change_versionall_codes_file_pathnone-classification_data_file_pathnone-suppress_warningsnone)
 * [Conclusion](#conclusion)
 
 ## Release notes
@@ -479,8 +479,8 @@ cm.add_dot("K00-K14")
 #'K00-K14'
 ```
 
-### change_version(all_codes_file_path=None, classification_data_file_path=None)
-This function can be used to load any ICD-10-CM release provided by the user, or to revert to using the default release for the package. Its usage is explained in the paragraph [Using other ICD-10-CM releases](#using-other-icd-10-cm-releases).
+### change_version(all_codes_file_path=None, classification_data_file_path=None, suppress_warnings=None)
+This function can be used to load any ICD-10-CM release provided by the user, or to revert to using the default release for the package. Its usage is explained in the paragraph [Using other ICD-10-CM releases](#using-other-icd-10-cm-releases). The optional argument `suppress_warnings` can be used to hide the warnings that are emitted when some kinds of small inconsistencies are detected in the loaded data. Setting this parameter to `True` will hide the warnings, setting it to `False` will show them, setting it to `None` or omitting it will not change whether warnings are hidden or shown. It is recommended that you always omit this parameter.
 
 ## Conclusion
 This should be everything you need to know about the simple_icd_10_cm library. Please contact me if you find any mistake, bug, missing feature or anything else that could be improved or made easier to comprehend, both in this documentation and in the library itself as well as in the [Showcase notebook](https://github.com/StefanoTrv/simple_icd_10_CM/blob/master/Showcase%20notebook.ipynb). You can also contact me if you need any help using this library, but I may not be able to help with questions about the ICD-10-CM classification itself.
