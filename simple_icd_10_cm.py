@@ -29,10 +29,10 @@ def _user_stacklevel() -> int:
 
 def _check_node_has_text(text : str, node_tag : str, main_node_tag : str | None, code_this : _CodeTree, code_parent : _CodeTree | None) -> bool:
     if main_node_tag is not None:
-        msg_subject = f"XML \"{node_tag}\" node of parent XML node \"{main_node_tag}\""
-        msg_end = "Ignoring this \"{node_tag}\" node."
+        msg_subject = f"XML <{node_tag}> node of parent XML node <{main_node_tag}>"
+        msg_end = f"Ignoring this <{node_tag}> node."
     else:
-        msg_subject = f"XML \"{node_tag}\" node"
+        msg_subject = f"XML <{node_tag}> node"
         msg_end = "Ignoring this node."
 
     if text is None:
@@ -53,7 +53,7 @@ def _warning_extensionless_seven_chr_def_note(code_this : _CodeTree, code_parent
         msg_where = f"child code of \"{code_parent.name}\" with unknown name"
     else:
         msg_where = f"parentless code of unknown name"
-    error_msg = f"In data of {msg_where}, found \"note\" XML element in a \"sevenChrDef\" XML element with not preceded by an \"extension\" element. Ignoring this \"note\" element."
+    error_msg = f"In data of {msg_where}, found <note> XML element in a <sevenChrDef> XML element with not preceded by an <extension> element. Ignoring this <note> element."
     warnings.warn(error_msg,category=SimpleICD10CMWarning,stacklevel=_user_stacklevel())
 # --- --- ---
 
@@ -109,8 +109,14 @@ class _CodeTree:
                 # This is only correct because the XML elements for the children codes always follow the XML elements for this code's data
                 self.children.append(_CodeTree(subtree,parent=self,seven_chr_def_ancestor=new_seven_chr_def_ancestor,seven_chr_note_ancestor=new_seven_chr_note_ancestor,use_additional_code_ancestor=new_use_additional_code_ancestor,code_first_ancestor=new_code_first_ancestor,code_also_ancestor=new_code_also_ancestor,notes_ancestor=new_notes_ancestor))
             elif subtree.tag=="name":
-                if _check_node_has_text(subtree.text, subtree.tag, None, self, self.parent):
+                if subtree.text is not None:
                     self.name=subtree.text
+                else:
+                    if self.parent is not None:
+                        err_msg = f"Found <name> XML element containing no text in child of code {self.parent.name}."
+                    else:
+                        err_msg = "Found <name> XML element containing no text in parentless code."
+                    raise ValueError(err_msg)
             elif subtree.tag=="desc":
                 if _check_node_has_text(subtree.text, subtree.tag, None, self, self.parent):
                     self.description=subtree.text
