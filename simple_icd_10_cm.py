@@ -23,7 +23,7 @@ class SimpleICD10CMWarning(UserWarning):
 def _user_stacklevel() -> int:
     for i, frameinfo in enumerate(inspect.stack()[1:], start=1):
         module = inspect.getmodule(frameinfo.frame)
-        if module is None or not module.__name__.startswith("mylib"):
+        if module is None or not module.__name__.startswith("simple_icd_10_cm"):
             return i
     return 1
 
