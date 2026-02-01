@@ -46,7 +46,7 @@ def _check_node_has_text(text : str, node_tag : str, main_node_tag : str | None,
         return False
     return True
 
-def _warning_extensionless_seven_chr_def_note(code_this : _CodeTree, code_parent : _CodeTree | None):
+def _warning_extensionless_seven_chr_def_note(code_this : _CodeTree, code_parent : _CodeTree | None) -> None:
     if code_this.name != "":
         msg_where = f"code {code_this.name}"
     elif code_parent is not None:
@@ -71,6 +71,10 @@ _all_codes_package_file_name:str = 'code-list-April-2025.txt'
 _classification_data_package_file_name:str = 'icd10cm-tabular-April-2025.xml'
 
 class _CodeTree:
+    def __append_string_to_field_list(self, xml_node, parent_tag : str, list_to_be_appended : list[str]) -> None:
+        if _check_node_has_text(xml_node.text, xml_node.tag, parent_tag, self, self.parent):
+            list_to_be_appended.append(xml_node.text)
+
     def __init__(self, tree, parent : _CodeTree | None = None, seven_chr_def_ancestor = None, seven_chr_note_ancestor = None, use_additional_code_ancestor = None, code_first_ancestor = None, code_also_ancestor = None, notes_ancestor = None):
         #initialize all the values
         self.name = ""
@@ -102,6 +106,10 @@ class _CodeTree:
         new_code_first_ancestor=code_first_ancestor
         new_code_also_ancestor=code_also_ancestor
         new_notes_ancestor=notes_ancestor
+        use_additional_code_list=[]
+        code_first_list=[]
+        code_also_list=[]
+        notes_list=[]
         if "id" in tree.attrib: #the name of sections is an attribute instead of text inside an XML element
             self.name=tree.attrib["id"]
         for subtree in tree:
@@ -122,20 +130,16 @@ class _CodeTree:
                     self.description=subtree.text
             elif subtree.tag=="excludes1":
                 for note in subtree:
-                    if _check_node_has_text(note.text, note.tag, subtree.tag, self, self.parent):
-                        self.excludes1.append(note.text)
+                    self.__append_string_to_field_list(note,subtree.tag,self.excludes1)
             elif subtree.tag=="excludes2":
                 for note in subtree:
-                    if _check_node_has_text(note.text, note.tag, subtree.tag, self, self.parent):
-                        self.excludes2.append(note.text)
+                    self.__append_string_to_field_list(note,subtree.tag,self.excludes2)
             elif subtree.tag=="includes":
                 for note in subtree:
-                    if _check_node_has_text(note.text, note.tag, subtree.tag, self, self.parent):
-                        self.includes.append(note.text)
+                    self.__append_string_to_field_list(note,subtree.tag,self.includes)
             elif subtree.tag=="inclusionTerm":
                 for note in subtree:
-                    if _check_node_has_text(note.text, note.tag, subtree.tag, self, self.parent):
-                        self.inclusion_term.append(note.text)
+                    self.__append_string_to_field_list(note,subtree.tag,self.inclusion_term)
             elif subtree.tag=="sevenChrDef":
                 last_char = None
                 for extension in subtree:
@@ -156,36 +160,28 @@ class _CodeTree:
             elif subtree.tag=="useAdditionalCode":
             # NOTE: multiple useAdditionalCode elements may be present, so self.use_additional_code should always be appended and never overwritten
                 for i in range(0,len(subtree)):#in case there are multiple lines
-                    if _check_node_has_text(subtree[i].text, subtree[i].tag, subtree.tag, self, self.parent):
-                        self.use_additional_code=self.use_additional_code+"\n"+subtree[i].text
+                    self.__append_string_to_field_list(subtree[i],subtree.tag,use_additional_code_list)
                 new_use_additional_code_ancestor=self
             elif subtree.tag=="codeFirst":
                 for i in range(0,len(subtree)):#in case there are multiple lines
-                    if _check_node_has_text(subtree[i].text, subtree[i].tag, subtree.tag, self, self.parent):
-                        self.code_first=self.code_first+"\n"+subtree[i].text
+                    self.__append_string_to_field_list(subtree[i],subtree.tag,code_first_list)
                 new_code_first_ancestor=self
             elif subtree.tag=="codeAlso":
             # see NOTE for useAdditionalCode
                 for i in range(0,len(subtree)):#in case there are multiple lines
-                    if _check_node_has_text(subtree[i].text, subtree[i].tag, subtree.tag, self, self.parent):
-                        self.code_also=self.code_also+"\n"+subtree[i].text
+                    self.__append_string_to_field_list(subtree[i],subtree.tag,code_also_list)
                 new_code_also_ancestor=self
             elif subtree.tag=="notes":
             # see NOTE for useAdditionalCode
                 for i in range(0,len(subtree)):#in case there are multiple lines
-                    if _check_node_has_text(subtree[i].text, subtree[i].tag, subtree.tag, self, self.parent):
-                        self.notes=self.notes+"\n"+subtree[i].text
+                    self.__append_string_to_field_list(subtree[i],subtree.tag,notes_list)
                 new_notes_ancestor=self
         
-        #cleans the use_additional_code, code_first, code_also and notes fields from extra new lines
-        if self.use_additional_code!="" and self.use_additional_code[0]=="\n":
-            self.use_additional_code=self.use_additional_code[1:]
-        if self.code_first!="" and self.code_first[0]=="\n":
-            self.code_first=self.code_first[1:]
-        if self.code_also!="" and self.code_also[0]=="\n":
-            self.code_also=self.code_also[1:]
-        if self.notes!="" and self.notes[0]=="\n":
-            self.notes=self.notes[1:]
+        #merges the use_additional_code, code_first, code_also and notes fields into multiline strings
+        self.use_additional_code = "\n".join(use_additional_code_list)
+        self.code_first = "\n".join(code_first_list)
+        self.code_also = "\n".join(code_also_list)
+        self.notes = "\n".join(notes_list)
         
         #sets the type
         if tree.tag=="chapter":
