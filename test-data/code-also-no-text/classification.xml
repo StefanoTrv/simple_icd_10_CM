@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ICD10CM.tabular>
+  <version>code-also-no-text</version>
+  <introduction>
+    <note>Data for testing the warning for when a note element containing no text is found inside a codeAlso element.</note>
+  </introduction>
+  <chapter>
+    <name>1</name>
+    <desc>Chapter 1</desc>
+    <section id="Section_1.1">
+      <desc>The first section of the first chapter</desc>
+      <diag>
+        <name>Brick</name>
+        <desc>A building material</desc>
+        <codeAlso>
+            <note>mortar</note>
+            <note></note>
+        </codeAlso>
+        <diag>
+          <name>Fired_brick</name>
+          <desc>The coolest kind of brick</desc>
+        </diag>
+        <diag>
+          <name>Concrete_brick</name>
+          <desc>A brick in function but not in heart</desc>
+        </diag>
+      </diag>
+      <diag>
+        <name>Lightbulb</name>
+        <desc>A screwy thing that makes light</desc>
+        <diag>
+          <name>Led_lightbulb</name>
+          <desc>A lightbulb that uses LED technology</desc>
+          <includes>
+            <note>warm light</note>
+            <note>natural light</note>
+            <note>bad light</note>
+          </includes>
+          <diag>
+            <name>Bulbous_Led_lightbulb</name>
+            <desc>A Led lightbulb that happens to be chubby</desc>
+          </diag>
+        </diag>
+        <diag>
+          <name>Fluorescent_lightbulb</name>
+          <desc>A bulb that uses the magic of gasses to make light.</desc>
+        </diag>
+      </diag>
+    </section>
+    <section id="Section_1.2">
+      <desc>The second section of the first chapter</desc>
+      <diag>
+        <name>Pet-name</name>
+        <desc>The name that is given to a pet</desc>
+        <diag>
+          <name>Manhole</name>
+          <desc>The best name for a pet</desc>
+        </diag>
+        <diag>
+          <name>Blue_Green</name>
+          <desc>A snake that was definitely released back in the wild</desc>
+        </diag>
+      </diag>
+    </section>
+  </chapter>
+  <chapter>
+    <name>2</name>
+    <desc>Chapter 2</desc>
+    <section id="Section_2.1">
+      <desc>The only section of chapter 2</desc>
+      <diag>
+        <name>Ninja</name>
+        <desc>A silent assassin</desc>
+        <sevenChrNote>
+          <note>Be careful trying to categorize Ninjas, they are sneaky.</note>
+        </sevenChrNote>
+        <sevenChrDef>
+          <extension char="_standing">A Ninja standing up</extension>
+          <note>The rarest position for a Ninja</note>
+          <extension char="_upside-down">A Ninja with feet up in the air</extension>
+          <extension char="_sneakily">A sneaky Ninja in a sneaky position</extension>
+        </sevenChrDef>
+        <diag>
+          <name>Black_Ninja</name>
+          <desc>A Ninja dressed in black clothes</desc>
+        </diag>
+        <diag>
+          <name>Pink_Ninja</name>
+          <desc>An unusually outfitted Ninja</desc>
+        </diag>
+      </diag>
+    </section>
+  </chapter>
+</ICD10CM.tabular>

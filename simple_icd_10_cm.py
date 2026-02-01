@@ -17,7 +17,7 @@ except ImportError:
 import data  # relative-import the "package" containing the data
 
 # --- Class and function for warning management ---
-class SimpleICD10CMWarning(UserWarning):
+class _SimpleICD10CMWarning(UserWarning):
      pass
 
 def _user_stacklevel() -> int:
@@ -42,7 +42,7 @@ def _check_node_has_text(text : str, node_tag : str, main_node_tag : str | None,
             error_msg = f"{msg_subject} with no text was found in data for child of \"{code_parent.name}\" with unknown name. {msg_end}"
         else:
             error_msg = f"{msg_subject} with no text was found in data of parentless code of unknown name. {msg_end}"
-        warnings.warn(error_msg,category=SimpleICD10CMWarning,stacklevel=_user_stacklevel())
+        warnings.warn(error_msg,category=_SimpleICD10CMWarning,stacklevel=_user_stacklevel())
         return False
     return True
 
@@ -54,7 +54,7 @@ def _warning_extensionless_seven_chr_def_note(code_this : _CodeTree, code_parent
     else:
         msg_where = f"parentless code of unknown name"
     error_msg = f"In data of {msg_where}, found <note> XML element in a <sevenChrDef> XML element with not preceded by an <extension> element. Ignoring this <note> element."
-    warnings.warn(error_msg,category=SimpleICD10CMWarning,stacklevel=_user_stacklevel())
+    warnings.warn(error_msg,category=_SimpleICD10CMWarning,stacklevel=_user_stacklevel())
 # --- --- ---
 
 _chapter_list: list["_CodeTree"] = []
@@ -222,9 +222,9 @@ class _CodeTree:
 def _load_codes(all_codes_file_path:Optional[str] = None, classification_data_file_path:Optional[str] = None, suppress_warnings:Optional[bool] = None) -> None: # either both or none of the strings must be None
     if suppress_warnings is not None:
         if suppress_warnings:
-            warnings.filterwarnings("ignore", category=SimpleICD10CMWarning)
+            warnings.filterwarnings("ignore", category=_SimpleICD10CMWarning)
         else:
-            warnings.simplefilter("default", category=SimpleICD10CMWarning)
+            warnings.simplefilter("default", category=_SimpleICD10CMWarning)
     
     #loads the list of all codes, to remove later from the tree the ones that do not exist for very specific rules not easily extracted from the XML file
     if all_codes_file_path is None:

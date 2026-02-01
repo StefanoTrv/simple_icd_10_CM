@@ -1,4 +1,4 @@
-import unittest
+import unittest, warnings
 import simple_icd_10_cm as cm
 
 class TestSimpleICD10CM(unittest.TestCase):
@@ -343,6 +343,77 @@ class TestSimpleICD10CMUserData(unittest.TestCase):
         self.assertGreater(len(cm._all_codes_list),len(cm._code_to_node))
         self.assertEqual(len(cm._all_codes_list),default_length_all_codes)
         self.assertEqual(len(cm._all_codes_list_no_dots),default_length_all_codes)
+
+class TestSimpleICD10CMWarnings(unittest.TestCase):
+
+    @classmethod
+    def tearDownClass(cls): #restores default version after executing all the tests
+        super().tearDownClass()
+        cm.change_version()
+
+    def everything_else_works(self): #ensures the rest of the data has been loaded correctly
+        self.assertTrue(cm.is_valid_item("2"))
+        self.assertTrue(cm.is_valid_item("Section_1.2"))
+        self.assertTrue(cm.is_valid_item("Led_lightbulb"))
+        self.assertTrue(cm.is_valid_item("Brick"))
+        self.assertTrue(cm.is_valid_item("Pink_Ninja_upside-down"))
+        self.assertEqual(cm.get_parent("Manhole"),"Pet-name")
+    
+    def test_data_template(self): #ensures the template is working as expected
+        cm.change_version(all_codes_file_path="test-data/data-template/list.txt",classification_data_file_path="test-data/data-template/classification.xml")
+        self.assertTrue(cm.is_valid_item("2"))
+        self.assertTrue(cm.is_valid_item("Section_1.2"))
+        self.assertTrue(cm.is_valid_item("Black_Ninja"))
+        self.assertTrue(cm.is_valid_item("Black_Ninja_sneakily"))
+        self.assertTrue(cm.is_valid_item("Pink_Ninja_standing"))
+        self.assertFalse(cm.is_valid_item("Pink_Ninja_sneakily"))
+        self.assertIn("warm light",cm.get_includes("Led_lightbulb"))
+        self.assertEqual(cm.get_parent("Manhole"),"Pet-name")
+    
+    def test_warning_extensionless_seven_chr_def_note(self):
+        with self.assertWarns(cm._SimpleICD10CMWarning):
+            cm.change_version(all_codes_file_path="test-data/seven-chr-def-note-no-text/list.txt",classification_data_file_path="test-data/seven-chr-def-note-no-text/classification.xml")
+        self.everything_else_works()
+
+    def test_empty_name_raises_exception(self):
+        self.assertRaises(ValueError, lambda: cm.change_version(all_codes_file_path="test-data/name-no-text/list.txt",classification_data_file_path="test-data/name-no-text/classification.xml"))
+
+    def test_empty_desc_warning(self):
+        with self.assertWarns(cm._SimpleICD10CMWarning):
+            cm.change_version(all_codes_file_path="test-data/desc-no-text/list.txt",classification_data_file_path="test-data/desc-no-text/classification.xml")
+        self.everything_else_works()
+
+    def test_empty_includes_warning(self):
+        with self.assertWarns(cm._SimpleICD10CMWarning):
+            cm.change_version(all_codes_file_path="test-data/includes-no-text/list.txt",classification_data_file_path="test-data/includes-no-text/classification.xml")
+        self.everything_else_works()
+
+    def test_empty_seven_chr_note_warning(self):
+        with self.assertWarns(cm._SimpleICD10CMWarning):
+            cm.change_version(all_codes_file_path="test-data/seven-chr-note-no-text/list.txt",classification_data_file_path="test-data/seven-chr-note-no-text/classification.xml")
+        self.everything_else_works()
+
+    def test_code_also_warning(self):
+        with self.assertWarns(cm._SimpleICD10CMWarning):
+            cm.change_version(all_codes_file_path="test-data/code-also-no-text/list.txt",classification_data_file_path="test-data/code-also-no-text/classification.xml")
+        self.everything_else_works()
+
+    def test_warning_suppression_and_enabling(self): # tests that warnings are enabled and disabled correctly and consistently
+        with self.assertWarns(cm._SimpleICD10CMWarning):
+            cm.change_version(all_codes_file_path="test-data/desc-no-text/list.txt",classification_data_file_path="test-data/desc-no-text/classification.xml")
+        self.everything_else_works()
+        with warnings.catch_warnings(record=True) as w:
+            cm.change_version(all_codes_file_path="test-data/desc-no-text/list.txt",classification_data_file_path="test-data/desc-no-text/classification.xml",suppress_warnings=True)
+            self.everything_else_works()
+            cm.change_version(all_codes_file_path="test-data/desc-no-text/list.txt",classification_data_file_path="test-data/desc-no-text/classification.xml")
+            self.everything_else_works()
+            self.assertEqual(len(w), 0)
+        with self.assertWarns(cm._SimpleICD10CMWarning):
+            cm.change_version(all_codes_file_path="test-data/desc-no-text/list.txt",classification_data_file_path="test-data/desc-no-text/classification.xml",suppress_warnings=False)
+        self.everything_else_works()
+        with self.assertWarns(cm._SimpleICD10CMWarning):
+            cm.change_version(all_codes_file_path="test-data/desc-no-text/list.txt",classification_data_file_path="test-data/desc-no-text/classification.xml")
+        self.everything_else_works()
     
 if __name__ == '__main__':
     unittest.main()
