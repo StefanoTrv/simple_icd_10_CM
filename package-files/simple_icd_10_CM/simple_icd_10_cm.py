@@ -2,6 +2,9 @@
 # Copyright (c) 2021-2025 Stefano Travasci
 # Read the full LICENCES at https://github.com/StefanoTrv/simple_icd_10_cm/blob/master/LICENSE
 
+from __future__ import annotations
+
+import warnings, inspect
 from typing import Optional
 import xml.etree.ElementTree as ET
 
@@ -13,6 +16,47 @@ except ImportError:
 
 from . import data  # relative-import the "package" containing the data
 
+# --- Class and function for warning management ---
+class _SimpleICD10CMWarning(UserWarning):
+     pass
+
+def _user_stacklevel() -> int:
+    for i, frameinfo in enumerate(inspect.stack()[1:], start=1):
+        module = inspect.getmodule(frameinfo.frame)
+        if module is None or not module.__name__.startswith("simple_icd_10_cm"):
+            return i
+    return 1
+
+def _check_node_has_text(text : str, node_tag : str, main_node_tag : str | None, code_this : _CodeTree, code_parent : _CodeTree | None) -> bool:
+    if main_node_tag is not None:
+        msg_subject = f"XML <{node_tag}> node of parent XML node <{main_node_tag}>"
+        msg_end = f"Ignoring this <{node_tag}> node."
+    else:
+        msg_subject = f"XML <{node_tag}> node"
+        msg_end = "Ignoring this node."
+
+    if text is None:
+        if code_this.name != "":
+            error_msg = f"{msg_subject} with no text was found in data for code \"{code_this.name}\". {msg_end}"
+        elif code_parent is not None:
+            error_msg = f"{msg_subject} with no text was found in data for child of \"{code_parent.name}\" with unknown name. {msg_end}"
+        else:
+            error_msg = f"{msg_subject} with no text was found in data of parentless code of unknown name. {msg_end}"
+        warnings.warn(error_msg,category=_SimpleICD10CMWarning,stacklevel=_user_stacklevel())
+        return False
+    return True
+
+def _warning_extensionless_seven_chr_def_note(code_this : _CodeTree, code_parent : _CodeTree | None) -> None:
+    if code_this.name != "":
+        msg_where = f"code {code_this.name}"
+    elif code_parent is not None:
+        msg_where = f"child code of \"{code_parent.name}\" with unknown name"
+    else:
+        msg_where = f"parentless code of unknown name"
+    error_msg = f"In data of {msg_where}, found <note> XML element in a <sevenChrDef> XML element with not preceded by an <extension> element. Ignoring this <note> element."
+    warnings.warn(error_msg,category=_SimpleICD10CMWarning,stacklevel=_user_stacklevel())
+# --- --- ---
+
 _chapter_list: list["_CodeTree"] = []
 
 _code_to_node: dict[str, "_CodeTree"] = {}
@@ -23,11 +67,15 @@ _all_codes_list_no_dots: list[str] = []
 
 _code_to_index_dictionary: dict[str, int] = {}
 
-_all_codes_package_file_name:str = 'code-list-April-2025.txt'
-_classification_data_package_file_name:str = 'icd10cm-tabular-April-2025.xml'
+_all_codes_package_file_name:str = 'code-list-April-2026.txt'
+_classification_data_package_file_name:str = 'icd10c-tabular-April-1-2026.xml'
 
 class _CodeTree:
-    def __init__(self, tree, parent = None, seven_chr_def_ancestor = None, seven_chr_note_ancestor = None, use_additional_code_ancestor = None, code_first_ancestor = None, code_also_ancestor = None, notes_ancestor = None):
+    def __append_string_to_field_list(self, xml_node, parent_tag : str, list_to_be_appended : list[str]) -> None:
+        if _check_node_has_text(xml_node.text, xml_node.tag, parent_tag, self, self.parent):
+            list_to_be_appended.append(xml_node.text)
+
+    def __init__(self, tree, parent : _CodeTree | None = None, seven_chr_def_ancestor = None, seven_chr_note_ancestor = None, use_additional_code_ancestor = None, code_first_ancestor = None, code_also_ancestor = None, notes_ancestor = None):
         #initialize all the values
         self.name = ""
         self.description = ""
@@ -58,6 +106,10 @@ class _CodeTree:
         new_code_first_ancestor=code_first_ancestor
         new_code_also_ancestor=code_also_ancestor
         new_notes_ancestor=notes_ancestor
+        use_additional_code_list=[]
+        code_first_list=[]
+        code_also_list=[]
+        notes_list=[]
         if "id" in tree.attrib: #the name of sections is an attribute instead of text inside an XML element
             self.name=tree.attrib["id"]
         for subtree in tree:
@@ -65,62 +117,71 @@ class _CodeTree:
                 # This is only correct because the XML elements for the children codes always follow the XML elements for this code's data
                 self.children.append(_CodeTree(subtree,parent=self,seven_chr_def_ancestor=new_seven_chr_def_ancestor,seven_chr_note_ancestor=new_seven_chr_note_ancestor,use_additional_code_ancestor=new_use_additional_code_ancestor,code_first_ancestor=new_code_first_ancestor,code_also_ancestor=new_code_also_ancestor,notes_ancestor=new_notes_ancestor))
             elif subtree.tag=="name":
-                self.name=subtree.text
+                if subtree.text is not None:
+                    self.name=subtree.text
+                else:
+                    if self.parent is not None:
+                        err_msg = f"Found <name> XML element containing no text in child of code {self.parent.name}."
+                    else:
+                        err_msg = "Found <name> XML element containing no text in parentless code."
+                    raise ValueError(err_msg)
             elif subtree.tag=="desc":
-                self.description=subtree.text
+                if _check_node_has_text(subtree.text, subtree.tag, None, self, self.parent):
+                    self.description=subtree.text
             elif subtree.tag=="excludes1":
                 for note in subtree:
-                    self.excludes1.append(note.text)
+                    self.__append_string_to_field_list(note,subtree.tag,self.excludes1)
             elif subtree.tag=="excludes2":
                 for note in subtree:
-                    self.excludes2.append(note.text)
+                    self.__append_string_to_field_list(note,subtree.tag,self.excludes2)
             elif subtree.tag=="includes":
                 for note in subtree:
-                    self.includes.append(note.text)
+                    self.__append_string_to_field_list(note,subtree.tag,self.includes)
             elif subtree.tag=="inclusionTerm":
                 for note in subtree:
-                    self.inclusion_term.append(note.text)
+                    self.__append_string_to_field_list(note,subtree.tag,self.inclusion_term)
             elif subtree.tag=="sevenChrDef":
                 last_char = None
                 for extension in subtree:
                     if extension.tag=="extension":
-                        self.seven_chr_def[extension.attrib["char"]]=extension.text
+                        self.seven_chr_def[extension.attrib["char"]]=extension.text if extension.text is not None else "" # in the absurd case of a extension with an attribute but no text
                         last_char = extension.attrib["char"]
                     elif extension.tag=="note":
-                        self.seven_chr_def[last_char]=self.seven_chr_def[last_char]+"/"+extension.text
+                        if last_char is None:
+                            _warning_extensionless_seven_chr_def_note(self, self.parent)
+                        else:
+                            if _check_node_has_text(extension.text,extension.tag,subtree.tag,self,self.parent):
+                                self.seven_chr_def[last_char]=self.seven_chr_def[last_char]+"/"+extension.text
                 new_seven_chr_def_ancestor=self
             elif subtree.tag=="sevenChrNote":
-                self.seven_chr_note=subtree[0].text
-                new_seven_chr_note_ancestor=self
+                if _check_node_has_text(subtree[0].text, subtree.tag, None, self, self.parent):
+                        self.seven_chr_note=subtree[0].text
+                        new_seven_chr_note_ancestor=self
             elif subtree.tag=="useAdditionalCode":
             # NOTE: multiple useAdditionalCode elements may be present, so self.use_additional_code should always be appended and never overwritten
                 for i in range(0,len(subtree)):#in case there are multiple lines
-                    self.use_additional_code=self.use_additional_code+"\n"+subtree[i].text
+                    self.__append_string_to_field_list(subtree[i],subtree.tag,use_additional_code_list)
                 new_use_additional_code_ancestor=self
             elif subtree.tag=="codeFirst":
                 for i in range(0,len(subtree)):#in case there are multiple lines
-                    self.code_first=self.code_first+"\n"+subtree[i].text
+                    self.__append_string_to_field_list(subtree[i],subtree.tag,code_first_list)
                 new_code_first_ancestor=self
             elif subtree.tag=="codeAlso":
             # see NOTE for useAdditionalCode
                 for i in range(0,len(subtree)):#in case there are multiple lines
-                    self.code_also=self.code_also+"\n"+subtree[i].text
+                    self.__append_string_to_field_list(subtree[i],subtree.tag,code_also_list)
                 new_code_also_ancestor=self
             elif subtree.tag=="notes":
             # see NOTE for useAdditionalCode
                 for i in range(0,len(subtree)):#in case there are multiple lines
-                    self.notes=self.notes+"\n"+subtree[i].text
+                    self.__append_string_to_field_list(subtree[i],subtree.tag,notes_list)
                 new_notes_ancestor=self
         
-        #cleans the use_additional_code, code_first, code_also and notes fields from extra new lines
-        if self.use_additional_code!="" and self.use_additional_code[0]=="\n":
-            self.use_additional_code=self.use_additional_code[1:]
-        if self.code_first!="" and self.code_first[0]=="\n":
-            self.code_first=self.code_first[1:]
-        if self.code_also!="" and self.code_also[0]=="\n":
-            self.code_also=self.code_also[1:]
-        if self.notes!="" and self.notes[0]=="\n":
-            self.notes=self.notes[1:]
+        #merges the use_additional_code, code_first, code_also and notes fields into multiline strings
+        self.use_additional_code = "\n".join(use_additional_code_list)
+        self.code_first = "\n".join(code_first_list)
+        self.code_also = "\n".join(code_also_list)
+        self.notes = "\n".join(notes_list)
         
         #sets the type
         if tree.tag=="chapter":
@@ -154,7 +215,13 @@ class _CodeTree:
                     new_XML = "<diag_ext><name>"+extended_name+extension+"</name><desc>"+self.description+", "+dictionary[extension]+"</desc></diag_ext>"
                     self.children.append(_CodeTree(ET.fromstring(new_XML),parent=self,seven_chr_def_ancestor=new_seven_chr_def_ancestor,seven_chr_note_ancestor=new_seven_chr_note_ancestor,use_additional_code_ancestor=new_use_additional_code_ancestor,code_first_ancestor=new_code_first_ancestor,code_also_ancestor=new_code_also_ancestor,notes_ancestor=new_notes_ancestor))
 
-def _load_codes(all_codes_file_path:Optional[str] = None, classification_data_file_path:Optional[str] = None) -> None: # either both or none of the strings must be None
+def _load_codes(all_codes_file_path:Optional[str] = None, classification_data_file_path:Optional[str] = None, suppress_warnings:Optional[bool] = None) -> None: # either both or none of the strings must be None
+    if suppress_warnings is not None:
+        if suppress_warnings:
+            warnings.filterwarnings("ignore", category=_SimpleICD10CMWarning)
+        else:
+            warnings.simplefilter("default", category=_SimpleICD10CMWarning)
+    
     #loads the list of all codes, to remove later from the tree the ones that do not exist for very specific rules not easily extracted from the XML file
     if all_codes_file_path is None:
         assert classification_data_file_path is None
@@ -192,9 +259,9 @@ def _load_codes(all_codes_file_path:Optional[str] = None, classification_data_fi
 
 _load_codes()
 
-def change_version(all_codes_file_path:Optional[str] = None, classification_data_file_path:Optional[str] = None) -> None:
+def change_version(all_codes_file_path:Optional[str] = None, classification_data_file_path:Optional[str] = None, suppress_warnings:Optional[bool] = None) -> None:
     if (all_codes_file_path is None and classification_data_file_path is None) or (all_codes_file_path is not None and classification_data_file_path is not None):
-        _load_codes(all_codes_file_path=all_codes_file_path,classification_data_file_path=classification_data_file_path)
+        _load_codes(all_codes_file_path=all_codes_file_path,classification_data_file_path=classification_data_file_path,suppress_warnings=suppress_warnings)
     else:
         ac_error = "None" if all_codes_file_path is None else "\"" + all_codes_file_path + "\""
         cd_error = "None" if classification_data_file_path is None else "\"" + classification_data_file_path + "\""

@@ -47,6 +47,11 @@ A simple python library for ICD-10-CM codes
 * [Conclusion](#conclusion)
 
 ## Release notes
+* **1.5.0**:
+  * The default ICD-10-CM release of the library is now the **April 2026 release**
+  * Certain kinds of defects in the data will now emit warnings instead of crashing the library
+  * Small refactoring for my own sanity
+  * Thanks to @Qwemep on Github for her valuable insights!
 * **1.4.0**: The data in the fields "codeAlso" and "notes" can now be retrieved using the get_code_also() and get_notes() functions
 * **1.3.0**:
   * Users can now use their preferred ICD-10-CM release by providing properly formatted files as inputs
