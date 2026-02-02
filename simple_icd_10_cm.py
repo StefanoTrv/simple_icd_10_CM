@@ -67,8 +67,8 @@ _all_codes_list_no_dots: list[str] = []
 
 _code_to_index_dictionary: dict[str, int] = {}
 
-_all_codes_package_file_name:str = 'code-list-April-2025.txt'
-_classification_data_package_file_name:str = 'icd10cm-tabular-April-2025.xml'
+_all_codes_package_file_name:str = 'code-list-April-2026.txt'
+_classification_data_package_file_name:str = 'icd10c-tabular-April-1-2026.xml'
 
 class _CodeTree:
     def __append_string_to_field_list(self, xml_node, parent_tag : str, list_to_be_appended : list[str]) -> None:

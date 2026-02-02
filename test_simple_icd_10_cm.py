@@ -234,11 +234,11 @@ class TestSimpleICD10CM(unittest.TestCase):
         self.assertEqual(cm.get_all_codes()[:15], ['1', 'A00-A09', 'A00', 'A00.0', 'A00.1', 'A00.9', 'A01', 'A01.0', 'A01.00', 'A01.01', 'A01.02', 'A01.03', 'A01.04', 'A01.05', 'A01.09'])
         self.assertEqual(cm.get_all_codes(with_dots=False)[:15], ['1', 'A00-A09', 'A00', 'A000', 'A001', 'A009', 'A01', 'A010', 'A0100', 'A0101', 'A0102', 'A0103', 'A0104', 'A0105', 'A0109'])
         self.assertEqual([code for code in cm.get_all_codes() if not cm.is_chapter_or_block(code)][:15],['A00', 'A00.0', 'A00.1', 'A00.9', 'A01', 'A01.0', 'A01.00', 'A01.01', 'A01.02', 'A01.03', 'A01.04', 'A01.05', 'A01.09', 'A01.1', 'A01.2'])
-        self.assertEqual(cm.get_all_codes()[28851],'P00')
-        self.assertEqual(cm.get_description(cm.get_all_codes()[28851]),'Newborn affected by maternal conditions that may be unrelated to present pregnancy')
+        self.assertEqual(cm.get_all_codes()[29063],'P00')
+        self.assertEqual(cm.get_description(cm.get_all_codes()[29063]),'Newborn affected by maternal conditions that may be unrelated to present pregnancy')
         
     def test_get_index(self):
-        self.assertEqual(cm.get_index("P00"),28851)
+        self.assertEqual(cm.get_index("P00"),29063)
     
     def test_remove_dot(self):
         self.assertEqual(cm.remove_dot("12"),"12")
@@ -261,7 +261,7 @@ class TestSimpleICD10CM(unittest.TestCase):
         self.assertTrue(cm.is_valid_item("A4154"))
     
     def test_loads_all_unique_codes(self):
-        self.assertEqual(len(cm.get_all_codes()),97902)
+        self.assertEqual(len(cm.get_all_codes()),98505)
         cm.change_version(all_codes_file_path="all-data/2021-01/code-list-January-2021.txt",classification_data_file_path="all-data/2021-01/icd10cm_tabular_2021.xml")
         self.assertEqual(len(cm.get_all_codes()),95676)
         cm.change_version()
@@ -272,7 +272,7 @@ class TestSimpleICD10CMUserData(unittest.TestCase):
     def test_switch_versions(self):
         self.assertTrue(cm.is_valid_item("U09"))
         self.assertEqual(cm.get_full_data("E35"),"Name:\nE35\nDescription:\nDisorders of endocrine glands in diseases classified elsewhere\nParent:\nE20-E35\nexcludes1:\nEchinococcus granulosus infection of thyroid gland (B67.3)\nmeningococcal hemorrhagic adrenalitis (A39.1)\nsyphilis of endocrine gland (A52.79)\ntuberculosis of adrenal gland, except calcification (A18.7)\ntuberculosis of endocrine gland NEC (A18.82)\ntuberculosis of thyroid gland (A18.81)\nWaterhouse-Friderichsen syndrome (A39.1)\nuse additional code:\ncode, if applicable, to identify:\nsequelae of tuberculosis of other organs (B90.8)\ncode first:\nunderlying disease, such as:\nlate congenital syphilis of thymus gland [Dubois disease] (A50.59)\nChildren:\nNone")
-        self.assertEqual(cm.get_index("P00"),28851)
+        self.assertEqual(cm.get_index("P00"),29063)
         #load January 2021 release
         cm.change_version(all_codes_file_path="all-data/2021-01/code-list-January-2021.txt",classification_data_file_path="all-data/2021-01/icd10cm_tabular_2021.xml")
         self.assertFalse(cm.is_valid_item("U09"))
@@ -282,7 +282,7 @@ class TestSimpleICD10CMUserData(unittest.TestCase):
         cm.change_version()
         self.assertTrue(cm.is_valid_item("U09"))
         self.assertEqual(cm.get_full_data("E35"),"Name:\nE35\nDescription:\nDisorders of endocrine glands in diseases classified elsewhere\nParent:\nE20-E35\nexcludes1:\nEchinococcus granulosus infection of thyroid gland (B67.3)\nmeningococcal hemorrhagic adrenalitis (A39.1)\nsyphilis of endocrine gland (A52.79)\ntuberculosis of adrenal gland, except calcification (A18.7)\ntuberculosis of endocrine gland NEC (A18.82)\ntuberculosis of thyroid gland (A18.81)\nWaterhouse-Friderichsen syndrome (A39.1)\nuse additional code:\ncode, if applicable, to identify:\nsequelae of tuberculosis of other organs (B90.8)\ncode first:\nunderlying disease, such as:\nlate congenital syphilis of thymus gland [Dubois disease] (A50.59)\nChildren:\nNone")
-        self.assertEqual(cm.get_index("P00"),28851)
+        self.assertEqual(cm.get_index("P00"),29063)
     
     def test_exception_mismatching_arguments(self):
         self.assertRaises(ValueError, lambda: cm.change_version(all_codes_file_path="all-data/2021-01/code-list-January-2021.txt"))
@@ -298,21 +298,21 @@ class TestSimpleICD10CMUserData(unittest.TestCase):
             pass
         self.assertTrue(cm.is_valid_item("U09"))
         self.assertEqual(cm.get_full_data("E35"),"Name:\nE35\nDescription:\nDisorders of endocrine glands in diseases classified elsewhere\nParent:\nE20-E35\nexcludes1:\nEchinococcus granulosus infection of thyroid gland (B67.3)\nmeningococcal hemorrhagic adrenalitis (A39.1)\nsyphilis of endocrine gland (A52.79)\ntuberculosis of adrenal gland, except calcification (A18.7)\ntuberculosis of endocrine gland NEC (A18.82)\ntuberculosis of thyroid gland (A18.81)\nWaterhouse-Friderichsen syndrome (A39.1)\nuse additional code:\ncode, if applicable, to identify:\nsequelae of tuberculosis of other organs (B90.8)\ncode first:\nunderlying disease, such as:\nlate congenital syphilis of thymus gland [Dubois disease] (A50.59)\nChildren:\nNone")
-        self.assertEqual(cm.get_index("P00"),28851)
+        self.assertEqual(cm.get_index("P00"),29063)
         try:
             cm.change_version(classification_data_file_path="all-data/2021-01/icd10cm_tabular_2021.xml")
         except:
             pass
         self.assertTrue(cm.is_valid_item("U09"))
         self.assertEqual(cm.get_full_data("E35"),"Name:\nE35\nDescription:\nDisorders of endocrine glands in diseases classified elsewhere\nParent:\nE20-E35\nexcludes1:\nEchinococcus granulosus infection of thyroid gland (B67.3)\nmeningococcal hemorrhagic adrenalitis (A39.1)\nsyphilis of endocrine gland (A52.79)\ntuberculosis of adrenal gland, except calcification (A18.7)\ntuberculosis of endocrine gland NEC (A18.82)\ntuberculosis of thyroid gland (A18.81)\nWaterhouse-Friderichsen syndrome (A39.1)\nuse additional code:\ncode, if applicable, to identify:\nsequelae of tuberculosis of other organs (B90.8)\ncode first:\nunderlying disease, such as:\nlate congenital syphilis of thymus gland [Dubois disease] (A50.59)\nChildren:\nNone")
-        self.assertEqual(cm.get_index("P00"),28851)
+        self.assertEqual(cm.get_index("P00"),29063)
         try:
-            cm.change_version(all_codes_file_path="all-data/2021-01/code-list-January-2028.txt",classification_data_file_path="all-data/2021-01/icd10cm_tabular_2021.xml")
+            cm.change_version(all_codes_file_path="all-data/2021-01/code-list-January-3028.txt",classification_data_file_path="all-data/2021-01/icd10cm_tabular_2021.xml")
         except:
             pass
         self.assertTrue(cm.is_valid_item("U09"))
         self.assertEqual(cm.get_full_data("E35"),"Name:\nE35\nDescription:\nDisorders of endocrine glands in diseases classified elsewhere\nParent:\nE20-E35\nexcludes1:\nEchinococcus granulosus infection of thyroid gland (B67.3)\nmeningococcal hemorrhagic adrenalitis (A39.1)\nsyphilis of endocrine gland (A52.79)\ntuberculosis of adrenal gland, except calcification (A18.7)\ntuberculosis of endocrine gland NEC (A18.82)\ntuberculosis of thyroid gland (A18.81)\nWaterhouse-Friderichsen syndrome (A39.1)\nuse additional code:\ncode, if applicable, to identify:\nsequelae of tuberculosis of other organs (B90.8)\ncode first:\nunderlying disease, such as:\nlate congenital syphilis of thymus gland [Dubois disease] (A50.59)\nChildren:\nNone")
-        self.assertEqual(cm.get_index("P00"),28851)
+        self.assertEqual(cm.get_index("P00"),29063)
 
     def test_change_resets_data_structures(self):
         cm.get_all_codes()
@@ -414,6 +414,11 @@ class TestSimpleICD10CMWarnings(unittest.TestCase):
         with self.assertWarns(cm._SimpleICD10CMWarning):
             cm.change_version(all_codes_file_path="test-data/desc-no-text/list.txt",classification_data_file_path="test-data/desc-no-text/classification.xml")
         self.everything_else_works()
+    
+    def test_no_warning_in_default_release(self):
+        with warnings.catch_warnings(record=True) as w:
+            cm.change_version()
+            self.assertEqual(len(w), 0)
     
 if __name__ == '__main__':
     unittest.main()
